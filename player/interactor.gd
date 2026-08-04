@@ -27,10 +27,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _find_target() -> Interactable:
 	if not is_colliding():
 		return null
-	var collider := get_collider()
-	if collider == null or not collider.has_meta(&"interactable"):
-		return null
-	var target := collider.get_meta(&"interactable") as Interactable
+	var target := Interactable.of(get_collider())
 	if target == null or not target.can_interact(_player):
 		return null
 	return target

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=27 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/pavimento_pietra.tres" id="1_pavimento"]
 [ext_resource type="Material" path="res://assets/materials/muro_intonaco.tres" id="2_muro"]
@@ -7,6 +7,17 @@
 [ext_resource type="Material" path="res://assets/materials/greybox.tres" id="5_greybox"]
 [ext_resource type="Script" path="res://interactables/place_slot.gd" id="6_place_slot"]
 [ext_resource type="PackedScene" path="res://interactables/boccale.tscn" id="7_boccale"]
+[ext_resource type="Script" path="res://npc/counter_spot.gd" id="8_counter_spot"]
+[ext_resource type="Script" path="res://npc/npc_spawner.gd" id="9_spawner"]
+[ext_resource type="PackedScene" path="res://npc/npc.tscn" id="10_npc"]
+[ext_resource type="Resource" path="res://data/races/orco.tres" id="11_orco"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_sala"]
+vertices = PackedVector3Array(-7.2, 0.02, -3.2, 7.2, 0.02, -3.2, 7.2, 0.02, 7.2, -7.2, 0.02, 7.2)
+polygons = [PackedInt32Array(0, 1, 2, 3)]
+
+[sub_resource type="BoxMesh" id="BoxMesh_porta"]
+size = Vector3(1.6, 2.3, 0.06)
 
 [sub_resource type="Environment" id="Environment_taverna"]
 background_mode = 1
@@ -285,6 +296,38 @@ material_override = ExtResource("5_greybox")
 mesh = SubResource("BoxMesh_lanterna")
 instance_shader_parameters/albedo_color = Color(1, 0.85, 0.55, 1)
 instance_shader_parameters/emission_amount = 1.0
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_sala")
+
+[node name="Porta" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 7.77)
+material_override = ExtResource("4_bancone")
+mesh = SubResource("BoxMesh_porta")
+instance_shader_parameters/albedo_color = Color(0.6, 0.5, 0.42, 1)
+
+[node name="Ingresso" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 6.9)
+
+[node name="SpotSinistro" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.1, -3.1)
+script = ExtResource("8_counter_spot")
+slot_path = NodePath("../SlotSinistro/PlaceSlot")
+
+[node name="SpotDestro" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.1, -3.1)
+script = ExtResource("8_counter_spot")
+slot_path = NodePath("../SlotDestro/PlaceSlot")
+
+[node name="Spawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 6.9)
+script = ExtResource("9_spawner")
+npc_scene = ExtResource("10_npc")
+race = ExtResource("11_orco")
+interval_seconds = 20.0
+max_customers = 2
+first_spawn_delay = 4.0
+exit_point = NodePath("../Ingresso")
 
 [node name="Boccale1" parent="." instance=ExtResource("7_boccale")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 1.18, -4)

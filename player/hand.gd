@@ -14,7 +14,7 @@ extends Marker3D
 ## Quanto avanti rispetto alla mano si cerca il piano d'appoggio.
 @export var support_forward_distance: float = 0.45
 ## Quanto in basso si cerca il piano d'appoggio.
-@export var support_search_depth: float = 1.8
+@export var support_search_depth: float = 2.4
 ## Posizione e rotazione dell'oggetto rispetto alla mano, regolabili in editor.
 @export var hold_offset: Vector3 = Vector3.ZERO
 @export var hold_rotation_degrees: Vector3 = Vector3.ZERO
@@ -34,10 +34,11 @@ func _unhandled_input(event: InputEvent) -> void:
 func equip(body: RigidBody3D) -> void:
 	if has_item() or body == null:
 		return
-	var slot := body.get_meta(&"slot", null) as PlaceSlot
-	if slot != null and is_instance_valid(slot):
-		slot.clear_occupant()
-	body.set_meta(&"slot", null)
+	if body.has_meta(&"slot"):
+		var slot := body.get_meta(&"slot") as PlaceSlot
+		if slot != null and is_instance_valid(slot):
+			slot.clear_occupant()
+		body.remove_meta(&"slot")
 
 	_previous_parent = body.get_parent()
 	body.set_meta(&"saved_collision", Vector2i(body.collision_layer, body.collision_mask))
@@ -83,16 +84,25 @@ func drop() -> void:
 	EventBus.item_dropped.emit(body)
 
 ## Cerca un piano orizzontale davanti e sotto la mano. Vuoto = nessun appoggio.
+##
+## Il raggio parte in orizzontale, non nella direzione dello sguardo: guardando
+## molto in basso il punto di partenza finirebbe dentro il bancone, il raggio non
+## lo vedrebbe e l'oggetto verrebbe appoggiato sul pavimento dentro il mobile.
 func _find_support(body: RigidBody3D) -> Dictionary:
-	var space := get_world_3d().direct_space_state
-	var forward := -global_transform.basis.z.normalized()
-	var from := global_position + forward * support_forward_distance
+	var forward := -global_transform.basis.z
+	forward.y = 0.0
+	if forward.length_squared() < 0.0001:
+		forward = Vector3.FORWARD
+	var from := global_position + forward.normalized() * support_forward_distance
 	var query := PhysicsRayQueryParameters3D.create(from, from + Vector3.DOWN * support_search_depth)
-	query.exclude = [body.get_rid()]
+
+	var ignored: Array[RID] = [body.get_rid()]
 	var owner_body := owner as CollisionObject3D
 	if owner_body != null:
-		query.exclude.append(owner_body.get_rid())
-	var hit := space.intersect_ray(query)
+		ignored.append(owner_body.get_rid())
+	query.exclude = ignored
+
+	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	if hit.is_empty() or (hit["normal"] as Vector3).y < 0.7:
 		return {}
 	return hit

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="RaceData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/race_data.gd" id="1_race_data"]
+[ext_resource type="Resource" path="res://data/items/boccale.tres" id="2_boccale"]
+[ext_resource type="AudioStream" path="res://assets/audio/orco_colpo.wav" id="3_colpo"]
+[ext_resource type="AudioStream" path="res://assets/audio/orco_doppio_colpo.wav" id="4_doppio_colpo"]
+[ext_resource type="AudioStream" path="res://assets/audio/orco_ruggito.wav" id="5_ruggito"]
+
+[resource]
+script = ExtResource("1_race_data")
+id = &"orco"
+display_name = "Orco"
+move_speed = 2.2
+patience_seconds = 45.0
+attention_sounds = Array[AudioStream]([ExtResource("3_colpo"), ExtResource("4_doppio_colpo"), ExtResource("5_ruggito")])
+disliked_races = Array[StringName]([])
+patience_stages = Array[float]([0.66, 0.33, 0.0])
+drink_seconds = 3.5
+orderable_items = Array[ItemData]([ExtResource("2_boccale")])
+body_color = Color(0.42, 0.55, 0.32, 1)
+body_height = 2.0

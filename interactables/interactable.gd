@@ -19,6 +19,12 @@ func _ready() -> void:
 func get_body() -> CollisionObject3D:
 	return get_parent() as CollisionObject3D
 
+## L'Interactable agganciato a un corpo, o null se quel corpo non ne ha.
+static func of(body: Object) -> Interactable:
+	if body == null or not body.has_meta(&"interactable"):
+		return null
+	return body.get_meta(&"interactable") as Interactable
+
 ## False = l'oggetto non mostra prompt e non risponde a E in questo momento.
 func can_interact(_player: Node) -> bool:
 	return true

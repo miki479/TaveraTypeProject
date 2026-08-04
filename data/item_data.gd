@@ -8,3 +8,5 @@ extends Resource
 ## Lasciata vuota finché non esiste un sistema che spawna item da dati (M4).
 @export var scene: PackedScene
 @export var base_price: int
+## Immagine mostrata sopra la testa del cliente quando ordina questo item.
+@export var icon: Texture2D

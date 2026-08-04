@@ -233,4 +233,15 @@ fine se ne va arrabbiato.
   in Godot non può esistere una superclasse comune fra `RigidBody3D` e `Area3D`.
   `ItemData.scene` è volutamente lasciato vuoto per non creare una dipendenza circolare
   fra `boccale.tres` e `boccale.tscn`: si riempirà quando servirà spawnare item da dati.
-- [ ] M2
+- [ ] **M2 — implementato, in attesa della vostra verifica in gioco.**
+  Orco che entra, prende posto al bancone, ordina (icona billboard), aspetta con pazienza
+  a tre stage con suono posizionale e movimento del corpo, viene servito, beve, paga ed esce.
+  Ciclo verificato a tavolino con esecuzione headless: richiami a 15s/30s/45s su 45s di
+  pazienza, `money` a 5 dopo il servizio, boccale consumato, posto liberato.
+  Note:
+  - `CounterSpot.slot` è un `NodePath` e non un riferimento tipizzato: Godot **non**
+    risolve gli export tipizzati con una classe di script (`PlaceSlot`) quando la scena è
+    scritta a mano fuori dall'editor. Con le classi native (`Marker3D`, `Label`) funziona.
+  - `Object.get_meta(nome, null)` stampa comunque un errore: serve `has_meta()` prima.
+    Per questo esiste `Interactable.of(body)`.
+  - Suoni dell'orco e icona dell'ordine sono placeholder generati, da sostituire.

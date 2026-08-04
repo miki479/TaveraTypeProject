@@ -34,7 +34,7 @@ func can_interact(player: Node) -> bool:
 func accepts(body: RigidBody3D) -> bool:
 	if accepted_ids.is_empty():
 		return true
-	var pickup := body.get_meta(&"interactable", null) as Pickup
+	var pickup := Interactable.of(body) as Pickup
 	return pickup != null and pickup.get_item_id() in accepted_ids
 
 func interact(player: Node) -> void:
