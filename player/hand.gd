@@ -4,8 +4,17 @@ extends Marker3D
 ##
 ## L'oggetto in mano è freeze = true e senza collisione: fluttua davanti alla
 ## camera, non è un corpo fisico trascinato.
+##
+## Al drop l'oggetto viene appoggiato: se davanti a noi c'è un piano d'appoggio
+## entro portata lo posiamo lì, fermo e dritto. Solo se non c'è appoggio viene
+## lasciato cadere con una piccola spinta in avanti.
 
-@export var drop_speed: float = 2.5
+## Spinta in avanti quando NON c'è nessun appoggio sotto l'oggetto.
+@export var drop_speed: float = 1.2
+## Quanto avanti rispetto alla mano si cerca il piano d'appoggio.
+@export var support_forward_distance: float = 0.45
+## Quanto in basso si cerca il piano d'appoggio.
+@export var support_search_depth: float = 1.8
 ## Posizione e rotazione dell'oggetto rispetto alla mano, regolabili in editor.
 @export var hold_offset: Vector3 = Vector3.ZERO
 @export var hold_rotation_degrees: Vector3 = Vector3.ZERO
@@ -56,12 +65,54 @@ func drop() -> void:
 	var parent := _previous_parent if is_instance_valid(_previous_parent) else _world_root()
 	held = null
 	_previous_parent = null
+
 	body.reparent(parent, true)
 	restore_collision(body)
 	body.freeze = false
-	body.linear_velocity = -global_transform.basis.z.normalized() * drop_speed
 	body.angular_velocity = Vector3.ZERO
+
+	var support := _find_support(body)
+	if support.is_empty():
+		body.linear_velocity = -global_transform.basis.z.normalized() * drop_speed
+	else:
+		# C'è un piano: appoggia l'oggetto dritto e fermo, senza lanciarlo.
+		var resting_point: Vector3 = support["position"] + Vector3.UP * _rest_offset(body)
+		body.global_transform = Transform3D(Basis(Vector3.UP, global_rotation.y), resting_point)
+		body.linear_velocity = Vector3.ZERO
+
 	EventBus.item_dropped.emit(body)
+
+## Cerca un piano orizzontale davanti e sotto la mano. Vuoto = nessun appoggio.
+func _find_support(body: RigidBody3D) -> Dictionary:
+	var space := get_world_3d().direct_space_state
+	var forward := -global_transform.basis.z.normalized()
+	var from := global_position + forward * support_forward_distance
+	var query := PhysicsRayQueryParameters3D.create(from, from + Vector3.DOWN * support_search_depth)
+	query.exclude = [body.get_rid()]
+	var owner_body := owner as CollisionObject3D
+	if owner_body != null:
+		query.exclude.append(owner_body.get_rid())
+	var hit := space.intersect_ray(query)
+	if hit.is_empty() or (hit["normal"] as Vector3).y < 0.7:
+		return {}
+	return hit
+
+## Quanto sta il centro dell'oggetto sopra il piano su cui poggia.
+static func _rest_offset(body: RigidBody3D) -> float:
+	for child in body.get_children():
+		var collision := child as CollisionShape3D
+		if collision == null or collision.shape == null:
+			continue
+		var shape := collision.shape
+		if shape is BoxShape3D:
+			return (shape as BoxShape3D).size.y * 0.5 + 0.005
+		if shape is CylinderShape3D:
+			return (shape as CylinderShape3D).height * 0.5 + 0.005
+		if shape is CapsuleShape3D:
+			return (shape as CapsuleShape3D).height * 0.5 + 0.005
+		if shape is SphereShape3D:
+			return (shape as SphereShape3D).radius + 0.005
+	return 0.1
 
 ## Rimette layer e mask salvati al momento della presa.
 static func restore_collision(body: RigidBody3D) -> void:

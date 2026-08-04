@@ -223,7 +223,7 @@ fine se ne va arrabbiato.
 
 *(Claude aggiorna questa sezione a ogni task completato)*
 
-- [ ] **M1 — implementato, in attesa della vostra verifica in editor.**
+- [x] **M1 — completato e approvato.**
   Progetto Godot **4.7.1.stable** creato da zero. Presenti: EventBus + GameState autoload,
   `ItemData` come Resource, player FPS con mouse look e sprint, Interactor con prompt,
   sistema prendi/posa/droppa, shader PS1 (vertex snapping + affine mapping) con rendering

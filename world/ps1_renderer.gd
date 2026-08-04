@@ -1,9 +1,10 @@
-@tool
 class_name PS1Renderer
 extends SubViewportContainer
 ## Renderizza il gioco in un SubViewport a bassa risoluzione e lo riscala
-## sullo schermo in nearest-neighbor. Tutti i parametri sono editabili in editor
-## e applicati subito, anche a gioco avviato.
+## sullo schermo in nearest-neighbor.
+##
+## Non è @tool di proposito: posizione e scala vengono calcolate solo a gioco
+## avviato, così salvare la scena in editor non sporca il file.
 
 ## Risoluzione interna di rendering. 320x240 = PS1.
 @export var internal_resolution: Vector2i = Vector2i(320, 240):

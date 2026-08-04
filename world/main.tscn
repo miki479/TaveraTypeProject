@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://c1nndkxcpiwc4"]
 
-[ext_resource type="Script" path="res://world/ps1_renderer.gd" id="1_ps1_renderer"]
+[ext_resource type="Script" uid="uid://brf1r2ta3yhrb" path="res://world/ps1_renderer.gd" id="1_ps1_renderer"]
 [ext_resource type="PackedScene" path="res://world/tavern.tscn" id="2_tavern"]
 [ext_resource type="PackedScene" path="res://player/player.tscn" id="3_player"]
 
@@ -11,8 +11,6 @@ texture_filter = 1
 offset_right = 320.0
 offset_bottom = 240.0
 script = ExtResource("1_ps1_renderer")
-internal_resolution = Vector2i(320, 240)
-integer_scaling = true
 
 [node name="SubViewport" type="SubViewport" parent="PS1Renderer"]
 handle_input_locally = false
