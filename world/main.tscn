@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://world/ps1_renderer.gd" id="1_ps1_renderer"]
+[ext_resource type="PackedScene" path="res://world/tavern.tscn" id="2_tavern"]
+[ext_resource type="PackedScene" path="res://player/player.tscn" id="3_player"]
+
+[node name="Main" type="Node"]
+
+[node name="PS1Renderer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+offset_right = 320.0
+offset_bottom = 240.0
+script = ExtResource("1_ps1_renderer")
+internal_resolution = Vector2i(320, 240)
+integer_scaling = true
+
+[node name="SubViewport" type="SubViewport" parent="PS1Renderer"]
+handle_input_locally = false
+size = Vector2i(320, 240)
+render_target_update_mode = 4
+
+[node name="Tavern" parent="PS1Renderer/SubViewport" instance=ExtResource("2_tavern")]
+
+[node name="Player" parent="PS1Renderer/SubViewport" instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 2)

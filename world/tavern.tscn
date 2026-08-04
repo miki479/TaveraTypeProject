@@ -1,0 +1,170 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Material" path="res://shaders/ps1_material.tres" id="1_ps1_mat"]
+[ext_resource type="Script" path="res://interactables/place_slot.gd" id="2_place_slot"]
+[ext_resource type="PackedScene" path="res://interactables/boccale.tscn" id="3_boccale"]
+
+[sub_resource type="Environment" id="Environment_taverna"]
+background_mode = 1
+background_color = Color(0.07, 0.055, 0.05, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.4, 0.34, 0.3, 1)
+ambient_light_energy = 0.7
+tonemap_mode = 0
+fog_enabled = true
+fog_light_color = Color(0.16, 0.12, 0.1, 1)
+fog_density = 0.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_unit"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_unit"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sottobicchiere"]
+top_radius = 0.09
+bottom_radius = 0.09
+height = 0.01
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sottobicchiere"]
+height = 0.03
+radius = 0.09
+
+[node name="Tavern" type="Node3D" groups=["world_root"]]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_taverna")
+
+[node name="Sole" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6216, -0.7833, 0, 0.7833, 0.6216, 0, 6, 0)
+light_color = Color(1, 0.87, 0.7, 1)
+light_energy = 0.9
+shadow_enabled = true
+
+[node name="Pavimento" type="StaticBody3D" parent="."]
+transform = Transform3D(16, 0, 0, 0, 0.4, 0, 0, 0, 16, 0, -0.2, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Pavimento"]
+material_override = ExtResource("1_ps1_mat")
+mesh = SubResource("BoxMesh_unit")
+instance_shader_parameters/albedo_color = Color(0.34, 0.26, 0.2, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="Pavimento"]
+shape = SubResource("BoxShape3D_unit")
+
+[node name="Soffitto" type="StaticBody3D" parent="."]
+transform = Transform3D(16, 0, 0, 0, 0.4, 0, 0, 0, 16, 0, 3.7, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Soffitto"]
+material_override = ExtResource("1_ps1_mat")
+mesh = SubResource("BoxMesh_unit")
+instance_shader_parameters/albedo_color = Color(0.18, 0.15, 0.13, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="Soffitto"]
+shape = SubResource("BoxShape3D_unit")
+
+[node name="MuroNord" type="StaticBody3D" parent="."]
+transform = Transform3D(16, 0, 0, 0, 3.5, 0, 0, 0, 0.4, 0, 1.75, -8)
+
+[node name="Mesh" type="MeshInstance3D" parent="MuroNord"]
+material_override = ExtResource("1_ps1_mat")
+mesh = SubResource("BoxMesh_unit")
+instance_shader_parameters/albedo_color = Color(0.46, 0.38, 0.3, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="MuroNord"]
+shape = SubResource("BoxShape3D_unit")
+
+[node name="MuroSud" type="StaticBody3D" parent="."]
+transform = Transform3D(16, 0, 0, 0, 3.5, 0, 0, 0, 0.4, 0, 1.75, 8)
+
+[node name="Mesh" type="MeshInstance3D" parent="MuroSud"]
+material_override = ExtResource("1_ps1_mat")
+mesh = SubResource("BoxMesh_unit")
+instance_shader_parameters/albedo_color = Color(0.44, 0.36, 0.28, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="MuroSud"]
+shape = SubResource("BoxShape3D_unit")
+
+[node name="MuroEst" type="StaticBody3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 3.5, 0, 0, 0, 16, 8, 1.75, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="MuroEst"]
+material_override = ExtResource("1_ps1_mat")
+mesh = SubResource("BoxMesh_unit")
+instance_shader_parameters/albedo_color = Color(0.42, 0.35, 0.28, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="MuroEst"]
+shape = SubResource("BoxShape3D_unit")
+
+[node name="MuroOvest" type="StaticBody3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 3.5, 0, 0, 0, 16, -8, 1.75, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="MuroOvest"]
+material_override = ExtResource("1_ps1_mat")
+mesh = SubResource("BoxMesh_unit")
+instance_shader_parameters/albedo_color = Color(0.42, 0.35, 0.28, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="MuroOvest"]
+shape = SubResource("BoxShape3D_unit")
+
+[node name="Bancone" type="StaticBody3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 1.1, 0, 0, 0, 0.9, 0, 0.55, -4)
+
+[node name="Mesh" type="MeshInstance3D" parent="Bancone"]
+material_override = ExtResource("1_ps1_mat")
+mesh = SubResource("BoxMesh_unit")
+instance_shader_parameters/albedo_color = Color(0.29, 0.19, 0.12, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="Bancone"]
+shape = SubResource("BoxShape3D_unit")
+
+[node name="SlotSinistro" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 1.105, -4)
+
+[node name="Mesh" type="MeshInstance3D" parent="SlotSinistro"]
+material_override = ExtResource("1_ps1_mat")
+mesh = SubResource("CylinderMesh_sottobicchiere")
+instance_shader_parameters/albedo_color = Color(0.14, 0.11, 0.09, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="SlotSinistro"]
+shape = SubResource("CylinderShape3D_sottobicchiere")
+
+[node name="Anchor" type="Marker3D" parent="SlotSinistro"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+gizmo_extents = 0.1
+
+[node name="PlaceSlot" type="Node3D" parent="SlotSinistro"]
+script = ExtResource("2_place_slot")
+interaction_prompt = "E — Posa"
+anchor = NodePath("../Anchor")
+
+[node name="SlotDestro" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 1.105, -4)
+
+[node name="Mesh" type="MeshInstance3D" parent="SlotDestro"]
+material_override = ExtResource("1_ps1_mat")
+mesh = SubResource("CylinderMesh_sottobicchiere")
+instance_shader_parameters/albedo_color = Color(0.14, 0.11, 0.09, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="SlotDestro"]
+shape = SubResource("CylinderShape3D_sottobicchiere")
+
+[node name="Anchor" type="Marker3D" parent="SlotDestro"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+gizmo_extents = 0.1
+
+[node name="PlaceSlot" type="Node3D" parent="SlotDestro"]
+script = ExtResource("2_place_slot")
+interaction_prompt = "E — Posa"
+anchor = NodePath("../Anchor")
+
+[node name="Boccale1" parent="." instance=ExtResource("3_boccale")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 1.19, -4)
+
+[node name="Boccale2" parent="." instance=ExtResource("3_boccale")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 1.19, -4)
+
+[node name="Boccale3" parent="." instance=ExtResource("3_boccale")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 0.09, 0.8)
