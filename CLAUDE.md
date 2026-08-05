@@ -12,10 +12,25 @@ Gestionale/simulatore in prima persona a tema fiabesco. Il giocatore gestisce un
 frequentata da orchi, fate, streghe e maghi. Cucina, serve, gestisce le relazioni con i
 clienti e decide se restare aperto di notte (più soldi, più pericolo).
 
-Riferimenti: Supermarket Simulator per il loop e la UI, estetica PS1/PS2.
+Riferimenti: Supermarket Simulator per il loop e la UI.
 
 **Cosa NON è**: non è un gioco fisico caotico stile R.E.P.O./Lethal Company. Gli oggetti
 si prendono, restano equipaggiati, si posano. Niente oggetti trascinati con la fisica.
+
+### Stile visivo (deciso da Kris e Michele il 2026-08-05)
+
+**Lo stile PSX è stato abbandonato.** Si va verso il **low poly a colori vivaci**.
+In pratica:
+
+- Rendering a risoluzione piena, niente più SubViewport a 320x240, niente vertex snapping,
+  niente affine texture mapping. Lo shader `ps1.gdshader` e `ps1_renderer.gd` non esistono
+  più: non riproporli.
+- I materiali sono `StandardMaterial3D` a **colore piatto**, uno per tinta, con `roughness`
+  alta e niente metallico. Il look nasce dalle normali sfaccettate dei modelli, non dalle
+  texture: i modelli low poly esportati piatti (flat shading) danno già le facce nette.
+- Le texture si usano solo dove servono davvero (cielo, terreno, cartelli) e solo su mesh
+  che hanno le UV. Il modello della taverna **non ha UV**, quindi lì niente texture.
+- Palette calda dentro (legni, intonaco crema, ottone), fredda e satura fuori (verdi, cielo).
 
 ---
 
@@ -28,6 +43,9 @@ si prendono, restano equipaggiati, si posano. Niente oggetti trascinati con la f
   riattaccato al mondo e riattivato.
 - Nessuna dipendenza esterna, nessun plugin, senza chiedere prima.
 - Target performance: deve girare fluido su hardware modesto. È parte dell'estetica.
+- Nelle scene scritte a mano fuori dall'editor la `Transform3D` si scrive **per righe**
+  (`riga0, riga1, riga2, origine`), non per colonne. Sbagliarlo dà la rotazione trasposta,
+  cioè inversa, e non se ne accorge nessuno finché qualcosa non va nella direzione sbagliata.
 
 ---
 
@@ -168,6 +186,9 @@ affinità NPC-NPC, multiplayer.
 
 ## 7. TASK M1 — La stanza
 
+> Testo storico, lasciato per memoria. Il punto 7 (shader PS1, SubViewport a bassa
+> risoluzione) **non vale più**: vedi "Stile visivo" nella sezione 1.
+
 **Obiettivo**: una stanza vuota in cui muoversi e manipolare oggetti, con l'aspetto giusto.
 
 Da implementare:
@@ -230,8 +251,14 @@ fine se ne va arrabbiato.
 
 Cartella collegata: `C:\Users\mikel\Desktop\Taverna Project asset` (fuori dal repo).
 
+- **`assets/models/taverna.glb`** — la taverna modellata da Michele, dentro il repo.
+  1199 mesh sciolte a livello root, 22.886 triangoli, 31 materiali con nomi italiani,
+  **nessuna UV e nessuna texture**. Pianta a ottagono irregolare: |x| ≤ 6, |z| ≤ 5.5,
+  angoli tagliati su |x|+|z| ≤ 9.3, muri alti 3,6 m. Ingresso a **1,40 m dal pavimento**
+  in cima a una scala di 7 gradini sulla parete nord. Bancone a L sulla parete ovest,
+  piano a 1,19 m. Non si importa e basta: ci pensa `world/tavern_model.gd`, vedi sotto.
 - **`Human/Humanoid.blend`** — mesh umanoide di Quaternius, 203 vertici, in posa a T.
-  Livello di dettaglio giusto per il look PS1. **Non ha scheletro né animazioni**: è una
+  Il livello di dettaglio va bene anche per il low poly. **Non ha scheletro né animazioni**: è una
   statua. Le due mesh dentro il file (`_Overlapping` / `_NotOverlapping`) sono la stessa
   forma con due mappature UV diverse; i due PNG 1024x1024 non sono texture finite ma i
   **fogli UV** su cui dipingere.
@@ -244,6 +271,14 @@ Cartella collegata: `C:\Users\mikel\Desktop\Taverna Project asset` (fuori dal re
   `Idle_Talking_Loop`, `Interact`, `PickUp_Table`, `Sitting_Enter/Idle_Loop/Exit`,
   `Spell_Simple_*` (strega), `Dance_Loop`.
 - **`40 Free PSX Footsteps`** — già importati nel progetto in `assets/audio/passi/`.
+
+### Sketchfab
+
+Kris ha un token API Sketchfab. **Non va scritto in questo file né in nessun file del repo**:
+sta fuori dal repo e si passa a mano quando serve. Regola concordata: si cerca, si mostrano
+nome, autore, licenza, poligoni e peso, e **si scarica solo dopo un ok esplicito**. Ogni
+modello scaricato va elencato qui con la sua licenza e l'attribuzione richiesta.
+Al momento non è stato scaricato niente.
 
 Decisione presa: se il giocatore avrà un corpo in prima persona, saranno **solo le gambe**,
 in modo che la regola "niente mani visibili" della sezione 2 resti valida.
@@ -278,9 +313,9 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
   - `Object.get_meta(nome, null)` stampa comunque un errore: serve `has_meta()` prima.
     Per questo esiste `Interactable.of(body)`.
   - Suoni dell'orco e icona dell'ordine sono placeholder generati, da sostituire.
-  - I `SubViewport` hanno `audio_listener_enable_3d = false` di default: senza attivarlo
-    **nessun suono 3D si sente**, perché il gioco vive dentro un SubViewport.
-  - Se lo shader non compila (es. una uniform globale mancante), aprendo l'editor Godot
+  - (Superato) I `SubViewport` hanno `audio_listener_enable_3d = false` di default. Non
+    riguarda più il gioco: dal cambio di stile non c'è più nessun SubViewport.
+  - Se uno shader non compila (es. una uniform globale mancante), aprendo l'editor Godot
     **risalva i materiali svuotandoli** di tutti gli shader_parameter. Se una texture
     sparisce da un materiale, è questo.
 - [ ] **M3 — implementato, in attesa della vostra verifica in gioco.**
@@ -299,8 +334,49 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
     bloccavano a vicenda. `LeaveState` ora li fa uscire entro un raggio, non sul punto
     esatto. Restano due reti di sicurezza (timeout dello stato, tolleranza di chiusura):
     una giornata che non finisce blocca il gioco per sempre.
-  - Il ciclo giorno/notte **visivo** (luce che cambia, finestre) non c'è: la taverna è una
-    scatola chiusa senza finestre. Deciso con Michele: "prima il meccanismo".
+  - Il ciclo giorno/notte **visivo** adesso c'è, vedi il blocco qui sotto.
+- [ ] **Cambio di stile e taverna nuova (2026-08-05) — in attesa della vostra verifica.**
+  Fuori lo stile PSX, dentro il low poly a colori vivaci; il modello della taverna di
+  Michele ha preso il posto della greybox; soffitto, lampadario, finestre e mondo esterno.
+  Fatto su `Kris-Edit`, quattro commit.
+  Come funziona adesso:
+  - `world/tavern_model.gd` prende il `.glb` così com'è e lo rende giocabile a ogni avvio:
+    scarta le mesh inutili, assegna i materiali cercando in `assets/materials/taverna/` un
+    `.tres` con lo stesso nome del materiale del glb, e genera le collisioni solo sui
+    prefissi elencati in scena. **Aggiungere un materiale = creare un file**, non toccare
+    codice. Michele può riesportare quando vuole.
+  - `world/navmesh_baker.gd` ricalcola la navmesh dalle collisioni statiche a ogni avvio,
+    così nessuno deve ricordarsi di ribakare a mano.
+  - `world/windowed_wall.gd` costruisce un muro con i vani finestra da parametri: serve
+    perché i muri del modello sono pieni. Sostituisce il muro sud e quello est.
+  - `world/sky_cycle.gd` ascolta `time_changed` e muove sole e cielo. Le tinte stanno in
+    tre `Gradient` in `data/cielo/`, campionati sull'ora.
+  Cose del modello da sistemare in Blender, con la toppa che c'è adesso:
+  - **Orientamento delle facce incoerente.** Non si vede, perché tutti i materiali sono
+    double sided, ma per Recast un pavimento rivolto in giù non è calpestabile e per la
+    fisica non è appoggiabile: senza toppa si cade attraverso il bancone e i gradini.
+    Toppa: collisioni `backface_collision = true` e il gruppo `04_` girato al caricamento
+    (export `flipped` in scena). Quando il modello arriverà con le normali a posto,
+    svuotare `flipped`. Basta un "Recalculate Outside" in Blender.
+  - **Roba dentro la scala.** `08_cassa_c2`, `09_arm_b` e `16_cassa_2` sono modellati dentro
+    il volume dei gradini e muravano l'ingresso. Sono nella lista `discarded`: quando li
+    sposti, toglili da lì e tornano in scena.
+  - **Dietro al bancone non ci si passa.** Fra credenza e bancone restano 66 cm, con i
+    cassetti che sporgono: il giocatore non ci entra. Per ora si serve dal lato sala.
+    Se volete il posto del taverniere, la credenza va arretrata di ~40 cm.
+  - **I gradini da 20 cm non si salgono** con `move_and_slide`: sopra ci passa una rampa di
+    collisione invisibile a 33 gradi (`RampaScala`), raccordata all'ultimo gradino. I
+    gradini restano visibili ma non hanno collisione, tranne l'ultimo.
+  Altre note:
+  - `NavigationAgent3D` ha ora l'**evitamento acceso**: senza, chi entra e chi esce si
+    bloccavano nel corridoio davanti al bancone e sparivano per timeout. `npc.gd` passa la
+    velocità all'agente e si muove su `velocity_computed`.
+  - `max_customers` sceso da 4 a 2, come i posti al bancone: chi non trova posto aspetta
+    sul pianerottolo, che è largo 1,8 x 1,25 m, e in tre si accatastano.
+  - Il corpo degli NPC è sceso a 0,32 di raggio e quello del giocatore a 0,25: la sala è
+    molto più fitta della greybox.
+  - Verificato headless su una giornata intera (10 → 22): 15 clienti entrano dalla porta in
+    cima alla scala, scendono, ordinano ai due posti e risalgono a uscire.
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi

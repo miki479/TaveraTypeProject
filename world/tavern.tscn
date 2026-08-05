@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3]
+[gd_scene load_steps=47 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/models/taverna.glb" id="1_modello"]
 [ext_resource type="Script" path="res://world/tavern_model.gd" id="2_tavern_model"]
@@ -21,17 +21,39 @@
 [ext_resource type="PackedScene" path="res://interactables/boccale.tscn" id="19_boccale"]
 [ext_resource type="PackedScene" path="res://interactables/brocca.tscn" id="20_brocca"]
 [ext_resource type="PackedScene" path="res://interactables/piatto.tscn" id="21_piatto"]
+[ext_resource type="Material" path="res://assets/materials/soffitto_legno.tres" id="22_soffitto"]
+[ext_resource type="Material" path="res://assets/materials/taverna/legno_trave.tres" id="23_trave"]
+[ext_resource type="Material" path="res://assets/materials/taverna/cera.tres" id="24_cera"]
+[ext_resource type="Material" path="res://assets/materials/taverna/fiamma.tres" id="25_fiamma"]
+[ext_resource type="PackedScene" path="res://world/esterno.tscn" id="26_esterno"]
+[ext_resource type="Script" path="res://world/windowed_wall.gd" id="27_muro_finestre"]
+[ext_resource type="Script" path="res://world/sky_cycle.gd" id="28_sky_cycle"]
+[ext_resource type="Material" path="res://assets/materials/muro_intonaco.tres" id="29_intonaco"]
+[ext_resource type="Resource" path="res://data/cielo/cielo_alto.tres" id="30_cielo_alto"]
+[ext_resource type="Resource" path="res://data/cielo/cielo_orizzonte.tres" id="31_cielo_orizzonte"]
+[ext_resource type="Resource" path="res://data/cielo/sole.tres" id="32_sole"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cielo"]
+sky_top_color = Color(0.28, 0.55, 0.92, 1)
+sky_horizon_color = Color(0.78, 0.87, 0.96, 1)
+sky_curve = 0.15
+ground_bottom_color = Color(0.24, 0.34, 0.22, 1)
+ground_horizon_color = Color(0.78, 0.87, 0.96, 1)
+
+[sub_resource type="Sky" id="Sky_taverna"]
+sky_material = SubResource("ProceduralSkyMaterial_cielo")
 
 [sub_resource type="Environment" id="Environment_taverna"]
-background_mode = 1
-background_color = Color(0.09, 0.08, 0.09, 1)
+background_mode = 2
+sky = SubResource("Sky_taverna")
 ambient_light_source = 2
 ambient_light_color = Color(0.62, 0.58, 0.55, 1)
-ambient_light_energy = 0.85
+ambient_light_energy = 0.7
 tonemap_mode = 2
 fog_enabled = true
-fog_light_color = Color(0.32, 0.26, 0.2, 1)
-fog_density = 0.008
+fog_light_color = Color(0.6, 0.62, 0.66, 1)
+fog_density = 0.004
+fog_sky_affect = 0.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_sottobicchiere"]
 top_radius = 0.09
@@ -43,6 +65,34 @@ rings = 1
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_sottobicchiere"]
 height = 0.03
 radius = 0.09
+
+[sub_resource type="BoxMesh" id="BoxMesh_soffitto"]
+size = Vector3(12.6, 0.2, 11.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_trave_lunga"]
+size = Vector3(12, 0.24, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_trave_corta"]
+size = Vector3(10.4, 0.24, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_catena"]
+size = Vector3(0.07, 0.8, 0.07)
+
+[sub_resource type="TorusMesh" id="TorusMesh_cerchio"]
+inner_radius = 0.46
+outer_radius = 0.54
+rings = 16
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_candela"]
+top_radius = 0.035
+bottom_radius = 0.04
+height = 0.2
+radial_segments = 6
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_fiamma"]
+size = Vector3(0.05, 0.1, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rampa"]
 size = Vector3(2.5239, 0.2, 1.25)
@@ -63,7 +113,7 @@ script = ExtResource("3_navmesh")
 
 [node name="Modello" type="Node3D" parent="NavigationRegion3D"]
 script = ExtResource("2_tavern_model")
-discarded = Array[StringName]([&"04_cutter_porta", &"Cube", &"10_boccale_5", &"10_boccale_6", &"08_cassa_c2", &"09_arm_b", &"16_cassa_2"])
+discarded = Array[StringName]([&"04_cutter_porta", &"Cube", &"10_boccale_5", &"10_boccale_6", &"08_cassa_c2", &"09_arm_b", &"16_cassa_2", &"02_muro_0", &"02_muro_2"])
 flipped = Array[StringName]([&"04_"])
 collision_prefixes = Array[StringName]([&"01_pavimento", &"02_muro", &"04_gradino_6", &"04_pianerottolo", &"04_parapetto", &"04_porta", &"04_stipite", &"04_pilastrino", &"05_", &"06_", &"07_sedia", &"07_sgab_3", &"07_sgab_4", &"07_sgab_5", &"07_sgab_6", &"08_", &"09_arm", &"09_lib", &"11_vaso", &"16_botte", &"16_cassa", &"16_mensola"])
 materials_dir = "res://assets/materials/taverna"
@@ -77,6 +127,131 @@ transform = Transform3D(0.83205, -0.5547, 0, 0.5547, 0.83205, 0, 0, 0, 1, -2.044
 
 [node name="Collision" type="CollisionShape3D" parent="NavigationRegion3D/RampaScala"]
 shape = SubResource("BoxShape3D_rampa")
+
+[node name="MuroSudConFinestre" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.625)
+script = ExtResource("27_muro_finestre")
+length = 7.6
+window_offsets = Array[float]([-2.7, 0.53])
+wall_material = ExtResource("29_intonaco")
+
+[node name="MuroEstConFinestre" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 6.125, 0, 0)
+script = ExtResource("27_muro_finestre")
+length = 6.6
+window_offsets = Array[float]([0.0])
+wall_material = ExtResource("29_intonaco")
+
+[node name="Esterno" parent="." instance=ExtResource("26_esterno")]
+
+[node name="Sole" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7071, 0.7071, 0, -0.7071, 0.7071, 0, 12, 0)
+light_color = Color(1, 0.94, 0.84, 1)
+light_energy = 1.2
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_max_distance = 70.0
+
+[node name="CicloCielo" type="Node" parent="."]
+script = ExtResource("28_sky_cycle")
+sun_path = NodePath("../Sole")
+world_environment_path = NodePath("../WorldEnvironment")
+sky_top = ExtResource("30_cielo_alto")
+sky_horizon = ExtResource("31_cielo_orizzonte")
+sun_tint = ExtResource("32_sole")
+
+[node name="Soffitto" type="Node3D" parent="."]
+
+[node name="Assito" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7, 0)
+material_override = ExtResource("22_soffitto")
+mesh = SubResource("BoxMesh_soffitto")
+
+[node name="Trave0" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.46, -4)
+material_override = ExtResource("23_trave")
+mesh = SubResource("BoxMesh_trave_corta")
+
+[node name="Trave1" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.46, -2)
+material_override = ExtResource("23_trave")
+mesh = SubResource("BoxMesh_trave_lunga")
+
+[node name="Trave2" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.46, 0)
+material_override = ExtResource("23_trave")
+mesh = SubResource("BoxMesh_trave_lunga")
+
+[node name="Trave3" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.46, 2)
+material_override = ExtResource("23_trave")
+mesh = SubResource("BoxMesh_trave_lunga")
+
+[node name="Trave4" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.46, 4)
+material_override = ExtResource("23_trave")
+mesh = SubResource("BoxMesh_trave_corta")
+
+[node name="Lampadario" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Catena" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94, 0)
+material_override = ExtResource("15_nerastro")
+mesh = SubResource("BoxMesh_catena")
+
+[node name="Cerchio" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54, 0)
+material_override = ExtResource("15_nerastro")
+mesh = SubResource("TorusMesh_cerchio")
+
+[node name="Candela0" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.66, 0)
+material_override = ExtResource("24_cera")
+mesh = SubResource("CylinderMesh_candela")
+
+[node name="Fiamma0" type="MeshInstance3D" parent="Lampadario/Candela0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = ExtResource("25_fiamma")
+mesh = SubResource("BoxMesh_fiamma")
+
+[node name="Candela1" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.66, 0)
+material_override = ExtResource("24_cera")
+mesh = SubResource("CylinderMesh_candela")
+
+[node name="Fiamma1" type="MeshInstance3D" parent="Lampadario/Candela1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = ExtResource("25_fiamma")
+mesh = SubResource("BoxMesh_fiamma")
+
+[node name="Candela2" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.66, 0.5)
+material_override = ExtResource("24_cera")
+mesh = SubResource("CylinderMesh_candela")
+
+[node name="Fiamma2" type="MeshInstance3D" parent="Lampadario/Candela2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = ExtResource("25_fiamma")
+mesh = SubResource("BoxMesh_fiamma")
+
+[node name="Candela3" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.66, -0.5)
+material_override = ExtResource("24_cera")
+mesh = SubResource("CylinderMesh_candela")
+
+[node name="Fiamma3" type="MeshInstance3D" parent="Lampadario/Candela3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = ExtResource("25_fiamma")
+mesh = SubResource("BoxMesh_fiamma")
+
+[node name="Luce" type="OmniLight3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
+light_color = Color(1, 0.85, 0.62, 1)
+light_energy = 3.2
+light_indirect_energy = 0.0
+omni_range = 14.0
+omni_attenuation = 0.7
 
 [node name="AppliqueNordOvest" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.21, 2.45, 3.7)

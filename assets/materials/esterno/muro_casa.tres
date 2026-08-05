@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "Muro casa"
+albedo_color = Color(0.88, 0.82, 0.70, 1)
+roughness = 0.95
