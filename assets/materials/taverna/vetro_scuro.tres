@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "Vetro scuro"
+albedo_color = Color(0.22, 0.15, 0.11, 1)
+roughness = 0.15
+metallic = 0.2

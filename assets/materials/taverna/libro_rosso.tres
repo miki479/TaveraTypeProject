@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "Libro rosso"
+albedo_color = Color(0.72, 0.21, 0.20, 1)
+roughness = 0.9

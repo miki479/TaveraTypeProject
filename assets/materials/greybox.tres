@@ -1,7 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3]
-
-[ext_resource type="Shader" path="res://shaders/ps1.gdshader" id="1_shader"]
+[gd_resource type="StandardMaterial3D" format=3]
 
 [resource]
-shader = ExtResource("1_shader")
-shader_parameter/uv_scale = Vector2(1, 1)
+resource_name = "Greybox"
+albedo_color = Color(0.72, 0.72, 0.72, 1)
+roughness = 0.9

@@ -9,8 +9,14 @@ extends Interactable
 @export var open_color: Color = Color(0.3, 0.65, 0.32)
 @export var closed_color: Color = Color(0.65, 0.26, 0.22)
 
+var _face_material: StandardMaterial3D = null
+
 func _ready() -> void:
 	super()
+	if face != null:
+		# Duplicato: il materiale è condiviso, tingerlo qui tingerebbe anche il resto.
+		_face_material = face.material_override.duplicate() as StandardMaterial3D
+		face.material_override = _face_material
 	EventBus.tavern_opened.connect(_refresh)
 	EventBus.tavern_closed.connect(_refresh)
 	_refresh()
@@ -28,6 +34,6 @@ func _is_open() -> bool:
 	return cycle != null and cycle.is_open
 
 func _refresh() -> void:
-	if face == null:
+	if _face_material == null:
 		return
-	face.set_instance_shader_parameter(&"albedo_color", open_color if _is_open() else closed_color)
+	_face_material.albedo_color = open_color if _is_open() else closed_color

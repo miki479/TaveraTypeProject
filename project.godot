@@ -66,19 +66,5 @@ drop={
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
-
-[shader_globals]
-
-ps1_snap_resolution={
-"type": "vec2",
-"value": Vector2(160, 120)
-}
-ps1_snap_strength={
-"type": "float",
-"value": 1.0
-}
-ps1_affine_strength={
-"type": "float",
-"value": 1.0
-}
+anti_aliasing/quality/msaa_3d=2
+anti_aliasing/quality/screen_space_aa=1

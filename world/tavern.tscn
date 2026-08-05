@@ -1,98 +1,59 @@
-[gd_scene load_steps=43 format=3]
+[gd_scene load_steps=47 format=3]
 
-[ext_resource type="Material" path="res://assets/materials/pavimento_pietra.tres" id="1_pavimento"]
-[ext_resource type="Material" path="res://assets/materials/muro_intonaco.tres" id="2_muro"]
-[ext_resource type="Material" path="res://assets/materials/soffitto_legno.tres" id="3_soffitto"]
-[ext_resource type="Material" path="res://assets/materials/bancone_legno.tres" id="4_bancone"]
-[ext_resource type="Material" path="res://assets/materials/greybox.tres" id="5_greybox"]
-[ext_resource type="Script" path="res://interactables/place_slot.gd" id="6_place_slot"]
-[ext_resource type="PackedScene" path="res://interactables/boccale.tscn" id="7_boccale"]
-[ext_resource type="Script" path="res://npc/counter_spot.gd" id="8_counter_spot"]
-[ext_resource type="Script" path="res://npc/npc_spawner.gd" id="9_spawner"]
-[ext_resource type="PackedScene" path="res://npc/npc.tscn" id="10_npc"]
-[ext_resource type="Resource" path="res://data/races/orco.tres" id="11_orco"]
-[ext_resource type="Resource" path="res://data/races/strega.tres" id="12_strega"]
-[ext_resource type="Resource" path="res://data/races/gnomo.tres" id="13_gnomo"]
-[ext_resource type="Material" path="res://assets/materials/prop_legno.tres" id="14_prop_legno"]
-[ext_resource type="Mesh" path="res://assets/models/spillatore_corpo.obj" id="15_spillatore"]
-[ext_resource type="Mesh" path="res://assets/models/spillatore_leva.obj" id="16_leva"]
-[ext_resource type="Mesh" path="res://assets/models/botte.obj" id="17_botte"]
-[ext_resource type="Mesh" path="res://assets/models/sgabello.obj" id="18_sgabello"]
-[ext_resource type="PackedScene" path="res://interactables/brocca.tscn" id="19_brocca"]
-[ext_resource type="PackedScene" path="res://interactables/piatto.tscn" id="20_piatto"]
-[ext_resource type="Script" path="res://world/day_cycle.gd" id="21_day_cycle"]
-[ext_resource type="Resource" path="res://data/schedules/giornata_standard.tres" id="22_giornata"]
-[ext_resource type="Script" path="res://world/closing_sign.gd" id="23_cartello"]
+[ext_resource type="PackedScene" path="res://assets/models/taverna.glb" id="1_modello"]
+[ext_resource type="Script" path="res://world/tavern_model.gd" id="2_tavern_model"]
+[ext_resource type="Script" path="res://world/navmesh_baker.gd" id="3_navmesh"]
+[ext_resource type="Script" path="res://interactables/place_slot.gd" id="4_place_slot"]
+[ext_resource type="Script" path="res://npc/counter_spot.gd" id="5_counter_spot"]
+[ext_resource type="Script" path="res://npc/npc_spawner.gd" id="6_spawner"]
+[ext_resource type="PackedScene" path="res://npc/npc.tscn" id="7_npc"]
+[ext_resource type="Resource" path="res://data/races/orco.tres" id="8_orco"]
+[ext_resource type="Resource" path="res://data/races/strega.tres" id="9_strega"]
+[ext_resource type="Resource" path="res://data/races/gnomo.tres" id="10_gnomo"]
+[ext_resource type="Script" path="res://world/day_cycle.gd" id="11_day_cycle"]
+[ext_resource type="Resource" path="res://data/schedules/giornata_standard.tres" id="12_giornata"]
+[ext_resource type="Script" path="res://world/closing_sign.gd" id="13_cartello"]
+[ext_resource type="Material" path="res://assets/materials/greybox.tres" id="14_greybox"]
+[ext_resource type="Material" path="res://assets/materials/taverna/legno_nerastro.tres" id="15_nerastro"]
+[ext_resource type="Material" path="res://assets/materials/prop_legno.tres" id="16_prop_legno"]
+[ext_resource type="Mesh" path="res://assets/models/spillatore_corpo.obj" id="17_spillatore"]
+[ext_resource type="Mesh" path="res://assets/models/spillatore_leva.obj" id="18_leva"]
+[ext_resource type="PackedScene" path="res://interactables/boccale.tscn" id="19_boccale"]
+[ext_resource type="PackedScene" path="res://interactables/brocca.tscn" id="20_brocca"]
+[ext_resource type="PackedScene" path="res://interactables/piatto.tscn" id="21_piatto"]
+[ext_resource type="Material" path="res://assets/materials/soffitto_legno.tres" id="22_soffitto"]
+[ext_resource type="Material" path="res://assets/materials/taverna/legno_trave.tres" id="23_trave"]
+[ext_resource type="Material" path="res://assets/materials/taverna/cera.tres" id="24_cera"]
+[ext_resource type="Material" path="res://assets/materials/taverna/fiamma.tres" id="25_fiamma"]
+[ext_resource type="PackedScene" path="res://world/esterno.tscn" id="26_esterno"]
+[ext_resource type="Script" path="res://world/windowed_wall.gd" id="27_muro_finestre"]
+[ext_resource type="Script" path="res://world/sky_cycle.gd" id="28_sky_cycle"]
+[ext_resource type="Material" path="res://assets/materials/muro_intonaco.tres" id="29_intonaco"]
+[ext_resource type="Resource" path="res://data/cielo/cielo_alto.tres" id="30_cielo_alto"]
+[ext_resource type="Resource" path="res://data/cielo/cielo_orizzonte.tres" id="31_cielo_orizzonte"]
+[ext_resource type="Resource" path="res://data/cielo/sole.tres" id="32_sole"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_cartello"]
-size = Vector3(0.42, 0.26, 0.04)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cielo"]
+sky_top_color = Color(0.28, 0.55, 0.92, 1)
+sky_horizon_color = Color(0.78, 0.87, 0.96, 1)
+sky_curve = 0.15
+ground_bottom_color = Color(0.24, 0.34, 0.22, 1)
+ground_horizon_color = Color(0.78, 0.87, 0.96, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cartello"]
-size = Vector3(0.42, 0.26, 0.06)
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_botte"]
-height = 0.62
-radius = 0.3
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_sgabello"]
-height = 0.48
-radius = 0.17
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_sala"]
-vertices = PackedVector3Array(-7.2, 0.02, -3.2, 7.2, 0.02, -3.2, 7.2, 0.02, 7.2, -7.2, 0.02, 7.2)
-polygons = [PackedInt32Array(0, 1, 2, 3)]
-
-[sub_resource type="BoxMesh" id="BoxMesh_porta"]
-size = Vector3(1.6, 2.3, 0.06)
+[sub_resource type="Sky" id="Sky_taverna"]
+sky_material = SubResource("ProceduralSkyMaterial_cielo")
 
 [sub_resource type="Environment" id="Environment_taverna"]
-background_mode = 1
-background_color = Color(0.09, 0.07, 0.06, 1)
+background_mode = 2
+sky = SubResource("Sky_taverna")
 ambient_light_source = 2
-ambient_light_color = Color(0.5, 0.42, 0.35, 1)
-ambient_light_energy = 0.85
+ambient_light_color = Color(0.62, 0.58, 0.55, 1)
+ambient_light_energy = 0.7
 tonemap_mode = 2
 fog_enabled = true
-fog_light_color = Color(0.26, 0.19, 0.14, 1)
-fog_density = 0.022
-
-[sub_resource type="BoxMesh" id="BoxMesh_pavimento"]
-size = Vector3(16, 0.4, 16)
-subdivide_width = 15
-subdivide_depth = 15
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_pavimento"]
-size = Vector3(16, 0.4, 16)
-
-[sub_resource type="BoxMesh" id="BoxMesh_soffitto"]
-size = Vector3(16, 0.4, 16)
-subdivide_width = 11
-subdivide_depth = 11
-
-[sub_resource type="BoxMesh" id="BoxMesh_muro_lungo"]
-size = Vector3(16, 3.5, 0.4)
-subdivide_width = 15
-subdivide_height = 6
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_muro_lungo"]
-size = Vector3(16, 3.5, 0.4)
-
-[sub_resource type="BoxMesh" id="BoxMesh_muro_corto"]
-size = Vector3(0.4, 3.5, 16)
-subdivide_height = 6
-subdivide_depth = 15
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_muro_corto"]
-size = Vector3(0.4, 3.5, 16)
-
-[sub_resource type="BoxMesh" id="BoxMesh_bancone"]
-size = Vector3(5, 1.1, 0.9)
-subdivide_width = 9
-subdivide_height = 3
-subdivide_depth = 2
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_bancone"]
-size = Vector3(5, 1.1, 0.9)
+fog_light_color = Color(0.6, 0.62, 0.66, 1)
+fog_density = 0.004
+fog_sky_affect = 0.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_sottobicchiere"]
 top_radius = 0.09
@@ -105,372 +66,332 @@ rings = 1
 height = 0.03
 radius = 0.09
 
-[sub_resource type="BoxMesh" id="BoxMesh_lanterna"]
-size = Vector3(0.16, 0.22, 0.16)
+[sub_resource type="BoxMesh" id="BoxMesh_soffitto"]
+size = Vector3(12.6, 0.2, 11.6)
 
-[sub_resource type="BoxMesh" id="BoxMesh_trave"]
-size = Vector3(16, 0.25, 0.3)
+[sub_resource type="BoxMesh" id="BoxMesh_trave_lunga"]
+size = Vector3(12, 0.24, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_trave_corta"]
+size = Vector3(10.4, 0.24, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_catena"]
+size = Vector3(0.07, 0.8, 0.07)
+
+[sub_resource type="TorusMesh" id="TorusMesh_cerchio"]
+inner_radius = 0.46
+outer_radius = 0.54
+rings = 16
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_candela"]
+top_radius = 0.035
+bottom_radius = 0.04
+height = 0.2
+radial_segments = 6
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_fiamma"]
+size = Vector3(0.05, 0.1, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rampa"]
+size = Vector3(2.5239, 0.2, 1.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cartello"]
+size = Vector3(0.42, 0.26, 0.04)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cartello"]
+size = Vector3(0.42, 0.26, 0.06)
 
 [node name="Tavern" type="Node3D" groups=["world_root"]]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_taverna")
 
-[node name="LuceAmbiente" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.6216, -0.7833, 0, 0.7833, 0.6216, 0, 6, 0)
-light_color = Color(0.85, 0.78, 0.72, 1)
-light_energy = 0.35
-shadow_enabled = true
-
-[node name="Pavimento" type="StaticBody3D" parent="." groups=["superficie_pietra"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
-
-[node name="Mesh" type="MeshInstance3D" parent="Pavimento"]
-material_override = ExtResource("1_pavimento")
-mesh = SubResource("BoxMesh_pavimento")
-
-[node name="Collision" type="CollisionShape3D" parent="Pavimento"]
-shape = SubResource("BoxShape3D_pavimento")
-
-[node name="Soffitto" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7, 0)
-
-[node name="Mesh" type="MeshInstance3D" parent="Soffitto"]
-material_override = ExtResource("3_soffitto")
-mesh = SubResource("BoxMesh_soffitto")
-instance_shader_parameters/albedo_color = Color(0.55, 0.5, 0.46, 1)
-
-[node name="Collision" type="CollisionShape3D" parent="Soffitto"]
-shape = SubResource("BoxShape3D_pavimento")
-
-[node name="Trave1" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, -3)
-material_override = ExtResource("4_bancone")
-mesh = SubResource("BoxMesh_trave")
-
-[node name="Trave2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 1)
-material_override = ExtResource("4_bancone")
-mesh = SubResource("BoxMesh_trave")
-
-[node name="Trave3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 5)
-material_override = ExtResource("4_bancone")
-mesh = SubResource("BoxMesh_trave")
-
-[node name="MuroNord" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -8)
-
-[node name="Mesh" type="MeshInstance3D" parent="MuroNord"]
-material_override = ExtResource("2_muro")
-mesh = SubResource("BoxMesh_muro_lungo")
-
-[node name="Collision" type="CollisionShape3D" parent="MuroNord"]
-shape = SubResource("BoxShape3D_muro_lungo")
-
-[node name="MuroSud" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 8)
-
-[node name="Mesh" type="MeshInstance3D" parent="MuroSud"]
-material_override = ExtResource("2_muro")
-mesh = SubResource("BoxMesh_muro_lungo")
-instance_shader_parameters/albedo_color = Color(0.94, 0.94, 0.94, 1)
-
-[node name="Collision" type="CollisionShape3D" parent="MuroSud"]
-shape = SubResource("BoxShape3D_muro_lungo")
-
-[node name="MuroEst" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.75, 0)
-
-[node name="Mesh" type="MeshInstance3D" parent="MuroEst"]
-material_override = ExtResource("2_muro")
-mesh = SubResource("BoxMesh_muro_corto")
-instance_shader_parameters/albedo_color = Color(0.9, 0.9, 0.9, 1)
-
-[node name="Collision" type="CollisionShape3D" parent="MuroEst"]
-shape = SubResource("BoxShape3D_muro_corto")
-
-[node name="MuroOvest" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.75, 0)
-
-[node name="Mesh" type="MeshInstance3D" parent="MuroOvest"]
-material_override = ExtResource("2_muro")
-mesh = SubResource("BoxMesh_muro_corto")
-instance_shader_parameters/albedo_color = Color(0.9, 0.9, 0.9, 1)
-
-[node name="Collision" type="CollisionShape3D" parent="MuroOvest"]
-shape = SubResource("BoxShape3D_muro_corto")
-
-[node name="Bancone" type="StaticBody3D" parent="." groups=["superficie_legno"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -4)
-
-[node name="Mesh" type="MeshInstance3D" parent="Bancone"]
-material_override = ExtResource("4_bancone")
-mesh = SubResource("BoxMesh_bancone")
-
-[node name="Collision" type="CollisionShape3D" parent="Bancone"]
-shape = SubResource("BoxShape3D_bancone")
-
-[node name="SlotSinistro" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 1.105, -4)
-
-[node name="Mesh" type="MeshInstance3D" parent="SlotSinistro"]
-material_override = ExtResource("4_bancone")
-mesh = SubResource("CylinderMesh_sottobicchiere")
-instance_shader_parameters/albedo_color = Color(0.55, 0.5, 0.45, 1)
-
-[node name="Collision" type="CollisionShape3D" parent="SlotSinistro"]
-shape = SubResource("CylinderShape3D_sottobicchiere")
-
-[node name="Anchor" type="Marker3D" parent="SlotSinistro"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
-gizmo_extents = 0.1
-
-[node name="PlaceSlot" type="Node3D" parent="SlotSinistro"]
-script = ExtResource("6_place_slot")
-interaction_prompt = "E — Posa"
-anchor = NodePath("../Anchor")
-
-[node name="SlotDestro" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 1.105, -4)
-
-[node name="Mesh" type="MeshInstance3D" parent="SlotDestro"]
-material_override = ExtResource("4_bancone")
-mesh = SubResource("CylinderMesh_sottobicchiere")
-instance_shader_parameters/albedo_color = Color(0.55, 0.5, 0.45, 1)
-
-[node name="Collision" type="CollisionShape3D" parent="SlotDestro"]
-shape = SubResource("CylinderShape3D_sottobicchiere")
-
-[node name="Anchor" type="Marker3D" parent="SlotDestro"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
-gizmo_extents = 0.1
-
-[node name="PlaceSlot" type="Node3D" parent="SlotDestro"]
-script = ExtResource("6_place_slot")
-interaction_prompt = "E — Posa"
-anchor = NodePath("../Anchor")
-
-[node name="LanternaBanconeSx" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 2.5, -3.4)
-light_color = Color(1, 0.79, 0.5, 1)
-light_energy = 2.6
-omni_range = 8.0
-
-[node name="Mesh" type="MeshInstance3D" parent="LanternaBanconeSx"]
-material_override = ExtResource("5_greybox")
-mesh = SubResource("BoxMesh_lanterna")
-instance_shader_parameters/albedo_color = Color(1, 0.85, 0.55, 1)
-instance_shader_parameters/emission_amount = 1.0
-
-[node name="LanternaBanconeDx" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 2.5, -3.4)
-light_color = Color(1, 0.79, 0.5, 1)
-light_energy = 2.6
-omni_range = 8.0
-
-[node name="Mesh" type="MeshInstance3D" parent="LanternaBanconeDx"]
-material_override = ExtResource("5_greybox")
-mesh = SubResource("BoxMesh_lanterna")
-instance_shader_parameters/albedo_color = Color(1, 0.85, 0.55, 1)
-instance_shader_parameters/emission_amount = 1.0
-
-[node name="LanternaSalaNordOvest" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2.5, -6.5)
-light_color = Color(1, 0.76, 0.46, 1)
-light_energy = 2.2
-omni_range = 9.0
-
-[node name="Mesh" type="MeshInstance3D" parent="LanternaSalaNordOvest"]
-material_override = ExtResource("5_greybox")
-mesh = SubResource("BoxMesh_lanterna")
-instance_shader_parameters/albedo_color = Color(1, 0.85, 0.55, 1)
-instance_shader_parameters/emission_amount = 1.0
-
-[node name="LanternaSalaNordEst" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 2.5, -6.5)
-light_color = Color(1, 0.76, 0.46, 1)
-light_energy = 2.2
-omni_range = 9.0
-
-[node name="Mesh" type="MeshInstance3D" parent="LanternaSalaNordEst"]
-material_override = ExtResource("5_greybox")
-mesh = SubResource("BoxMesh_lanterna")
-instance_shader_parameters/albedo_color = Color(1, 0.85, 0.55, 1)
-instance_shader_parameters/emission_amount = 1.0
-
-[node name="LanternaSalaSudOvest" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2.5, 5.5)
-light_color = Color(1, 0.76, 0.46, 1)
-light_energy = 2.2
-omni_range = 9.0
-
-[node name="Mesh" type="MeshInstance3D" parent="LanternaSalaSudOvest"]
-material_override = ExtResource("5_greybox")
-mesh = SubResource("BoxMesh_lanterna")
-instance_shader_parameters/albedo_color = Color(1, 0.85, 0.55, 1)
-instance_shader_parameters/emission_amount = 1.0
-
-[node name="LanternaSalaSudEst" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 2.5, 5.5)
-light_color = Color(1, 0.76, 0.46, 1)
-light_energy = 2.2
-omni_range = 9.0
-
-[node name="Mesh" type="MeshInstance3D" parent="LanternaSalaSudEst"]
-material_override = ExtResource("5_greybox")
-mesh = SubResource("BoxMesh_lanterna")
-instance_shader_parameters/albedo_color = Color(1, 0.85, 0.55, 1)
-instance_shader_parameters/emission_amount = 1.0
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_sala")
+script = ExtResource("3_navmesh")
 
-[node name="Porta" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 7.77)
-material_override = ExtResource("4_bancone")
-mesh = SubResource("BoxMesh_porta")
-instance_shader_parameters/albedo_color = Color(0.6, 0.5, 0.42, 1)
+[node name="Modello" type="Node3D" parent="NavigationRegion3D"]
+script = ExtResource("2_tavern_model")
+discarded = Array[StringName]([&"04_cutter_porta", &"Cube", &"10_boccale_5", &"10_boccale_6", &"08_cassa_c2", &"09_arm_b", &"16_cassa_2", &"02_muro_0", &"02_muro_2"])
+flipped = Array[StringName]([&"04_"])
+collision_prefixes = Array[StringName]([&"01_pavimento", &"02_muro", &"04_gradino_6", &"04_pianerottolo", &"04_parapetto", &"04_porta", &"04_stipite", &"04_pilastrino", &"05_", &"06_", &"07_sedia", &"07_sgab_3", &"07_sgab_4", &"07_sgab_5", &"07_sgab_6", &"08_", &"09_arm", &"09_lib", &"11_vaso", &"16_botte", &"16_cassa", &"16_mensola"])
+materials_dir = "res://assets/materials/taverna"
+surface_group = &"superficie_legno"
+surface_group_prefixes = Array[StringName]([&"04_gradino_6", &"04_pianerottolo"])
+
+[node name="Taverna" parent="NavigationRegion3D/Modello" instance=ExtResource("1_modello")]
+
+[node name="RampaScala" type="StaticBody3D" parent="NavigationRegion3D" groups=["superficie_legno"]]
+transform = Transform3D(0.83205, -0.5547, 0, 0.5547, 0.83205, 0, 0, 0, 1, -2.0445, 0.6168, -4.875)
+
+[node name="Collision" type="CollisionShape3D" parent="NavigationRegion3D/RampaScala"]
+shape = SubResource("BoxShape3D_rampa")
+
+[node name="MuroSudConFinestre" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.625)
+script = ExtResource("27_muro_finestre")
+length = 7.6
+window_offsets = Array[float]([-2.7, 0.53])
+wall_material = ExtResource("29_intonaco")
+
+[node name="MuroEstConFinestre" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 6.125, 0, 0)
+script = ExtResource("27_muro_finestre")
+length = 6.6
+window_offsets = Array[float]([0.0])
+wall_material = ExtResource("29_intonaco")
+
+[node name="Esterno" parent="." instance=ExtResource("26_esterno")]
+
+[node name="Sole" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7071, 0.7071, 0, -0.7071, 0.7071, 0, 12, 0)
+light_color = Color(1, 0.94, 0.84, 1)
+light_energy = 1.2
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_max_distance = 70.0
+
+[node name="CicloCielo" type="Node" parent="."]
+script = ExtResource("28_sky_cycle")
+sun_path = NodePath("../Sole")
+world_environment_path = NodePath("../WorldEnvironment")
+sky_top = ExtResource("30_cielo_alto")
+sky_horizon = ExtResource("31_cielo_orizzonte")
+sun_tint = ExtResource("32_sole")
+
+[node name="Soffitto" type="Node3D" parent="."]
+
+[node name="Assito" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7, 0)
+material_override = ExtResource("22_soffitto")
+mesh = SubResource("BoxMesh_soffitto")
+
+[node name="Trave0" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.46, -4)
+material_override = ExtResource("23_trave")
+mesh = SubResource("BoxMesh_trave_corta")
+
+[node name="Trave1" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.46, -2)
+material_override = ExtResource("23_trave")
+mesh = SubResource("BoxMesh_trave_lunga")
+
+[node name="Trave2" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.46, 0)
+material_override = ExtResource("23_trave")
+mesh = SubResource("BoxMesh_trave_lunga")
+
+[node name="Trave3" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.46, 2)
+material_override = ExtResource("23_trave")
+mesh = SubResource("BoxMesh_trave_lunga")
+
+[node name="Trave4" type="MeshInstance3D" parent="Soffitto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.46, 4)
+material_override = ExtResource("23_trave")
+mesh = SubResource("BoxMesh_trave_corta")
+
+[node name="Lampadario" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Catena" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94, 0)
+material_override = ExtResource("15_nerastro")
+mesh = SubResource("BoxMesh_catena")
+
+[node name="Cerchio" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54, 0)
+material_override = ExtResource("15_nerastro")
+mesh = SubResource("TorusMesh_cerchio")
+
+[node name="Candela0" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.66, 0)
+material_override = ExtResource("24_cera")
+mesh = SubResource("CylinderMesh_candela")
+
+[node name="Fiamma0" type="MeshInstance3D" parent="Lampadario/Candela0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = ExtResource("25_fiamma")
+mesh = SubResource("BoxMesh_fiamma")
+
+[node name="Candela1" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.66, 0)
+material_override = ExtResource("24_cera")
+mesh = SubResource("CylinderMesh_candela")
+
+[node name="Fiamma1" type="MeshInstance3D" parent="Lampadario/Candela1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = ExtResource("25_fiamma")
+mesh = SubResource("BoxMesh_fiamma")
+
+[node name="Candela2" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.66, 0.5)
+material_override = ExtResource("24_cera")
+mesh = SubResource("CylinderMesh_candela")
+
+[node name="Fiamma2" type="MeshInstance3D" parent="Lampadario/Candela2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = ExtResource("25_fiamma")
+mesh = SubResource("BoxMesh_fiamma")
+
+[node name="Candela3" type="MeshInstance3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.66, -0.5)
+material_override = ExtResource("24_cera")
+mesh = SubResource("CylinderMesh_candela")
+
+[node name="Fiamma3" type="MeshInstance3D" parent="Lampadario/Candela3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = ExtResource("25_fiamma")
+mesh = SubResource("BoxMesh_fiamma")
+
+[node name="Luce" type="OmniLight3D" parent="Lampadario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
+light_color = Color(1, 0.85, 0.62, 1)
+light_energy = 3.2
+light_indirect_energy = 0.0
+omni_range = 14.0
+omni_attenuation = 0.7
+
+[node name="AppliqueNordOvest" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.21, 2.45, 3.7)
+light_color = Color(1, 0.83, 0.58, 1)
+light_energy = 2.2
+omni_range = 9.0
+
+[node name="AppliqueOvest" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.36, 2.45, -2.6)
+light_color = Color(1, 0.83, 0.58, 1)
+light_energy = 2.2
+omni_range = 9.0
+
+[node name="AppliqueEstNord" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.36, 2.45, -3)
+light_color = Color(1, 0.83, 0.58, 1)
+light_energy = 2.2
+omni_range = 9.0
+
+[node name="AppliqueEstSud" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.36, 2.45, 2.9)
+light_color = Color(1, 0.83, 0.58, 1)
+light_energy = 2.2
+omni_range = 9.0
+
+[node name="AppliqueSud" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 2.45, 4.86)
+light_color = Color(1, 0.83, 0.58, 1)
+light_energy = 2.2
+omni_range = 9.0
+
+[node name="AppliqueIngresso" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.44, 2.45, -4.45)
+light_color = Color(1, 0.83, 0.58, 1)
+light_energy = 2.2
+omni_range = 9.0
+
+[node name="SlotBancone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.195, -1.4)
+
+[node name="Mesh" type="MeshInstance3D" parent="SlotBancone"]
+material_override = ExtResource("15_nerastro")
+mesh = SubResource("CylinderMesh_sottobicchiere")
+
+[node name="Collision" type="CollisionShape3D" parent="SlotBancone"]
+shape = SubResource("CylinderShape3D_sottobicchiere")
+
+[node name="Anchor" type="Marker3D" parent="SlotBancone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+gizmo_extents = 0.1
+
+[node name="PlaceSlot" type="Node3D" parent="SlotBancone"]
+script = ExtResource("4_place_slot")
+interaction_prompt = "E — Posa"
+anchor = NodePath("../Anchor")
+
+[node name="SlotRitorno" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.195, -0.3)
+
+[node name="Mesh" type="MeshInstance3D" parent="SlotRitorno"]
+material_override = ExtResource("15_nerastro")
+mesh = SubResource("CylinderMesh_sottobicchiere")
+
+[node name="Collision" type="CollisionShape3D" parent="SlotRitorno"]
+shape = SubResource("CylinderShape3D_sottobicchiere")
+
+[node name="Anchor" type="Marker3D" parent="SlotRitorno"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+gizmo_extents = 0.1
+
+[node name="PlaceSlot" type="Node3D" parent="SlotRitorno"]
+script = ExtResource("4_place_slot")
+interaction_prompt = "E — Posa"
+anchor = NodePath("../Anchor")
+
+[node name="SpotBancone" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25, 0.05, -1.4)
+script = ExtResource("5_counter_spot")
+slot_path = NodePath("../SlotBancone/PlaceSlot")
+
+[node name="SpotRitorno" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25, 0.05, -0.3)
+script = ExtResource("5_counter_spot")
+slot_path = NodePath("../SlotRitorno/PlaceSlot")
+
+[node name="Ingresso" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 1.45, -4.88)
 
 [node name="Cartello" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 1.55, 7.76)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.3, -5.47)
 
 [node name="Mesh" type="MeshInstance3D" parent="Cartello"]
-material_override = ExtResource("5_greybox")
+material_override = ExtResource("14_greybox")
 mesh = SubResource("BoxMesh_cartello")
-instance_shader_parameters/albedo_color = Color(0.3, 0.65, 0.32, 1)
 
 [node name="Collision" type="CollisionShape3D" parent="Cartello"]
 shape = SubResource("BoxShape3D_cartello")
 
 [node name="Interazione" type="Node3D" parent="Cartello"]
-script = ExtResource("23_cartello")
+script = ExtResource("13_cartello")
 interaction_prompt = "E — Chiudi in anticipo"
 face = NodePath("../Mesh")
 
-[node name="Ingresso" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 6.9)
-
-[node name="SpotSinistro" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.1, -3.1)
-script = ExtResource("8_counter_spot")
-slot_path = NodePath("../SlotSinistro/PlaceSlot")
-
-[node name="SpotDestro" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.1, -3.1)
-script = ExtResource("8_counter_spot")
-slot_path = NodePath("../SlotDestro/PlaceSlot")
-
 [node name="Orologio" type="Node" parent="."]
-script = ExtResource("21_day_cycle")
-schedule = ExtResource("22_giornata")
+script = ExtResource("11_day_cycle")
+schedule = ExtResource("12_giornata")
 
 [node name="Spawner" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 6.9)
-script = ExtResource("9_spawner")
-npc_scene = ExtResource("10_npc")
-races = Array[RaceData]([ExtResource("11_orco"), ExtResource("12_strega"), ExtResource("13_gnomo")])
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 1.45, -4.88)
+script = ExtResource("6_spawner")
+npc_scene = ExtResource("7_npc")
+races = Array[RaceData]([ExtResource("8_orco"), ExtResource("9_strega"), ExtResource("10_gnomo")])
 day_cycle_path = NodePath("../Orologio")
 exit_point = NodePath("../Ingresso")
 
 [node name="Spillatore" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05, 1.1, -4.05)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -4.6, 1.19, -2.2)
 
 [node name="Corpo" type="MeshInstance3D" parent="Spillatore"]
-material_override = ExtResource("5_greybox")
-mesh = ExtResource("15_spillatore")
-instance_shader_parameters/albedo_color = Color(0.55, 0.57, 0.6, 1)
+material_override = ExtResource("16_prop_legno")
+mesh = ExtResource("17_spillatore")
 
 [node name="Leva" type="Node3D" parent="Spillatore"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.12)
 
 [node name="Mesh" type="MeshInstance3D" parent="Spillatore/Leva"]
-material_override = ExtResource("5_greybox")
-mesh = ExtResource("16_leva")
-instance_shader_parameters/albedo_color = Color(0.7, 0.35, 0.2, 1)
+material_override = ExtResource("15_nerastro")
+mesh = ExtResource("18_leva")
 
-[node name="Botte1" type="StaticBody3D" parent="." groups=["superficie_legno"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 0, -6.4)
+[node name="Boccale1" parent="." instance=ExtResource("19_boccale")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55, 1.26, -0.9)
 
-[node name="Mesh" type="MeshInstance3D" parent="Botte1"]
-material_override = ExtResource("14_prop_legno")
-mesh = ExtResource("17_botte")
-instance_shader_parameters/albedo_color = Color(0.72, 0.62, 0.52, 1)
+[node name="Boccale2" parent="." instance=ExtResource("19_boccale")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55, 1.26, 0.9)
 
-[node name="Collision" type="CollisionShape3D" parent="Botte1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31, 0)
-shape = SubResource("CylinderShape3D_botte")
+[node name="Boccale3" parent="." instance=ExtResource("19_boccale")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55, 1.26, 1.6)
 
-[node name="Botte2" type="StaticBody3D" parent="." groups=["superficie_legno"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.85, 0, -6.55)
+[node name="Brocca" parent="." instance=ExtResource("20_brocca")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55, 1.33, -1.5)
 
-[node name="Mesh" type="MeshInstance3D" parent="Botte2"]
-material_override = ExtResource("14_prop_legno")
-mesh = ExtResource("17_botte")
-instance_shader_parameters/albedo_color = Color(0.66, 0.56, 0.46, 1)
-
-[node name="Collision" type="CollisionShape3D" parent="Botte2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31, 0)
-shape = SubResource("CylinderShape3D_botte")
-
-[node name="Botte3" type="StaticBody3D" parent="." groups=["superficie_legno"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0, 6.4)
-
-[node name="Mesh" type="MeshInstance3D" parent="Botte3"]
-material_override = ExtResource("14_prop_legno")
-mesh = ExtResource("17_botte")
-instance_shader_parameters/albedo_color = Color(0.7, 0.6, 0.5, 1)
-
-[node name="Collision" type="CollisionShape3D" parent="Botte3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31, 0)
-shape = SubResource("CylinderShape3D_botte")
-
-[node name="Sgabello1" type="StaticBody3D" parent="." groups=["superficie_legno"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 0, -2.9)
-
-[node name="Mesh" type="MeshInstance3D" parent="Sgabello1"]
-material_override = ExtResource("14_prop_legno")
-mesh = ExtResource("18_sgabello")
-
-[node name="Collision" type="CollisionShape3D" parent="Sgabello1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
-shape = SubResource("CylinderShape3D_sgabello")
-
-[node name="Sgabello2" type="StaticBody3D" parent="." groups=["superficie_legno"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 0, -2.9)
-
-[node name="Mesh" type="MeshInstance3D" parent="Sgabello2"]
-material_override = ExtResource("14_prop_legno")
-mesh = ExtResource("18_sgabello")
-instance_shader_parameters/albedo_color = Color(0.9, 0.88, 0.85, 1)
-
-[node name="Collision" type="CollisionShape3D" parent="Sgabello2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
-shape = SubResource("CylinderShape3D_sgabello")
-
-[node name="Sgabello3" type="StaticBody3D" parent="." groups=["superficie_legno"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7, 0, -2.6)
-
-[node name="Mesh" type="MeshInstance3D" parent="Sgabello3"]
-material_override = ExtResource("14_prop_legno")
-mesh = ExtResource("18_sgabello")
-instance_shader_parameters/albedo_color = Color(0.85, 0.82, 0.8, 1)
-
-[node name="Collision" type="CollisionShape3D" parent="Sgabello3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
-shape = SubResource("CylinderShape3D_sgabello")
-
-[node name="Brocca" parent="." instance=ExtResource("19_brocca")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.25, -4.15)
-
-[node name="Piatto" parent="." instance=ExtResource("20_piatto")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.12, -4.15)
-
-[node name="Boccale1" parent="." instance=ExtResource("7_boccale")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 1.18, -4.15)
-
-[node name="Boccale2" parent="." instance=ExtResource("7_boccale")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 1.18, -4)
-
-[node name="Boccale3" parent="." instance=ExtResource("7_boccale")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 0.08, 0.8)
+[node name="Piatto" parent="." instance=ExtResource("21_piatto")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 1.21, 1.9)

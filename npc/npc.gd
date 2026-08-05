@@ -23,13 +23,21 @@ var _mesh_rest_position: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
 	add_to_group(&"npcs")
+	agent.velocity_computed.connect(_on_velocity_computed)
 	if id == &"":
 		id = StringName("npc_%d" % get_instance_id())
 	order_icon.visible = false
 	if race != null:
-		body_mesh.set_instance_shader_parameter(&"albedo_color", race.body_color)
+		_apply_race_color(race.body_color)
 		_apply_race_size(race.body_height)
 	_mesh_rest_position = body_mesh.position
+
+## Il colore arriva dal file della razza. Il materiale va duplicato: è condiviso
+## fra tutti gli NPC e tingerlo direttamente li tingerebbe tutti.
+func _apply_race_color(color: Color) -> void:
+	var material := body_mesh.material_override.duplicate() as StandardMaterial3D
+	material.albedo_color = color
+	body_mesh.material_override = material
 
 ## Altezza e corporatura arrivano dal file della razza, non dalla scena.
 func _apply_race_size(height: float) -> void:
@@ -52,18 +60,28 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y -= _gravity * delta
 
-	if agent.is_navigation_finished():
-		velocity.x = 0.0
-		velocity.z = 0.0
-	else:
+	var wanted := Vector3.ZERO
+	if not agent.is_navigation_finished():
 		var direction := agent.get_next_path_position() - global_position
 		direction.y = 0.0
 		direction = direction.normalized()
-		var speed := race.move_speed if race != null else 2.5
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
+		wanted = direction * (race.move_speed if race != null else 2.5)
 		_turn_towards(direction, delta)
 
+	# Con l'evitamento acceso la velocità buona torna su velocity_computed: chi
+	# entra e chi esce si incrociano nel corridoio davanti al bancone e senza
+	# evitamento si spingono a vicenda finché scade il timeout dell'uscita.
+	if agent.avoidance_enabled:
+		agent.velocity = wanted
+	else:
+		_walk(wanted)
+
+func _on_velocity_computed(safe_velocity: Vector3) -> void:
+	_walk(safe_velocity)
+
+func _walk(horizontal: Vector3) -> void:
+	velocity.x = horizontal.x
+	velocity.z = horizontal.z
 	move_and_slide()
 
 func walk_to(target: Vector3) -> void:

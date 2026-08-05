@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "Roccia"
+albedo_color = Color(0.52, 0.52, 0.54, 1)
+roughness = 1.0

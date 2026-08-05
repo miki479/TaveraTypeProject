@@ -1,31 +1,17 @@
 [gd_scene format=3 uid="uid://c1nndkxcpiwc4"]
 
-[ext_resource type="Script" uid="uid://brf1r2ta3yhrb" path="res://world/ps1_renderer.gd" id="1_ps1_renderer"]
-[ext_resource type="PackedScene" path="res://world/tavern.tscn" id="2_tavern"]
-[ext_resource type="PackedScene" path="res://player/player.tscn" id="3_player"]
-[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="4_hud"]
-[ext_resource type="PackedScene" path="res://ui/day_report.tscn" id="5_day_report"]
+[ext_resource type="PackedScene" path="res://world/tavern.tscn" id="1_tavern"]
+[ext_resource type="PackedScene" path="res://player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" path="res://ui/day_report.tscn" id="4_day_report"]
 
-[node name="Main" type="Node" unique_id=1558991786]
+[node name="Main" type="Node"]
 
-[node name="PS1Renderer" type="SubViewportContainer" parent="." unique_id=1899006924]
-texture_filter = 1
-offset_right = 320.0
-offset_bottom = 240.0
-script = ExtResource("1_ps1_renderer")
+[node name="Tavern" parent="." instance=ExtResource("1_tavern")]
 
-[node name="SubViewport" type="SubViewport" parent="PS1Renderer" unique_id=1641819665]
-handle_input_locally = false
-audio_listener_enable_3d = true
-size = Vector2i(320, 240)
-render_target_update_mode = 4
+[node name="Player" parent="." instance=ExtResource("2_player")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2.6, 0.1, 0.5)
 
-[node name="Tavern" parent="PS1Renderer/SubViewport" unique_id=1179867789 instance=ExtResource("2_tavern")]
-metadata/_edit_lock_ = true
+[node name="Hud" parent="." instance=ExtResource("3_hud")]
 
-[node name="Player" parent="PS1Renderer/SubViewport" unique_id=1124092145 instance=ExtResource("3_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 2)
-
-[node name="Hud" parent="PS1Renderer/SubViewport" instance=ExtResource("4_hud")]
-
-[node name="DayReport" parent="PS1Renderer/SubViewport" instance=ExtResource("5_day_report")]
+[node name="DayReport" parent="." instance=ExtResource("4_day_report")]

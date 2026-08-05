@@ -1,0 +1,186 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/esterno/erba.tres" id="1_erba"]
+[ext_resource type="Material" path="res://assets/materials/esterno/collina.tres" id="2_collina"]
+[ext_resource type="Material" path="res://assets/materials/esterno/tronco.tres" id="3_tronco"]
+[ext_resource type="Material" path="res://assets/materials/esterno/fronda.tres" id="4_fronda"]
+[ext_resource type="Material" path="res://assets/materials/esterno/fronda_scura.tres" id="5_fronda_scura"]
+[ext_resource type="Material" path="res://assets/materials/esterno/muro_casa.tres" id="6_muro_casa"]
+[ext_resource type="Material" path="res://assets/materials/esterno/tetto.tres" id="7_tetto"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_prato"]
+size = Vector2(300, 300)
+
+[sub_resource type="SphereMesh" id="SphereMesh_collina"]
+radius = 1.0
+height = 2.0
+radial_segments = 10
+rings = 5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tronco"]
+top_radius = 0.18
+bottom_radius = 0.26
+height = 2.2
+radial_segments = 6
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_chioma"]
+top_radius = 0.0
+bottom_radius = 1.7
+height = 3.8
+radial_segments = 7
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_casa"]
+size = Vector3(5, 3.4, 4.2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tetto"]
+top_radius = 0.0
+bottom_radius = 4.2
+height = 2.4
+radial_segments = 4
+rings = 1
+
+[node name="Esterno" type="Node3D"]
+
+[node name="Prato" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03, 0)
+material_override = ExtResource("1_erba")
+mesh = SubResource("PlaneMesh_prato")
+
+[node name="CollinaNord" type="MeshInstance3D" parent="."]
+transform = Transform3D(15, 0, 0, 0, 9, 0, 0, 0, 15, -26, -5, 46)
+material_override = ExtResource("2_collina")
+mesh = SubResource("SphereMesh_collina")
+
+[node name="CollinaEst" type="MeshInstance3D" parent="."]
+transform = Transform3D(13, 0, 0, 0, 7, 0, 0, 0, 13, 22, -4, 52)
+material_override = ExtResource("2_collina")
+mesh = SubResource("SphereMesh_collina")
+
+[node name="CollinaLontana" type="MeshInstance3D" parent="."]
+transform = Transform3D(18, 0, 0, 0, 11, 0, 0, 0, 18, 58, -6, 22)
+material_override = ExtResource("2_collina")
+mesh = SubResource("SphereMesh_collina")
+
+[node name="CollinaBassa" type="MeshInstance3D" parent="."]
+transform = Transform3D(11, 0, 0, 0, 6, 0, 0, 0, 11, 42, -3.5, -26)
+material_override = ExtResource("2_collina")
+mesh = SubResource("SphereMesh_collina")
+
+[node name="Albero1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 12)
+
+[node name="Tronco" type="MeshInstance3D" parent="Albero1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+material_override = ExtResource("3_tronco")
+mesh = SubResource("CylinderMesh_tronco")
+
+[node name="Chioma" type="MeshInstance3D" parent="Albero1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+material_override = ExtResource("4_fronda")
+mesh = SubResource("CylinderMesh_chioma")
+
+[node name="Albero2" type="Node3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.3, 0, 0, 0, 1.2, -7, 0, 16)
+
+[node name="Tronco" type="MeshInstance3D" parent="Albero2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+material_override = ExtResource("3_tronco")
+mesh = SubResource("CylinderMesh_tronco")
+
+[node name="Chioma" type="MeshInstance3D" parent="Albero2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+material_override = ExtResource("5_fronda_scura")
+mesh = SubResource("CylinderMesh_chioma")
+
+[node name="Albero3" type="Node3D" parent="."]
+transform = Transform3D(0.9, 0, 0, 0, 1, 0, 0, 0, 0.9, 15, 0, 21)
+
+[node name="Tronco" type="MeshInstance3D" parent="Albero3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+material_override = ExtResource("3_tronco")
+mesh = SubResource("CylinderMesh_tronco")
+
+[node name="Chioma" type="MeshInstance3D" parent="Albero3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+material_override = ExtResource("4_fronda")
+mesh = SubResource("CylinderMesh_chioma")
+
+[node name="Albero4" type="Node3D" parent="."]
+transform = Transform3D(1.4, 0, 0, 0, 1.5, 0, 0, 0, 1.4, -14, 0, 24)
+
+[node name="Tronco" type="MeshInstance3D" parent="Albero4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+material_override = ExtResource("3_tronco")
+mesh = SubResource("CylinderMesh_tronco")
+
+[node name="Chioma" type="MeshInstance3D" parent="Albero4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+material_override = ExtResource("5_fronda_scura")
+mesh = SubResource("CylinderMesh_chioma")
+
+[node name="Albero5" type="Node3D" parent="."]
+transform = Transform3D(1.1, 0, 0, 0, 1.2, 0, 0, 0, 1.1, 23, 0, 9)
+
+[node name="Tronco" type="MeshInstance3D" parent="Albero5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+material_override = ExtResource("3_tronco")
+mesh = SubResource("CylinderMesh_tronco")
+
+[node name="Chioma" type="MeshInstance3D" parent="Albero5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+material_override = ExtResource("4_fronda")
+mesh = SubResource("CylinderMesh_chioma")
+
+[node name="Albero6" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 27, 0, -14)
+
+[node name="Tronco" type="MeshInstance3D" parent="Albero6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+material_override = ExtResource("3_tronco")
+mesh = SubResource("CylinderMesh_tronco")
+
+[node name="Chioma" type="MeshInstance3D" parent="Albero6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+material_override = ExtResource("5_fronda_scura")
+mesh = SubResource("CylinderMesh_chioma")
+
+[node name="Casa1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 13)
+
+[node name="Muri" type="MeshInstance3D" parent="Casa1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+material_override = ExtResource("6_muro_casa")
+mesh = SubResource("BoxMesh_casa")
+
+[node name="Tetto" type="MeshInstance3D" parent="Casa1"]
+transform = Transform3D(0.92, 0, 0, 0, 1, 0, 0, 0, 0.92, 0, 4.6, 0)
+material_override = ExtResource("7_tetto")
+mesh = SubResource("CylinderMesh_tetto")
+
+[node name="Casa2" type="Node3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.1, 0, 0, 0, 1.2, 19, 0, 27)
+
+[node name="Muri" type="MeshInstance3D" parent="Casa2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+material_override = ExtResource("6_muro_casa")
+mesh = SubResource("BoxMesh_casa")
+
+[node name="Tetto" type="MeshInstance3D" parent="Casa2"]
+transform = Transform3D(0.92, 0, 0, 0, 1, 0, 0, 0, 0.92, 0, 4.6, 0)
+material_override = ExtResource("7_tetto")
+mesh = SubResource("CylinderMesh_tetto")
+
+[node name="Casa3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.25, 0, 0, 0, 1, 25, 0, -5)
+
+[node name="Muri" type="MeshInstance3D" parent="Casa3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+material_override = ExtResource("6_muro_casa")
+mesh = SubResource("BoxMesh_casa")
+
+[node name="Tetto" type="MeshInstance3D" parent="Casa3"]
+transform = Transform3D(0.92, 0, 0, 0, 1, 0, 0, 0, 0.92, 0, 4.6, 0)
+material_override = ExtResource("7_tetto")
+mesh = SubResource("CylinderMesh_tetto")

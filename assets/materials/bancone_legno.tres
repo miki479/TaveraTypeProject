@@ -1,9 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3]
-
-[ext_resource type="Shader" path="res://shaders/ps1.gdshader" id="1_shader"]
-[ext_resource type="Texture2D" path="res://assets/textures/legno_scuro.png" id="2_texture"]
+[gd_resource type="StandardMaterial3D" format=3]
 
 [resource]
-shader = ExtResource("1_shader")
-shader_parameter/albedo_texture = ExtResource("2_texture")
-shader_parameter/uv_scale = Vector2(4, 1)
+resource_name = "Bancone legno"
+albedo_color = Color(0.55, 0.33, 0.18, 1)
+roughness = 0.85
