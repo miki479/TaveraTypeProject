@@ -30,8 +30,7 @@ func _ready() -> void:
 	if world_environment != null and world_environment.environment != null:
 		var sky := world_environment.environment.sky
 		if sky != null:
-			# Duplicato: il materiale del cielo è condiviso e lo stiamo per tingere.
-			_sky_material = (sky.sky_material as ProceduralSkyMaterial)
+			_sky_material = sky.sky_material as ProceduralSkyMaterial
 	if sun == null:
 		push_warning("SkyCycle: sun_path non punta a una DirectionalLight3D.")
 	EventBus.time_changed.connect(_on_time_changed)
