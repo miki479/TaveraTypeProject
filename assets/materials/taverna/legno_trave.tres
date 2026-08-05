@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "Legno trave"
+albedo_color = Color(0.47, 0.29, 0.17, 1)
+roughness = 0.9

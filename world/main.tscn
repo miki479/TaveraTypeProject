@@ -10,7 +10,7 @@
 [node name="Tavern" parent="." instance=ExtResource("1_tavern")]
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 2)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2.6, 0.1, 0.5)
 
 [node name="Hud" parent="." instance=ExtResource("3_hud")]
 

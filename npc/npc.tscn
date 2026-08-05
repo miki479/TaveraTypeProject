@@ -11,11 +11,11 @@
 [ext_resource type="Script" path="res://npc/states/leave_state.gd" id="7_leave"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_npc"]
-radius = 0.4
+radius = 0.32
 height = 1.9
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_corpo"]
-radius = 0.4
+radius = 0.32
 height = 1.9
 radial_segments = 8
 rings = 4
@@ -51,9 +51,10 @@ mesh = SubResource("BoxMesh_spalle")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_desired_distance = 0.3
 target_desired_distance = 0.15
-radius = 0.45
+radius = 0.35
 height = 1.9
-avoidance_enabled = false
+max_speed = 3.0
+avoidance_enabled = true
 
 [node name="Voice" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
