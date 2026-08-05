@@ -377,6 +377,18 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
     molto più fitta della greybox.
   - Verificato headless su una giornata intera (10 → 22): 15 clienti entrano dalla porta in
     cima alla scala, scendono, ordinano ai due posti e risalgono a uscire.
+- [ ] **Sfoltita della taverna (2026-08-05) — in attesa della vostra verifica.**
+  Da 1199 mesh a 389. Buttata la scenografia sparsa (paglia, foglie, vasi, corde, tappeti,
+  botti, casse, libreria, stoviglie sui tavoli) e ridotti i tavoli da 5 a 3 con le loro
+  sedie; restano bancone, credenza, scaffale degli alcolici, i tre sgabelli al banco e la
+  struttura. Tutto tramite l'array `discarded` di `TavernModel`: **per rimettere qualcosa
+  basta togliere il suo nome da quella lista**, nessun codice da toccare.
+  Note:
+  - I 261 fili di paglia stavano a quota `0.00..0.01` su un pavimento a quota `0.00`:
+    erano loro a far lampeggiare il pavimento, non solo il prato.
+  - Il corridoio dietro il bancone è largo **63 cm** nel modello: il giocatore è stato
+    assottigliato a 40 cm di diametro per passarci comodo. Se un giorno il modello viene
+    riesportato con quel passaggio più largo, si può tornare indietro.
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi
