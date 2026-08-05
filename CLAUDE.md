@@ -219,7 +219,33 @@ fine se ne va arrabbiato.
 
 ---
 
-## 9. Stato attuale
+## 9. Asset esterni disponibili
+
+Cartella collegata: `C:\Users\mikel\Desktop\Taverna Project asset` (fuori dal repo).
+
+- **`Human/Humanoid.blend`** — mesh umanoide di Quaternius, 203 vertici, in posa a T.
+  Livello di dettaglio giusto per il look PS1. **Non ha scheletro né animazioni**: è una
+  statua. Le due mesh dentro il file (`_Overlapping` / `_NotOverlapping`) sono la stessa
+  forma con due mappature UV diverse; i due PNG 1024x1024 non sono texture finite ma i
+  **fogli UV** su cui dipingere.
+- **`Universal Animation Library[Standard]`** — Quaternius, licenza CC0 (uso libero anche
+  commerciale). `Unreal-Godot/UAL1_Standard.glb` è la versione per noi. Contiene uno
+  **scheletro da 65 ossa** con nomi stile Unreal (`pelvis`, `spine_01..03`, `thigh_l`,
+  `calf_l`, `foot_l`, `ball_l`, più tutte le dita) e **43 animazioni**. Il manichino da
+  8.546 vertici incluso serve solo da anteprima, non va usato in gioco.
+  Animazioni utili alla taverna: `Idle_Loop`, `Walk_Loop`, `Jog_Fwd_Loop`, `Sprint_Loop`,
+  `Idle_Talking_Loop`, `Interact`, `PickUp_Table`, `Sitting_Enter/Idle_Loop/Exit`,
+  `Spell_Simple_*` (strega), `Dance_Loop`.
+- **`40 Free PSX Footsteps`** — già importati nel progetto in `assets/audio/passi/`.
+
+Decisione presa: se il giocatore avrà un corpo in prima persona, saranno **solo le gambe**,
+in modo che la regola "niente mani visibili" della sezione 2 resti valida.
+
+Da sapere per quando si farà: texture e animazioni sono indipendenti. L'animazione muove
+le ossa, le ossa deformano la mesh, la texture segue. Una texture qualsiasi va bene con
+qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
+
+## 10. Stato attuale
 
 *(Claude aggiorna questa sezione a ogni task completato)*
 
