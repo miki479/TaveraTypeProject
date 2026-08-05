@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3]
+[gd_scene load_steps=48 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/models/taverna.glb" id="1_modello"]
 [ext_resource type="Script" path="res://world/tavern_model.gd" id="2_tavern_model"]
@@ -32,6 +32,7 @@
 [ext_resource type="Resource" path="res://data/cielo/cielo_alto.tres" id="30_cielo_alto"]
 [ext_resource type="Resource" path="res://data/cielo/cielo_orizzonte.tres" id="31_cielo_orizzonte"]
 [ext_resource type="Resource" path="res://data/cielo/sole.tres" id="32_sole"]
+[ext_resource type="PackedScene" path="res://world/zona_lavoro.tscn" id="33_zona_lavoro"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cielo"]
 sky_top_color = Color(0.28, 0.55, 0.92, 1)
@@ -103,7 +104,6 @@ size = Vector3(0.42, 0.26, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cartello"]
 size = Vector3(0.42, 0.26, 0.06)
-
 [node name="Tavern" type="Node3D" groups=["world_root"]]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -114,7 +114,7 @@ script = ExtResource("3_navmesh")
 
 [node name="Modello" type="Node3D" parent="NavigationRegion3D"]
 script = ExtResource("2_tavern_model")
-discarded = Array[StringName]([&"04_cutter_porta", &"Cube", &"02_muro_0", &"02_muro_2", &"11_paglia", &"08_cassa", &"09_lib", &"10_ciotola", &"10_piatto", &"06_ov_c", &"06_rt_a", &"07_sedia_t2", &"07_sedia_t3", &"07_sgab", &"10_bottiglia_4", &"10_bottiglia_5", &"10_bottiglia_6", &"10_bottiglia_10"])
+discarded = Array[StringName]([&"04_cutter_porta", &"Cube", &"02_muro_0", &"02_muro_2", &"11_paglia", &"08_cassa", &"05_corpo", &"05_piano", &"05_zoccolo", &"05_croce", &"02_muro_6", &"10_boccale_5", &"10_boccale_6", &"10_bottiglia_8", &"10_bottiglia_9", &"10_bottiglia_11", &"10_bottiglia_12", &"10_bottiglia_13", &"10_cand_5", &"10_cand_6", &"09_lib", &"10_ciotola", &"10_piatto", &"06_ov_c", &"06_rt_a", &"07_sedia_t2", &"07_sedia_t3", &"07_sgab", &"10_bottiglia_4", &"10_bottiglia_5", &"10_bottiglia_6", &"10_bottiglia_10"])
 lifted = Array[StringName]([&"11_tappeto"])
 flipped = Array[StringName]([&"04_"])
 collision_prefixes = Array[StringName]([&"01_pavimento", &"02_muro", &"04_gradino_6", &"04_pianerottolo", &"04_parapetto", &"04_porta", &"04_stipite", &"04_pilastrino", &"05_", &"06_", &"07_sedia", &"07_sgab_3", &"07_sgab_4", &"07_sgab_5", &"07_sgab_6", &"08_", &"09_arm", &"09_lib", &"11_vaso", &"16_botte", &"16_cassa", &"16_mensola"])
@@ -123,6 +123,8 @@ surface_group = &"superficie_legno"
 surface_group_prefixes = Array[StringName]([&"04_gradino_6", &"04_pianerottolo"])
 
 [node name="Taverna" parent="NavigationRegion3D/Modello" instance=ExtResource("1_modello")]
+
+[node name="ZonaLavoro" parent="NavigationRegion3D" instance=ExtResource("33_zona_lavoro")]
 
 [node name="RampaScala" type="StaticBody3D" parent="NavigationRegion3D" groups=["superficie_legno"]]
 transform = Transform3D(0.83205, -0.5547, 0, 0.5547, 0.83205, 0, 0, 0, 1, -2.0445, 0.6168, -4.875)
@@ -298,54 +300,6 @@ light_energy = 1.7
 omni_range = 4.6
 omni_attenuation = 1.6
 
-[node name="SlotBancone" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.195, -1.4)
-
-[node name="Mesh" type="MeshInstance3D" parent="SlotBancone"]
-material_override = ExtResource("15_nerastro")
-mesh = SubResource("CylinderMesh_sottobicchiere")
-
-[node name="Collision" type="CollisionShape3D" parent="SlotBancone"]
-shape = SubResource("CylinderShape3D_sottobicchiere")
-
-[node name="Anchor" type="Marker3D" parent="SlotBancone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
-gizmo_extents = 0.1
-
-[node name="PlaceSlot" type="Node3D" parent="SlotBancone"]
-script = ExtResource("4_place_slot")
-interaction_prompt = "E — Posa"
-anchor = NodePath("../Anchor")
-
-[node name="SlotRitorno" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.195, -0.3)
-
-[node name="Mesh" type="MeshInstance3D" parent="SlotRitorno"]
-material_override = ExtResource("15_nerastro")
-mesh = SubResource("CylinderMesh_sottobicchiere")
-
-[node name="Collision" type="CollisionShape3D" parent="SlotRitorno"]
-shape = SubResource("CylinderShape3D_sottobicchiere")
-
-[node name="Anchor" type="Marker3D" parent="SlotRitorno"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
-gizmo_extents = 0.1
-
-[node name="PlaceSlot" type="Node3D" parent="SlotRitorno"]
-script = ExtResource("4_place_slot")
-interaction_prompt = "E — Posa"
-anchor = NodePath("../Anchor")
-
-[node name="SpotBancone" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25, 0.05, -1.4)
-script = ExtResource("5_counter_spot")
-slot_path = NodePath("../SlotBancone/PlaceSlot")
-
-[node name="SpotRitorno" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25, 0.05, -0.3)
-script = ExtResource("5_counter_spot")
-slot_path = NodePath("../SlotRitorno/PlaceSlot")
-
 [node name="Ingresso" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 1.45, -4.88)
 
@@ -376,28 +330,14 @@ races = Array[RaceData]([ExtResource("8_orco"), ExtResource("9_strega"), ExtReso
 day_cycle_path = NodePath("../Orologio")
 exit_point = NodePath("../Ingresso")
 
-[node name="Spillatore" type="Node3D" parent="."]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -4.6, 1.19, -2.2)
-
-[node name="Corpo" type="MeshInstance3D" parent="Spillatore"]
-material_override = ExtResource("16_prop_legno")
-mesh = ExtResource("17_spillatore")
-
-[node name="Leva" type="Node3D" parent="Spillatore"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.12)
-
-[node name="Mesh" type="MeshInstance3D" parent="Spillatore/Leva"]
-material_override = ExtResource("15_nerastro")
-mesh = ExtResource("18_leva")
-
 [node name="Boccale1" parent="." instance=ExtResource("19_boccale")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55, 1.26, -0.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65, 1.18, -0.2)
 
 [node name="Boccale2" parent="." instance=ExtResource("19_boccale")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55, 1.26, 0.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65, 1.18, 0.3)
 
 [node name="Boccale3" parent="." instance=ExtResource("19_boccale")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55, 1.26, 1.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65, 1.18, 2.2)
 
 [node name="Brocca" parent="." instance=ExtResource("20_brocca")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55, 1.33, -1.5)

@@ -1,0 +1,252 @@
+[gd_scene load_steps=30 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/taverna/legno_chiaro.tres" id="1_legno_chiaro"]
+[ext_resource type="Material" path="res://assets/materials/taverna/legno_nerastro.tres" id="2_legno_nerastro"]
+[ext_resource type="Material" path="res://assets/materials/taverna/legno_trave.tres" id="3_legno_trave"]
+[ext_resource type="Material" path="res://assets/materials/taverna/intonaco.tres" id="4_intonaco"]
+[ext_resource type="Material" path="res://assets/materials/taverna/pietra_pavimento.tres" id="5_pietra"]
+[ext_resource type="Material" path="res://assets/materials/greybox.tres" id="6_greybox"]
+[ext_resource type="Script" path="res://interactables/place_slot.gd" id="7_place_slot"]
+[ext_resource type="Script" path="res://npc/counter_spot.gd" id="8_counter_spot"]
+[ext_resource type="Mesh" path="res://assets/models/spillatore_corpo.obj" id="9_spillatore"]
+[ext_resource type="Mesh" path="res://assets/models/spillatore_leva.obj" id="10_leva"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bancone_base"]
+size = Vector3(0.6, 1, 5.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bancone_piano"]
+size = Vector3(0.78, 0.1, 5.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bancone_zoccolo"]
+size = Vector3(0.66, 0.16, 5.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bancone"]
+size = Vector3(0.62, 1.1, 5.6)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sottobicchiere"]
+top_radius = 0.09
+bottom_radius = 0.09
+height = 0.01
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sottobicchiere"]
+height = 0.03
+radius = 0.09
+
+[sub_resource type="BoxMesh" id="BoxMesh_muro_nord"]
+size = Vector3(0.25, 3.6, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_muro_nord"]
+size = Vector3(0.25, 3.6, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_muro_sud"]
+size = Vector3(0.25, 3.6, 4.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_muro_sud"]
+size = Vector3(0.25, 3.6, 4.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_architrave"]
+size = Vector3(0.25, 1.4, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_architrave"]
+size = Vector3(0.25, 1.4, 1.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_stipite"]
+size = Vector3(0.3, 2.2, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cucina_pavimento"]
+size = Vector3(4.75, 0.2, 4.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cucina_pavimento"]
+size = Vector3(4.75, 0.2, 4.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cucina_muro_lungo"]
+size = Vector3(0.25, 3, 4.45)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cucina_muro_lungo"]
+size = Vector3(0.25, 3, 4.45)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cucina_muro_corto"]
+size = Vector3(5, 3, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cucina_muro_corto"]
+size = Vector3(5, 3, 0.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cucina_soffitto"]
+size = Vector3(4.75, 0.2, 4.2)
+
+[node name="ZonaLavoro" type="Node3D"]
+
+[node name="Bancone" type="StaticBody3D" parent="." groups=["superficie_legno"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 0, 0.2)
+
+[node name="Base" type="MeshInstance3D" parent="Bancone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = ExtResource("1_legno_chiaro")
+mesh = SubResource("BoxMesh_bancone_base")
+
+[node name="Zoccolo" type="MeshInstance3D" parent="Bancone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
+material_override = ExtResource("2_legno_nerastro")
+mesh = SubResource("BoxMesh_bancone_zoccolo")
+
+[node name="Piano" type="MeshInstance3D" parent="Bancone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+material_override = ExtResource("2_legno_nerastro")
+mesh = SubResource("BoxMesh_bancone_piano")
+
+[node name="Collision" type="CollisionShape3D" parent="Bancone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("BoxShape3D_bancone")
+
+[node name="SlotSinistro" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.45, 1.105, -1.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="SlotSinistro"]
+material_override = ExtResource("3_legno_trave")
+mesh = SubResource("CylinderMesh_sottobicchiere")
+
+[node name="Collision" type="CollisionShape3D" parent="SlotSinistro"]
+shape = SubResource("CylinderShape3D_sottobicchiere")
+
+[node name="Anchor" type="Marker3D" parent="SlotSinistro"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+
+[node name="PlaceSlot" type="Node3D" parent="SlotSinistro"]
+script = ExtResource("7_place_slot")
+interaction_prompt = "E — Posa"
+anchor = NodePath("../Anchor")
+
+[node name="SlotDestro" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.45, 1.105, 1.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="SlotDestro"]
+material_override = ExtResource("3_legno_trave")
+mesh = SubResource("CylinderMesh_sottobicchiere")
+
+[node name="Collision" type="CollisionShape3D" parent="SlotDestro"]
+shape = SubResource("CylinderShape3D_sottobicchiere")
+
+[node name="Anchor" type="Marker3D" parent="SlotDestro"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+
+[node name="PlaceSlot" type="Node3D" parent="SlotDestro"]
+script = ExtResource("7_place_slot")
+interaction_prompt = "E — Posa"
+anchor = NodePath("../Anchor")
+
+[node name="SpotSinistro" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.05, -1.2)
+script = ExtResource("8_counter_spot")
+slot_path = NodePath("../SlotSinistro/PlaceSlot")
+
+[node name="SpotDestro" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.05, 1.2)
+script = ExtResource("8_counter_spot")
+slot_path = NodePath("../SlotDestro/PlaceSlot")
+
+[node name="Spillatore" type="Node3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2.65, 1.1, -2.05)
+
+[node name="Corpo" type="MeshInstance3D" parent="Spillatore"]
+material_override = ExtResource("6_greybox")
+mesh = ExtResource("9_spillatore")
+instance_shader_parameters/albedo_color = Color(0.55, 0.57, 0.6, 1)
+
+[node name="Leva" type="Node3D" parent="Spillatore"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.12)
+
+[node name="Mesh" type="MeshInstance3D" parent="Spillatore/Leva"]
+material_override = ExtResource("6_greybox")
+mesh = ExtResource("10_leva")
+instance_shader_parameters/albedo_color = Color(0.7, 0.35, 0.2, 1)
+
+[node name="MuroOvest" type="StaticBody3D" parent="."]
+
+[node name="SegmentoNord" type="MeshInstance3D" parent="MuroOvest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.125, 1.8, -2.9)
+material_override = ExtResource("4_intonaco")
+mesh = SubResource("BoxMesh_muro_nord")
+
+[node name="CollisionNord" type="CollisionShape3D" parent="MuroOvest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.125, 1.8, -2.9)
+shape = SubResource("BoxShape3D_muro_nord")
+
+[node name="SegmentoSud" type="MeshInstance3D" parent="MuroOvest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.125, 1.8, 1)
+material_override = ExtResource("4_intonaco")
+mesh = SubResource("BoxMesh_muro_sud")
+
+[node name="CollisionSud" type="CollisionShape3D" parent="MuroOvest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.125, 1.8, 1)
+shape = SubResource("BoxShape3D_muro_sud")
+
+[node name="Architrave" type="MeshInstance3D" parent="MuroOvest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.125, 2.9, -1.9)
+material_override = ExtResource("4_intonaco")
+mesh = SubResource("BoxMesh_architrave")
+
+[node name="CollisionArchitrave" type="CollisionShape3D" parent="MuroOvest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.125, 2.9, -1.9)
+shape = SubResource("BoxShape3D_architrave")
+
+[node name="StipiteNord" type="MeshInstance3D" parent="MuroOvest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.125, 1.1, -2.45)
+material_override = ExtResource("3_legno_trave")
+mesh = SubResource("BoxMesh_stipite")
+
+[node name="StipiteSud" type="MeshInstance3D" parent="MuroOvest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.125, 1.1, -1.35)
+material_override = ExtResource("3_legno_trave")
+mesh = SubResource("BoxMesh_stipite")
+
+[node name="Cucina" type="StaticBody3D" parent="."]
+
+[node name="Pavimento" type="MeshInstance3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.625, -0.1, -1.1)
+material_override = ExtResource("5_pietra")
+mesh = SubResource("BoxMesh_cucina_pavimento")
+
+[node name="CollisionPavimento" type="CollisionShape3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.625, -0.1, -1.1)
+shape = SubResource("BoxShape3D_cucina_pavimento")
+
+[node name="MuroOvest" type="MeshInstance3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.125, 1.5, -1.1)
+material_override = ExtResource("4_intonaco")
+mesh = SubResource("BoxMesh_cucina_muro_lungo")
+
+[node name="CollisionOvest" type="CollisionShape3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.125, 1.5, -1.1)
+shape = SubResource("BoxShape3D_cucina_muro_lungo")
+
+[node name="MuroNord" type="MeshInstance3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75, 1.5, -3.325)
+material_override = ExtResource("4_intonaco")
+mesh = SubResource("BoxMesh_cucina_muro_corto")
+
+[node name="CollisionNord" type="CollisionShape3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75, 1.5, -3.325)
+shape = SubResource("BoxShape3D_cucina_muro_corto")
+
+[node name="MuroSud" type="MeshInstance3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75, 1.5, 1.125)
+material_override = ExtResource("4_intonaco")
+mesh = SubResource("BoxMesh_cucina_muro_corto")
+
+[node name="CollisionSud" type="CollisionShape3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75, 1.5, 1.125)
+shape = SubResource("BoxShape3D_cucina_muro_corto")
+
+[node name="Soffitto" type="MeshInstance3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.625, 3.1, -1.1)
+material_override = ExtResource("3_legno_trave")
+mesh = SubResource("BoxMesh_cucina_soffitto")
+
+[node name="Luce" type="OmniLight3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.6, 2.5, -1.1)
+light_color = Color(1, 0.86, 0.66, 1)
+light_energy = 2.4
+omni_range = 6.5
+omni_attenuation = 1.4

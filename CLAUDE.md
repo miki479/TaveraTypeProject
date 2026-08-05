@@ -389,6 +389,21 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
   - Il corridoio dietro il bancone è largo **63 cm** nel modello: il giocatore è stato
     assottigliato a 40 cm di diametro per passarci comodo. Se un giorno il modello viene
     riesportato con quel passaggio più largo, si può tornare indietro.
+- [ ] **Zona di lavoro ibrida (2026-08-05) — in attesa della vostra verifica.**
+  Deciso con Michele: il modello di Blender resta per la **sala clienti**, mentre la
+  **zona di lavoro si costruisce in Godot** con pezzi modulari, perché deve cambiare
+  spesso (macchine di M4) ed essere ampliabile (arredamento del giocatore, M7).
+  `world/zona_lavoro.tscn` contiene bancone, sottobicchieri, posti dei clienti,
+  spillatore, il muro ovest rifatto **con la porta della cucina** e il vano cucina vuoto.
+  Va istanziata **sotto `NavigationRegion3D`**, altrimenti il baker non vede le sue
+  collisioni e i clienti attraversano il bancone.
+  Misure: bancone a x −2,6 (piano a 1,10 m), corridoio di servizio **2,41 m** fra credenza
+  e bancone, porta della cucina larga 1,2 m nel muro ovest a z −1,9.
+  Note:
+  - Del modello si scartano solo `05_corpo/piano/zoccolo/croce`: **la credenza resta**,
+    è contro il muro e regge le bottiglie dello scaffale.
+  - Togliere un mobile dal modello lascia in aria quello che ci stava sopra. Ogni volta
+    che si aggiunge un nome a `discarded` va ricontrollato cosa ci appoggiava.
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi
