@@ -233,7 +233,7 @@ fine se ne va arrabbiato.
   in Godot non può esistere una superclasse comune fra `RigidBody3D` e `Area3D`.
   `ItemData.scene` è volutamente lasciato vuoto per non creare una dipendenza circolare
   fra `boccale.tres` e `boccale.tscn`: si riempirà quando servirà spawnare item da dati.
-- [ ] **M2 — implementato, in attesa della vostra verifica in gioco.**
+- [x] **M2 — completato e approvato.**
   Orco che entra, prende posto al bancone, ordina (icona billboard), aspetta con pazienza
   a tre stage con suono posizionale e movimento del corpo, viene servito, beve, paga ed esce.
   Ciclo verificato a tavolino con esecuzione headless: richiami a 15s/30s/45s su 45s di
