@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3]
+[gd_scene load_steps=40 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/pavimento_pietra.tres" id="1_pavimento"]
 [ext_resource type="Material" path="res://assets/materials/muro_intonaco.tres" id="2_muro"]
@@ -20,6 +20,8 @@
 [ext_resource type="Mesh" path="res://assets/models/sgabello.obj" id="18_sgabello"]
 [ext_resource type="PackedScene" path="res://interactables/brocca.tscn" id="19_brocca"]
 [ext_resource type="PackedScene" path="res://interactables/piatto.tscn" id="20_piatto"]
+[ext_resource type="Script" path="res://world/day_cycle.gd" id="21_day_cycle"]
+[ext_resource type="Resource" path="res://data/schedules/giornata_standard.tres" id="22_giornata"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_botte"]
 height = 0.62
@@ -336,14 +338,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.1, -3.1)
 script = ExtResource("8_counter_spot")
 slot_path = NodePath("../SlotDestro/PlaceSlot")
 
+[node name="Orologio" type="Node" parent="."]
+script = ExtResource("21_day_cycle")
+schedule = ExtResource("22_giornata")
+
 [node name="Spawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 6.9)
 script = ExtResource("9_spawner")
 npc_scene = ExtResource("10_npc")
 races = Array[RaceData]([ExtResource("11_orco"), ExtResource("12_strega"), ExtResource("13_gnomo")])
-interval_seconds = 20.0
-max_customers = 2
-first_spawn_delay = 4.0
+day_cycle_path = NodePath("../Orologio")
 exit_point = NodePath("../Ingresso")
 
 [node name="Spillatore" type="Node3D" parent="."]

@@ -276,6 +276,22 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
   - Se lo shader non compila (es. una uniform globale mancante), aprendo l'editor Godot
     **risalva i materiali svuotandoli** di tutti gli shader_parameter. Se una texture
     sparisce da un materiale, è questo.
+- [ ] **M3 — implementato, in attesa della vostra verifica in gioco.**
+  Giornata di lavoro: `DaySchedule` come Resource (orari, secondi per ora di gioco,
+  affluenza ora per ora, tetto di clienti in sala, tolleranza di chiusura),
+  `world/day_cycle.gd` che fa scorrere il tempo e conta com'è andata, spawner che chiede
+  all'orologio quanti clienti servono in quest'ora, HUD con giorno/ora/cassa, resoconto
+  serale con E per aprire il giorno dopo. Alla chiusura chi non è stato servito se ne va,
+  chi sta bevendo finisce.
+  Note:
+  - L'orologio **si ferma** all'ora di chiusura mentre la sala si svuota: se continua a
+    correre mostra orari come 35:53.
+  - Più clienti che escono insieme puntavano tutti lo stesso punto sulla porta e si
+    bloccavano a vicenda. `LeaveState` ora li fa uscire entro un raggio, non sul punto
+    esatto. Restano due reti di sicurezza (timeout dello stato, tolleranza di chiusura):
+    una giornata che non finisce blocca il gioco per sempre.
+  - Il ciclo giorno/notte **visivo** (luce che cambia, finestre) non c'è: la taverna è una
+    scatola chiusa senza finestre. Deciso con Michele: "prima il meccanismo".
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi

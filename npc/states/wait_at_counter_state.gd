@@ -44,6 +44,15 @@ func update(delta: float) -> void:
 		EventBus.npc_left.emit(npc, false)
 		brain.change_state(&"Leave")
 
+## Chiude mentre aspettava: se sta già bevendo lo lasciamo finire, altrimenti
+## se ne va senza essere stato servito.
+func on_tavern_closed() -> void:
+	if _served_item != null:
+		return
+	npc.spot.release()
+	EventBus.npc_left.emit(npc, false)
+	brain.change_state(&"Leave")
+
 ## Fa scattare tutti i richiami la cui soglia è stata superata.
 func _check_patience_stages() -> void:
 	var stages := npc.race.patience_stages

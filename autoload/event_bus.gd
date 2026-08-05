@@ -26,3 +26,22 @@ signal npc_left(npc: Node3D, satisfied: bool)
 
 ## Emesso a ogni scatto della pazienza: stage 0, 1, 2.
 signal npc_patience_stage_changed(npc: Node3D, stage: int)
+
+## Emesso all'inizio di una giornata di lavoro.
+signal day_started(day: int)
+
+## Emesso a ogni minuto di gioco.
+signal time_changed(hour: int, minute: int)
+
+## Emesso all'ora di apertura.
+signal tavern_opened()
+
+## Emesso all'ora di chiusura: non entra più nessuno.
+signal tavern_closed()
+
+## Emesso quando anche l'ultimo cliente è uscito. report contiene
+## day, served, satisfied, angry, earned, money.
+signal day_ended(report: Dictionary)
+
+## Emesso dal resoconto serale quando il giocatore vuole aprire il giorno dopo.
+signal next_day_requested()

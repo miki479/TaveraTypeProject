@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DaySchedule" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/day_schedule.gd" id="1_day_schedule"]
+
+[resource]
+script = ExtResource("1_day_schedule")
+opening_hour = 10
+closing_hour = 22
+seconds_per_game_hour = 40.0
+customers_per_hour = Array[float]([1.0, 1.0, 2.0, 3.0, 4.0, 3.0, 2.0, 3.0, 5.0, 6.0, 4.0, 2.0])
+max_customers = 4

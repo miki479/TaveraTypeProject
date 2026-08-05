@@ -15,6 +15,11 @@ func _ready() -> void:
 		if state != null:
 			state.brain = self
 			state.npc = npc
+	EventBus.tavern_closed.connect(_on_tavern_closed)
+
+func _on_tavern_closed() -> void:
+	if current != null:
+		current.on_tavern_closed()
 func _physics_process(delta: float) -> void:
 	# Il primo stato parte al primo frame di fisica, non nel _ready: così l'NPC
 	# ha già finito il proprio _ready e la navigazione è pronta.

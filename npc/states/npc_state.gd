@@ -13,3 +13,7 @@ func exit() -> void:
 
 func update(_delta: float) -> void:
 	pass
+
+## Chiamato dal cervello quando la taverna chiude mentre questo stato è attivo.
+func on_tavern_closed() -> void:
+	pass

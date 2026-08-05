@@ -13,3 +13,8 @@ func update(_delta: float) -> void:
 	free_spot.assign(npc)
 	npc.spot = free_spot
 	brain.change_state(&"GoToCounter")
+
+## Chiude prima che trovasse posto: se ne va senza aver ordinato.
+func on_tavern_closed() -> void:
+	EventBus.npc_left.emit(npc, false)
+	brain.change_state(&"Leave")
