@@ -27,9 +27,16 @@ func _ready() -> void:
 		id = StringName("npc_%d" % get_instance_id())
 	order_icon.visible = false
 	if race != null:
-		body_mesh.set_instance_shader_parameter(&"albedo_color", race.body_color)
+		_apply_race_color(race.body_color)
 		_apply_race_size(race.body_height)
 	_mesh_rest_position = body_mesh.position
+
+## Il colore arriva dal file della razza. Il materiale va duplicato: è condiviso
+## fra tutti gli NPC e tingerlo direttamente li tingerebbe tutti.
+func _apply_race_color(color: Color) -> void:
+	var material := body_mesh.material_override.duplicate() as StandardMaterial3D
+	material.albedo_color = color
+	body_mesh.material_override = material
 
 ## Altezza e corporatura arrivano dal file della razza, non dalla scena.
 func _apply_race_size(height: float) -> void:

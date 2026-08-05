@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3]
 
 [resource]
-resource_name = "Soffitto legno"
-albedo_color = Color(0.36, 0.24, 0.16, 1)
+resource_name = "Spalle NPC"
+albedo_color = Color(0.32, 0.46, 0.26, 1)
 roughness = 0.9

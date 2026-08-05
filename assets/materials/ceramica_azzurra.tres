@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3]
 
 [resource]
-resource_name = "Ceramica chiara"
-albedo_color = Color(0.93, 0.89, 0.8, 1)
+resource_name = "Ceramica azzurra"
+albedo_color = Color(0.62, 0.76, 0.85, 1)
 roughness = 0.75

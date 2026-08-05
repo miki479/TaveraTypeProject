@@ -1,6 +1,8 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/greybox.tres" id="1_greybox"]
+[ext_resource type="Material" path="res://assets/materials/npc_occhi.tres" id="8_occhi"]
+[ext_resource type="Material" path="res://assets/materials/npc_spalle.tres" id="9_spalle"]
 [ext_resource type="Script" path="res://npc/npc.gd" id="2_npc"]
 [ext_resource type="Script" path="res://npc/npc_brain.gd" id="3_brain"]
 [ext_resource type="Script" path="res://npc/states/enter_state.gd" id="4_enter"]
@@ -38,15 +40,13 @@ mesh = SubResource("CapsuleMesh_corpo")
 
 [node name="Occhi" type="MeshInstance3D" parent="Corpo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, -0.34)
-material_override = ExtResource("1_greybox")
+material_override = ExtResource("8_occhi")
 mesh = SubResource("BoxMesh_occhi")
-instance_shader_parameters/albedo_color = Color(0.9, 0.75, 0.2, 1)
 
 [node name="Spalle" type="MeshInstance3D" parent="Corpo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-material_override = ExtResource("1_greybox")
+material_override = ExtResource("9_spalle")
 mesh = SubResource("BoxMesh_spalle")
-instance_shader_parameters/albedo_color = Color(0.3, 0.42, 0.24, 1)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_desired_distance = 0.3
