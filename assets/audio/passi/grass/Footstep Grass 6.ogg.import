@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://csg0xqjpad7df"
+path="res://.godot/imported/Footstep Grass 6.ogg-410ff0a5c0e742de862385eebad77058.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/passi/grass/Footstep Grass 6.ogg"
+dest_files=["res://.godot/imported/Footstep Grass 6.ogg-410ff0a5c0e742de862385eebad77058.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -3,7 +3,8 @@ extends Node3D
 ## Fa entrare un cliente ogni N secondi, fino a un massimo di clienti in sala.
 
 @export var npc_scene: PackedScene
-@export var race: RaceData
+## Le razze che possono entrare. Ne viene pescata una a caso a ogni cliente.
+@export var races: Array[RaceData] = []
 ## Ogni quanti secondi entra un cliente.
 @export var interval_seconds: float = 15.0
 ## Quanti clienti al massimo possono stare dentro contemporaneamente.
@@ -27,14 +28,15 @@ func _process(delta: float) -> void:
 	spawn_one()
 
 func spawn_one() -> void:
-	if npc_scene == null or race == null:
-		push_warning("NpcSpawner senza scena o senza razza: non spawna niente.")
+	if npc_scene == null or races.is_empty():
+		push_warning("NpcSpawner senza scena o senza razze: non spawna niente.")
 		return
 	if get_tree().get_nodes_in_group(&"npcs").size() >= max_customers:
 		return
 	var npc := npc_scene.instantiate() as Npc
 	if npc == null:
 		return
+	var race: RaceData = races.pick_random()
 	_spawn_count += 1
 	npc.race = race
 	npc.id = StringName("%s_%03d" % [race.id, _spawn_count])

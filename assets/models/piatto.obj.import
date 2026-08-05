@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://8s7bay3t5hvl"
+path="res://.godot/imported/piatto.obj-c16fec508d73d166cb3db6fcd639ddcf.mesh"
+
+[deps]
+
+files=["res://.godot/imported/piatto.obj-c16fec508d73d166cb3db6fcd639ddcf.mesh"]
+
+source_file="res://assets/models/piatto.obj"
+dest_files=["res://.godot/imported/piatto.obj-c16fec508d73d166cb3db6fcd639ddcf.mesh", "res://.godot/imported/piatto.obj-c16fec508d73d166cb3db6fcd639ddcf.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

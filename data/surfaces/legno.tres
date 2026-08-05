@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SurfaceData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://data/surface_data.gd" id="1_surface_data"]
+[ext_resource type="AudioStream" path="res://assets/audio/passi/wood/Footstep Wood 1.ogg" id="2_step1"]
+[ext_resource type="AudioStream" path="res://assets/audio/passi/wood/Footstep Wood 2.ogg" id="3_step2"]
+[ext_resource type="AudioStream" path="res://assets/audio/passi/wood/Footstep Wood 3.ogg" id="4_step3"]
+[ext_resource type="AudioStream" path="res://assets/audio/passi/wood/Footstep Wood 4.ogg" id="5_step4"]
+[ext_resource type="AudioStream" path="res://assets/audio/passi/wood/Footstep Wood 5.ogg" id="6_step5"]
+
+[resource]
+script = ExtResource("1_surface_data")
+id = &"legno"
+footsteps = Array[AudioStream]([ExtResource("2_step1"), ExtResource("3_step2"), ExtResource("4_step3"), ExtResource("5_step4"), ExtResource("6_step5")])

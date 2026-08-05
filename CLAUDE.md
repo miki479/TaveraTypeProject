@@ -245,3 +245,14 @@ fine se ne va arrabbiato.
   - `Object.get_meta(nome, null)` stampa comunque un errore: serve `has_meta()` prima.
     Per questo esiste `Interactable.of(body)`.
   - Suoni dell'orco e icona dell'ordine sono placeholder generati, da sostituire.
+  - I `SubViewport` hanno `audio_listener_enable_3d = false` di default: senza attivarlo
+    **nessun suono 3D si sente**, perché il gioco vive dentro un SubViewport.
+  - Se lo shader non compila (es. una uniform globale mancante), aprendo l'editor Godot
+    **risalva i materiali svuotandoli** di tutti gli shader_parameter. Se una texture
+    sparisce da un materiale, è questo.
+- Extra oltre ai milestone (richiesti da Michele):
+  razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
+  giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi
+  modellati con Blender via script ed esportati in `.obj` (Godot li importa come Mesh):
+  spillatore con leva, botte, brocca, piatto, sgabello. Brocca e piatto sono pickup veri.
+  La leva dello spillatore per ora è **solo decorazione**: il meccanismo è M4.

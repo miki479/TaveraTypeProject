@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://player/hand.gd" id="2_hand"]
 [ext_resource type="Script" path="res://player/interactor.gd" id="3_interactor"]
+[ext_resource type="Script" path="res://player/footsteps.gd" id="4_footsteps"]
+[ext_resource type="Resource" path="res://data/surfaces/pietra.tres" id="5_pietra"]
+[ext_resource type="Resource" path="res://data/surfaces/legno.tres" id="6_legno"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.3
@@ -34,6 +37,12 @@ target_position = Vector3(0, 0, -2.5)
 collide_with_areas = true
 script = ExtResource("3_interactor")
 prompt_label = NodePath("../../UI/Prompt")
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="."]
+volume_db = -6.0
+script = ExtResource("4_footsteps")
+surfaces = Array[SurfaceData]([ExtResource("5_pietra"), ExtResource("6_legno")])
+default_surface = ExtResource("5_pietra")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

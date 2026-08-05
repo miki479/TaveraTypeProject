@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/boccale_ceramica.tres" id="1_ceramica"]
+[ext_resource type="Mesh" path="res://assets/models/brocca.obj" id="2_mesh"]
+[ext_resource type="Script" path="res://interactables/pickup.gd" id="3_pickup"]
+[ext_resource type="Resource" path="res://data/items/brocca.tres" id="4_item"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_brocca"]
+height = 0.28
+radius = 0.1
+
+[node name="Brocca" type="RigidBody3D"]
+mass = 0.8
+
+[node name="Corpo" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14, 0)
+material_override = ExtResource("1_ceramica")
+mesh = ExtResource("2_mesh")
+instance_shader_parameters/albedo_color = Color(0.78, 0.8, 0.84, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_brocca")
+
+[node name="Pickup" type="Node3D" parent="."]
+script = ExtResource("3_pickup")
+interaction_prompt = "E — Raccogli"
+item_data = ExtResource("4_item")
