@@ -154,6 +154,13 @@ Contesto per capire dove stiamo andando. **Implementa solo il milestone richiest
 | M6 | La notte | Turno notturno: guadagni maggiori, clientela peggiore, rischi |
 | M7 | Progressione | Dashboard acquisti, arredi, debito con scadenze |
 
+**Deciso in anticipo per M7** (Michele, 2026-08-05): la fase di costruzione della taverna
+(mobili, decorazioni, buff) va **fra il resoconto serale e l'apertura del giorno dopo**.
+L'aggancio esiste già da M3 e non va rifatto: `day_ended` apre la pausa, il giocatore
+compra e arreda, e solo alla fine qualcuno emette `next_day_requested`. Durante la pausa
+il mondo è vivo e ci si può camminare dentro, quindi i mobili si possono piazzare in prima
+persona come gli oggetti.
+
 Fuori scope fino a nuovo ordine: dipendenti, corte dei maghi, minigiochi di carte,
 affinità NPC-NPC, multiplayer.
 
