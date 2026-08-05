@@ -45,3 +45,6 @@ signal day_ended(report: Dictionary)
 
 ## Emesso dal resoconto serale quando il giocatore vuole aprire il giorno dopo.
 signal next_day_requested()
+
+## Emesso quando il giocatore decide di chiudere prima dell'orario.
+signal close_requested()

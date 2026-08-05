@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3]
+[gd_scene load_steps=43 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/pavimento_pietra.tres" id="1_pavimento"]
 [ext_resource type="Material" path="res://assets/materials/muro_intonaco.tres" id="2_muro"]
@@ -22,6 +22,13 @@
 [ext_resource type="PackedScene" path="res://interactables/piatto.tscn" id="20_piatto"]
 [ext_resource type="Script" path="res://world/day_cycle.gd" id="21_day_cycle"]
 [ext_resource type="Resource" path="res://data/schedules/giornata_standard.tres" id="22_giornata"]
+[ext_resource type="Script" path="res://world/closing_sign.gd" id="23_cartello"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cartello"]
+size = Vector3(0.42, 0.26, 0.04)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cartello"]
+size = Vector3(0.42, 0.26, 0.06)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_botte"]
 height = 0.62
@@ -324,6 +331,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 7.77)
 material_override = ExtResource("4_bancone")
 mesh = SubResource("BoxMesh_porta")
 instance_shader_parameters/albedo_color = Color(0.6, 0.5, 0.42, 1)
+
+[node name="Cartello" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 1.55, 7.76)
+
+[node name="Mesh" type="MeshInstance3D" parent="Cartello"]
+material_override = ExtResource("5_greybox")
+mesh = SubResource("BoxMesh_cartello")
+instance_shader_parameters/albedo_color = Color(0.3, 0.65, 0.32, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="Cartello"]
+shape = SubResource("BoxShape3D_cartello")
+
+[node name="Interazione" type="Node3D" parent="Cartello"]
+script = ExtResource("23_cartello")
+interaction_prompt = "E — Chiudi in anticipo"
+face = NodePath("../Mesh")
 
 [node name="Ingresso" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 6.9)

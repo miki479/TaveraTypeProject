@@ -25,6 +25,7 @@ func _ready() -> void:
 	EventBus.npc_served.connect(_on_npc_served)
 	EventBus.npc_left.connect(_on_npc_left)
 	EventBus.next_day_requested.connect(start_day)
+	EventBus.close_requested.connect(close_now)
 
 func _process(delta: float) -> void:
 	# La prima giornata parte al primo frame, non nel _ready: così gli altri
@@ -74,6 +75,14 @@ func start_day() -> void:
 	EventBus.time_changed.emit(hour, minute)
 	EventBus.tavern_opened.emit()
 
+## Chiude la taverna adesso, sia che sia arrivata l'ora sia che l'abbia deciso
+## il giocatore girando il cartello. L'orologio si ferma su quest'ora.
+func close_now() -> void:
+	if not _running or not is_open:
+		return
+	is_open = false
+	EventBus.tavern_closed.emit()
+
 ## Quanti clienti prevede l'ora corrente. Lo usa lo spawner.
 func customers_this_hour() -> float:
 	return schedule.customers_at(hour) if schedule != null else 0.0
@@ -84,9 +93,8 @@ func _advance_minute() -> void:
 		minute = 0
 		hour += 1
 	EventBus.time_changed.emit(hour, minute)
-	if is_open and hour >= schedule.closing_hour:
-		is_open = false
-		EventBus.tavern_closed.emit()
+	if hour >= schedule.closing_hour:
+		close_now()
 
 ## Rete di sicurezza: chi non è riuscito a uscire da solo sparisce comunque.
 func _send_everyone_home() -> void:

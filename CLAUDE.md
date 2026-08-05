@@ -289,7 +289,9 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
   `world/day_cycle.gd` che fa scorrere il tempo e conta com'è andata, spawner che chiede
   all'orologio quanti clienti servono in quest'ora, HUD con giorno/ora/cassa, resoconto
   serale con E per aprire il giorno dopo. Alla chiusura chi non è stato servito se ne va,
-  chi sta bevendo finisce.
+  chi sta bevendo finisce. **Chiusura anticipata**: il cartello verde/rosso accanto alla
+  porta si gira con E e chiude a quell'ora. Nessuna penalità di proposito — il costo è
+  rinunciare agli incassi delle ore saltate; un malus vero (reputazione) sarebbe M5.
   Note:
   - L'orologio **si ferma** all'ora di chiusura mentre la sala si svuota: se continua a
     correre mostra orari come 35:53.
