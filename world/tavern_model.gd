@@ -17,6 +17,11 @@ extends Node3D
 ## occhio perché tutti i materiali sono double sided.
 ## Va svuotata il giorno in cui il modello arriva con le normali a posto.
 @export var flipped: Array[StringName] = []
+## Mesh da alzare di qualche millimetro. Le decorazioni appoggiate a terra
+## (tappeti, paglia) arrivano dal modello alla stessa identica quota del
+## pavimento: sovrapposte, si contendono la profondità e lampeggiano.
+@export var lifted: Array[StringName] = []
+@export var lift_amount: float = 0.015
 ## Inizi di nome che ricevono una collisione. Tutto il resto è scenografia:
 ## niente collisione, niente costo.
 @export var collision_prefixes: Array[StringName] = []
@@ -37,6 +42,8 @@ func _ready() -> void:
 			continue
 		if _starts_with_any(mesh_instance.name, flipped):
 			_flip_faces(mesh_instance)
+		if _starts_with_any(mesh_instance.name, lifted):
+			mesh_instance.position.y += lift_amount
 		_apply_materials(mesh_instance, cache, missing)
 		if _starts_with_any(mesh_instance.name, collision_prefixes):
 			_build_collision(mesh_instance)
