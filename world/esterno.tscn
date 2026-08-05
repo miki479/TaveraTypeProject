@@ -44,7 +44,7 @@ rings = 1
 [node name="Esterno" type="Node3D"]
 
 [node name="Prato" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18, 0)
 material_override = ExtResource("1_erba")
 mesh = SubResource("PlaneMesh_prato")
 

@@ -1,0 +1,24 @@
+# Mette d'accordo i computer sui fine-riga.
+#
+# Windows termina le righe con due caratteri (CR+LF), Mac e Linux con uno solo (LF).
+# Senza questo file, ogni scambio fra noi fa risultare "modificati" decine di file in cui
+# in realtà non è cambiato nulla. Con "text=auto" nel repository si salva sempre in LF, e
+# sul disco ognuno si ritrova i fine-riga del proprio sistema.
+* text=auto
+
+# File binari: non vanno mai convertiti, li corromperebbe.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.svg text
+*.ogg binary
+*.wav binary
+*.mp3 binary
+*.glb binary
+*.gltf binary
+*.fbx binary
+*.blend binary
+*.blend1 binary
+*.ttf binary
+*.otf binary
