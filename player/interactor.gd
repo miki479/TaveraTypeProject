@@ -17,9 +17,11 @@ func _ready() -> void:
 		add_exception(_player)
 	_set_prompt("")
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	current = _find_target()
 	_set_prompt("" if current == null else current.get_prompt(_player))
+	if current != null and Input.is_action_pressed(&"interact"):
+		current.interact_held(_player, delta)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"interact") and current != null:

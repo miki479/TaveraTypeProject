@@ -34,3 +34,8 @@ func get_prompt(_player: Node) -> String:
 
 func interact(_player: Node) -> void:
 	pass
+
+## Chiamato a ogni frame di fisica finché il tasto resta premuto e si continua a
+## puntare questo oggetto. Serve alle cose che si "tengono", come lo spillatore.
+func interact_held(_player: Node, _delta: float) -> void:
+	pass
