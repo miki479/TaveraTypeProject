@@ -9,3 +9,4 @@ id = &"boccale"
 display_name = "Boccale"
 base_price = 5
 icon = ExtResource("2_icon")
+liquid_color = Color(0.88, 0.58, 0.14, 1)

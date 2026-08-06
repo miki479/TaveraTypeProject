@@ -1,20 +1,13 @@
 [gd_scene load_steps=7 format=3]
 
-[ext_resource type="Material" path="res://assets/materials/boccale_ceramica.tres" id="1_ceramica"]
-[ext_resource type="Script" path="res://interactables/pickup.gd" id="2_pickup"]
-[ext_resource type="Resource" path="res://data/items/boccale.tres" id="3_item"]
+[ext_resource type="Material" path="res://assets/materials/taverna/peltro.tres" id="1_peltro"]
+[ext_resource type="Mesh" path="res://assets/models/boccale.obj" id="2_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/boccale_liquido.obj" id="3_liquido"]
+[ext_resource type="Material" path="res://assets/materials/taverna/zuppa.tres" id="4_liquido_mat"]
+[ext_resource type="Script" path="res://interactables/pickup.gd" id="5_pickup"]
+[ext_resource type="Resource" path="res://data/items/boccale.tres" id="6_item"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_corpo"]
-top_radius = 0.05
-bottom_radius = 0.045
-height = 0.14
-radial_segments = 8
-rings = 3
-
-[sub_resource type="BoxMesh" id="BoxMesh_manico"]
-size = Vector3(0.02, 0.07, 0.02)
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_corpo"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_boccale"]
 height = 0.14
 radius = 0.055
 
@@ -22,18 +15,20 @@ radius = 0.055
 mass = 0.4
 
 [node name="Corpo" type="MeshInstance3D" parent="."]
-material_override = ExtResource("1_ceramica")
-mesh = SubResource("CylinderMesh_corpo")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07, 0)
+material_override = ExtResource("1_peltro")
+mesh = ExtResource("2_mesh")
 
-[node name="Manico" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0)
-material_override = ExtResource("1_ceramica")
-mesh = SubResource("BoxMesh_manico")
+[node name="Liquido" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.052, 0)
+material_override = ExtResource("4_liquido_mat")
+mesh = ExtResource("3_liquido")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
-shape = SubResource("CylinderShape3D_corpo")
+shape = SubResource("CylinderShape3D_boccale")
 
 [node name="Pickup" type="Node3D" parent="."]
-script = ExtResource("2_pickup")
+script = ExtResource("5_pickup")
 interaction_prompt = "E — Raccogli"
-item_data = ExtResource("3_item")
+item_data = ExtResource("6_item")
+tinted_mesh_path = NodePath("../Liquido")
