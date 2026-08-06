@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="LiquidData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/liquid_data.gd" id="1_liquid_data"]
+[ext_resource type="Texture2D" path="res://assets/textures/icona_grog.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_liquid_data")
+id = &"grog"
+display_name = "Grog del taverniere"
+color = Color(0.78, 0.55, 0.2, 1)
+base_price = 22
+icon = ExtResource("2_icon")

@@ -434,6 +434,21 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
     sul boccale e le bottiglie, alte 40 cm, sprofondavano nel bancone.
   - La rampa della scala era larga 1,25 m: con l'agente da 0,40 restava una striscia
     calpestabile di 45 cm e i clienti si incastravano. Ora è larga 2 m.
+- [ ] **M4 — implementato, in attesa della vostra verifica in gioco.**
+  Produzione: `LiquidData` (bevanda: nome, colore, prezzo, icona, `effects` vuoto per M5),
+  `LiquidContainer` (un recipiente sa cosa contiene e quanto, e il livello si vede),
+  `Tap` (spillatore a pressione prolungata), `RecipeData` e `Cauldron` (versa, mescola,
+  attingi). Boccali vuoti allo spillatore, bottiglie piene della loro bevanda, calderone
+  in cucina con due ricette.
+  Note:
+  - **Il cliente ordina una bevanda, non un oggetto.** Servire = avere il liquido giusto
+    nel recipiente, almeno al 75% (`minimum_serving`). Dopo la bevuta il recipiente resta
+    vuoto: si riprende e si riempie. È il ciclo del gioco.
+  - `Interactable.interact_held()` esiste per le cose che si **tengono premute**: senza,
+    lo spillatore sarebbe un interruttore e non decideresti tu quanto riempire.
+  - Due bevande diverse non si mescolano da sole dentro un recipiente: serve il calderone
+    e una ricetta. È voluto, altrimenti ogni errore diventerebbe una miscela.
+  - La classe si chiama `LiquidContainer`: `Container` è un nome già usato da Godot.
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi

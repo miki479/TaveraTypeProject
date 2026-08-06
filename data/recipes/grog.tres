@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://data/recipe_data.gd" id="1_recipe"]
+[ext_resource type="Resource" path="res://data/liquids/birra_scura.tres" id="2_a"]
+[ext_resource type="Resource" path="res://data/liquids/distillato.tres" id="3_b"]
+[ext_resource type="Resource" path="res://data/liquids/grog.tres" id="4_out"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"grog"
+display_name = "Grog del taverniere"
+ingredients = Array[LiquidData]([ExtResource("2_a"), ExtResource("3_b")])
+result = ExtResource("4_out")
+seconds = 3.0
