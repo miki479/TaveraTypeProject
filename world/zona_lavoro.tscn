@@ -135,7 +135,7 @@ mesh = SubResource("CylinderMesh_sottobicchiere")
 shape = SubResource("CylinderShape3D_sottobicchiere")
 
 [node name="Anchor" type="Marker3D" parent="SlotSinistro"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.006, 0)
 
 [node name="PlaceSlot" type="Node3D" parent="SlotSinistro"]
 script = ExtResource("7_place_slot")
@@ -153,7 +153,7 @@ mesh = SubResource("CylinderMesh_sottobicchiere")
 shape = SubResource("CylinderShape3D_sottobicchiere")
 
 [node name="Anchor" type="Marker3D" parent="SlotDestro"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.006, 0)
 
 [node name="PlaceSlot" type="Node3D" parent="SlotDestro"]
 script = ExtResource("7_place_slot")
@@ -161,19 +161,19 @@ interaction_prompt = "E — Posa"
 anchor_path = NodePath("../Anchor")
 
 [node name="SpotSinistro" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.05, -1.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.05, -1.5)
 script = ExtResource("8_counter_spot")
 slot_path = NodePath("../SlotSinistro/PlaceSlot")
 stool_top_path = NodePath("../SgabelloSinistro/Top")
 
 [node name="SpotDestro" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.05, 1.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.05, 1.5)
 script = ExtResource("8_counter_spot")
 slot_path = NodePath("../SlotDestro/PlaceSlot")
 stool_top_path = NodePath("../SgabelloDestro/Top")
 
 [node name="SgabelloSinistro" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98, 0, -1.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98, 0, -0.9)
 
 [node name="Mesh" type="MeshInstance3D" parent="SgabelloSinistro"]
 material_override = ExtResource("1_legno_chiaro")
@@ -183,7 +183,7 @@ mesh = ExtResource("16_sgabello")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
 
 [node name="SgabelloDestro" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98, 0, 1.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98, 0, 0.9)
 
 [node name="Mesh" type="MeshInstance3D" parent="SgabelloDestro"]
 material_override = ExtResource("1_legno_chiaro")
@@ -349,7 +349,7 @@ mesh = SubResource("BoxMesh_liquori_ripiano")
 [node name="PostoBirra" type="Node3D" parent="PortaLiquori"]
 
 [node name="Anchor" type="Marker3D" parent="PortaLiquori/PostoBirra"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.225, 0.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.03, 0.9)
 
 [node name="PlaceSlot" type="Node3D" parent="PortaLiquori/PostoBirra"]
 script = ExtResource("7_place_slot")
@@ -360,7 +360,7 @@ anchor_path = NodePath("../Anchor")
 [node name="PostoVino" type="Node3D" parent="PortaLiquori"]
 
 [node name="Anchor" type="Marker3D" parent="PortaLiquori/PostoVino"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.225, 1.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.03, 1.7)
 
 [node name="PlaceSlot" type="Node3D" parent="PortaLiquori/PostoVino"]
 script = ExtResource("7_place_slot")
@@ -371,7 +371,7 @@ anchor_path = NodePath("../Anchor")
 [node name="PostoDistillato" type="Node3D" parent="PortaLiquori"]
 
 [node name="Anchor" type="Marker3D" parent="PortaLiquori/PostoDistillato"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.725, 2.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.53, 2.4)
 
 [node name="PlaceSlot" type="Node3D" parent="PortaLiquori/PostoDistillato"]
 script = ExtResource("7_place_slot")

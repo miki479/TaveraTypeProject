@@ -46,7 +46,11 @@ func interact(player: Node) -> void:
 	if body == null:
 		return
 	body.reparent(get_parent(), true)
-	body.global_transform = _anchor_transform()
+	# L'ancora segna il piano d'appoggio: l'oggetto ci si posa sopra secondo la
+	# propria altezza, così boccali e bottiglie stanno entrambi al posto giusto.
+	var resting := _anchor_transform()
+	resting.origin += Vector3.UP * Hand.rest_offset(body)
+	body.global_transform = resting
 	body.freeze = true
 	body.set_meta(&"slot", self)
 	occupant = body

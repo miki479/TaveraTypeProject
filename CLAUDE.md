@@ -426,6 +426,12 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
     il modello ha le normali incoerenti e senza questo i pezzi girati male **spariscono
     guardandoli dal lato sbagliato**. Va tenuto finché il glb non arriva con le normali
     a posto.
+  - I posti al bancone sono **prestabiliti e separati**: `CounterSpot` è dove sta chi è
+    alto, `stool_top_path` è dove si appollaia chi è basso. Sono su corsie diverse così
+    non si sovrappongono mai, e si spostano dall'editor.
+  - L'ancora di un `PlaceSlot` indica **il piano d'appoggio**, non il centro dell'oggetto:
+    ci si posa sopra secondo l'altezza del pezzo (`Hand.rest_offset`). Prima era tarata
+    sul boccale e le bottiglie, alte 40 cm, sprofondavano nel bancone.
   - La rampa della scala era larga 1,25 m: con l'agente da 0,40 restava una striscia
     calpestabile di 45 cm e i clienti si incastravano. Ora è larga 2 m.
 - Extra oltre ai milestone (richiesti da Michele):

@@ -77,7 +77,7 @@ func drop() -> void:
 		body.linear_velocity = -global_transform.basis.z.normalized() * drop_speed
 	else:
 		# C'è un piano: appoggia l'oggetto dritto e fermo, senza lanciarlo.
-		var resting_point: Vector3 = support["position"] + Vector3.UP * _rest_offset(body)
+		var resting_point: Vector3 = support["position"] + Vector3.UP * rest_offset(body)
 		body.global_transform = Transform3D(Basis(Vector3.UP, global_rotation.y), resting_point)
 		body.linear_velocity = Vector3.ZERO
 
@@ -108,7 +108,7 @@ func _find_support(body: RigidBody3D) -> Dictionary:
 	return hit
 
 ## Quanto sta il centro dell'oggetto sopra il piano su cui poggia.
-static func _rest_offset(body: RigidBody3D) -> float:
+static func rest_offset(body: RigidBody3D) -> float:
 	for child in body.get_children():
 		var collision := child as CollisionShape3D
 		if collision == null or collision.shape == null:
