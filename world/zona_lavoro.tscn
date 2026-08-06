@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3]
+[gd_scene load_steps=72 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_chiaro.tres" id="1_legno_chiaro"]
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_nerastro.tres" id="2_legno_nerastro"]
@@ -31,7 +31,15 @@
 [ext_resource type="Resource" path="res://data/recipes/grog.tres" id="29_ric_grog"]
 [ext_resource type="Resource" path="res://data/recipes/sangue_drago.tres" id="30_ric_sangue"]
 [ext_resource type="Script" path="res://interactables/liquid_container.gd" id="31_container"]
-[ext_resource type="Mesh" path="res://assets/models/distillatore.obj" id="32_distillatore"]
+[ext_resource type="Mesh" path="res://assets/models/distillatore_pietra.obj" id="32_dist_pietra"]
+[ext_resource type="Mesh" path="res://assets/models/distillatore_legno.obj" id="37_dist_legno"]
+[ext_resource type="Mesh" path="res://assets/models/distillatore_rame.obj" id="38_dist_rame"]
+[ext_resource type="Mesh" path="res://assets/models/distillatore_ingranaggio.obj" id="39_ingranaggio"]
+[ext_resource type="Mesh" path="res://assets/models/mestolo.obj" id="40_mestolo"]
+[ext_resource type="Material" path="res://assets/materials/taverna/rame.tres" id="41_rame"]
+[ext_resource type="Material" path="res://assets/materials/taverna/legno_scuro.tres" id="42_legno_scuro"]
+[ext_resource type="Material" path="res://assets/materials/taverna/pietra_pavimento.tres" id="43_pietra"]
+[ext_resource type="Material" path="res://assets/materials/taverna/fiamma.tres" id="44_fiamma"]
 [ext_resource type="AudioStream" path="res://assets/audio/distillatore.wav" id="33_suono_dist"]
 [ext_resource type="Resource" path="res://data/recipes/distillazione_vino.tres" id="34_ric_vino"]
 [ext_resource type="Resource" path="res://data/recipes/distillazione_birra.tres" id="35_ric_birra"]
@@ -82,10 +90,10 @@ size = Vector3(0.25, 1.4, 1.2)
 size = Vector3(0.3, 2.2, 0.1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cucina_pavimento"]
-size = Vector3(4.75, 0.2, 4.2)
+size = Vector3(5, 0.2, 4.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cucina_pavimento"]
-size = Vector3(4.75, 0.2, 4.2)
+size = Vector3(5, 0.2, 4.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cucina_muro_lungo"]
 size = Vector3(0.25, 3, 4.45)
@@ -99,9 +107,11 @@ size = Vector3(5, 3, 0.25)
 [sub_resource type="BoxShape3D" id="BoxShape3D_cucina_muro_corto"]
 size = Vector3(5, 3, 0.25)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_distillatore"]
-height = 0.8
-radius = 0.32
+[sub_resource type="BoxShape3D" id="BoxShape3D_distillatore"]
+size = Vector3(1.15, 1.5, 0.85)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fornace"]
+size = Vector3(0.3, 0.24, 0.04)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_calderone"]
 height = 0.49
@@ -295,12 +305,12 @@ mesh = SubResource("BoxMesh_stipite")
 [node name="Cucina" type="StaticBody3D" parent="."]
 
 [node name="Pavimento" type="MeshInstance3D" parent="Cucina"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.625, -0.1, -1.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, -0.1, -1.1)
 material_override = ExtResource("5_pietra")
 mesh = SubResource("BoxMesh_cucina_pavimento")
 
 [node name="CollisionPavimento" type="CollisionShape3D" parent="Cucina"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.625, -0.1, -1.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, -0.1, -1.1)
 shape = SubResource("BoxShape3D_cucina_pavimento")
 
 [node name="MuroOvest" type="MeshInstance3D" parent="Cucina"]
@@ -512,25 +522,56 @@ interaction_prompt = "Versaci dentro due bevande"
 recipes = Array[RecipeData]([ExtResource("29_ric_grog"), ExtResource("30_ric_sangue")])
 container_path = NodePath("../Contenuto")
 sound_path = NodePath("../Suono")
+spinner_path = NodePath("../Mestolo")
+spinner_axis = Vector3(0, 1, 0)
+spinner_speed_degrees = 160.0
+
 
 [node name="Distillatore" type="StaticBody3D" parent="Cucina"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.7, 0, -1.1)
 
-[node name="Corpo" type="MeshInstance3D" parent="Cucina/Distillatore"]
-material_override = ExtResource("36_rame")
-mesh = ExtResource("32_distillatore")
+[node name="Pietra" type="MeshInstance3D" parent="Cucina/Distillatore"]
+material_override = ExtResource("43_pietra")
+mesh = ExtResource("32_dist_pietra")
+
+[node name="Legno" type="MeshInstance3D" parent="Cucina/Distillatore"]
+material_override = ExtResource("42_legno_scuro")
+mesh = ExtResource("37_dist_legno")
+
+[node name="Rame" type="MeshInstance3D" parent="Cucina/Distillatore"]
+material_override = ExtResource("41_rame")
+mesh = ExtResource("38_dist_rame")
+
+[node name="Ingranaggio" type="Node3D" parent="Cucina/Distillatore"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 0.78, -0.44)
+
+[node name="Mesh" type="MeshInstance3D" parent="Cucina/Distillatore/Ingranaggio"]
+material_override = ExtResource("26_ferro")
+mesh = ExtResource("39_ingranaggio")
+
+[node name="Fornace" type="MeshInstance3D" parent="Cucina/Distillatore"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, -0.44)
+material_override = ExtResource("44_fiamma")
+mesh = SubResource("BoxMesh_fornace")
+
+[node name="LuceFornace" type="OmniLight3D" parent="Cucina/Distillatore"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, -0.55)
+light_color = Color(1, 0.6, 0.25, 1)
+light_energy = 2.4
+omni_range = 2.6
+omni_attenuation = 1.6
 
 [node name="Liquido" type="MeshInstance3D" parent="Cucina/Distillatore"]
-transform = Transform3D(0.55, 0, 0, 0, 1, 0, 0, 0, 0.55, 0, 0.4, 0)
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, -0.16, 1.3, 0)
 material_override = ExtResource("27_zuppa")
 mesh = ExtResource("25_calderone_liquido")
 
 [node name="Collision" type="CollisionShape3D" parent="Cucina/Distillatore"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-shape = SubResource("CylinderShape3D_distillatore")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_distillatore")
 
 [node name="Suono" type="AudioStreamPlayer3D" parent="Cucina/Distillatore"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 stream = ExtResource("33_suono_dist")
 unit_size = 4.0
 
@@ -539,14 +580,25 @@ script = ExtResource("31_container")
 initial_amount = 0.0
 liquid_mesh_path = NodePath("../Liquido")
 moves_with_level = true
-empty_y = 0.3
-full_y = 0.42
+empty_y = 1.24
+full_y = 1.34
 
 [node name="Alambicco" type="Node3D" parent="Cucina/Distillatore"]
 script = ExtResource("23_cauldron")
 interaction_prompt = "Versaci dentro una bevanda da distillare"
 recipes = Array[RecipeData]([ExtResource("34_ric_vino"), ExtResource("35_ric_birra")])
-vessel_name = "distillatore"
-run_verb = "Distilla"
 container_path = NodePath("../Contenuto")
 sound_path = NodePath("../Suono")
+vessel_name = "distillatore"
+run_verb = "Distilla"
+spinner_path = NodePath("../Ingranaggio")
+spinner_axis = Vector3(0, 0, 1)
+spinner_speed_degrees = 210.0
+
+[node name="Mestolo" type="Node3D" parent="Cucina/Calderone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09, 0.36, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Cucina/Calderone/Mestolo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09, 0, 0)
+material_override = ExtResource("42_legno_scuro")
+mesh = ExtResource("40_mestolo")

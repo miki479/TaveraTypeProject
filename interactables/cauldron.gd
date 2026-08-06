@@ -16,11 +16,17 @@ extends Interactable
 ## Il recipiente del calderone: è lì che finisce il risultato.
 @export var container_path: NodePath
 @export var sound_path: NodePath
+## Un pezzo che gira mentre la macchina lavora: l'ingranaggio del distillatore,
+## il mestolo del calderone. Senza, non si capisce se sta funzionando.
+@export var spinner_path: NodePath
+@export var spinner_axis: Vector3 = Vector3(0, 1, 0)
+@export var spinner_speed_degrees: float = 220.0
 
 var poured: Array[LiquidData] = []
 
 var _container: LiquidContainer = null
 var _sound: AudioStreamPlayer3D = null
+var _spinner: Node3D = null
 var _cooking_left: float = 0.0
 var _cooking: RecipeData = null
 
@@ -28,12 +34,15 @@ func _ready() -> void:
 	super()
 	_container = get_node_or_null(container_path) as LiquidContainer
 	_sound = get_node_or_null(sound_path) as AudioStreamPlayer3D
+	_spinner = get_node_or_null(spinner_path) as Node3D
 	if _container == null:
 		push_warning("Cauldron '%s': container_path non punta a un LiquidContainer." % name)
 
 func _physics_process(delta: float) -> void:
 	if _cooking == null:
 		return
+	if _spinner != null and spinner_axis.length() > 0.01:
+		_spinner.rotate(spinner_axis.normalized(), deg_to_rad(spinner_speed_degrees) * delta)
 	_cooking_left -= delta
 	if _cooking_left > 0.0:
 		return
