@@ -22,6 +22,13 @@ extends Node3D
 ## pavimento: sovrapposte, si contendono la profondità e lampeggiano.
 @export var lifted: Array[StringName] = []
 @export var lift_amount: float = 0.015
+## Mesh da staccare dal muro di qualche millimetro. Travi, montanti e battiscopa
+## sono modellati a filo della parete: due superfici alla stessa identica quota
+## si contendono la profondità e lampeggiano quando la telecamera si muove.
+## Vengono spinte verso il centro della stanza, che è l'unica direzione sensata
+## qualunque sia il muro a cui sono appoggiate.
+@export var pushed: Array[StringName] = []
+@export var push_amount: float = 0.01
 ## Inizi di nome che ricevono una collisione. Tutto il resto è scenografia:
 ## niente collisione, niente costo.
 @export var collision_prefixes: Array[StringName] = []
@@ -44,11 +51,21 @@ func _ready() -> void:
 			_flip_faces(mesh_instance)
 		if _starts_with_any(mesh_instance.name, lifted):
 			mesh_instance.position.y += lift_amount
+		if _starts_with_any(mesh_instance.name, pushed):
+			_push_from_center(mesh_instance)
 		_apply_materials(mesh_instance, cache, missing)
 		if _starts_with_any(mesh_instance.name, collision_prefixes):
 			_build_collision(mesh_instance)
 	for material_name in missing:
 		push_warning("Materiale '%s' del modello senza .tres in %s" % [material_name, materials_dir])
+
+## Sposta la mesh verso l'asse verticale della stanza, staccandola dal muro.
+func _push_from_center(mesh_instance: MeshInstance3D) -> void:
+	var center := mesh_instance.global_transform * mesh_instance.get_aabb().get_center()
+	var outward := Vector3(center.x, 0.0, center.z)
+	if outward.length() < 0.05:
+		return
+	mesh_instance.global_position -= outward.normalized() * push_amount
 
 func _collect_meshes(node: Node, into: Array[MeshInstance3D]) -> Array[MeshInstance3D]:
 	for child in node.get_children():

@@ -114,8 +114,9 @@ script = ExtResource("3_navmesh")
 
 [node name="Modello" type="Node3D" parent="NavigationRegion3D"]
 script = ExtResource("2_tavern_model")
-discarded = Array[StringName]([&"04_cutter_porta", &"Cube", &"02_muro_0", &"02_muro_2", &"11_paglia", &"08_cassa", &"05_corpo", &"05_piano", &"05_zoccolo", &"05_croce", &"02_muro_6", &"10_boccale_5", &"10_boccale_6", &"10_bottiglia_8", &"10_bottiglia_9", &"10_bottiglia_11", &"10_bottiglia_12", &"10_bottiglia_13", &"10_cand_5", &"10_cand_6", &"09_lib", &"10_ciotola", &"10_piatto", &"06_ov_c", &"06_rt_a", &"07_sedia_t2", &"07_sedia_t3", &"07_sgab", &"10_bottiglia_4", &"10_bottiglia_5", &"10_bottiglia_6", &"10_bottiglia_10"])
-lifted = Array[StringName]([&"11_tappeto"])
+discarded = Array[StringName]([&"04_cutter_porta", &"Cube", &"02_muro_0", &"02_muro_2", &"02_muro_6", &"05_", &"06_", &"07_", &"08_", &"09_arm", &"09_lib", &"10_", &"11_", &"16_"])
+lifted = Array[StringName]([])
+pushed = Array[StringName]([&"02_battiscopa", &"03_", &"09_appl"])
 flipped = Array[StringName]([&"04_"])
 collision_prefixes = Array[StringName]([&"01_pavimento", &"02_muro", &"04_gradino_6", &"04_pianerottolo", &"04_parapetto", &"04_porta", &"04_stipite", &"04_pilastrino", &"05_", &"06_", &"07_sedia", &"07_sgab_3", &"07_sgab_4", &"07_sgab_5", &"07_sgab_6", &"08_", &"09_arm", &"09_lib", &"11_vaso", &"16_botte", &"16_cassa", &"16_mensola"])
 materials_dir = "res://assets/materials/taverna"

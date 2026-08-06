@@ -404,6 +404,15 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
     è contro il muro e regge le bottiglie dello scaffale.
   - Togliere un mobile dal modello lascia in aria quello che ci stava sopra. Ogni volta
     che si aggiunge un nome a `discarded` va ricontrollato cosa ci appoggiava.
+  - Su richiesta di Michele il modello è ridotto alla **sola struttura** (pavimento, muri,
+    orditura in legno, scala, porta, applique). Bancone e porta-liquori sono costruiti in
+    Godot dentro `zona_lavoro.tscn`. Arredamento e decorazioni torneranno con M7, messi
+    dal giocatore.
+  - **In editor si vede il modello grezzo, non il gioco**: `TavernModel` lavora al `_ready`,
+    quindi scarti, materiali e collisioni esistono solo a gioco avviato. Non è un bug.
+  - Travi, montanti, battiscopa e applique sono modellati **a filo del muro**: due superfici
+    complanari sfarfallano. Per questo `TavernModel` ha la lista `pushed`, che le stacca di
+    un centimetro verso il centro della stanza.
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi

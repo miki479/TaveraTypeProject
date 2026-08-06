@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3]
+[gd_scene load_steps=39 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_chiaro.tres" id="1_legno_chiaro"]
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_nerastro.tres" id="2_legno_nerastro"]
@@ -10,6 +10,10 @@
 [ext_resource type="Script" path="res://npc/counter_spot.gd" id="8_counter_spot"]
 [ext_resource type="Mesh" path="res://assets/models/spillatore_corpo.obj" id="9_spillatore"]
 [ext_resource type="Mesh" path="res://assets/models/spillatore_leva.obj" id="10_leva"]
+[ext_resource type="PackedScene" path="res://interactables/bottiglia.tscn" id="11_bottiglia"]
+[ext_resource type="Resource" path="res://data/items/bottiglia_birra_scura.tres" id="12_birra"]
+[ext_resource type="Resource" path="res://data/items/bottiglia_vino_rosso.tres" id="13_vino"]
+[ext_resource type="Resource" path="res://data/items/bottiglia_distillato.tres" id="14_distillato"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_bancone_base"]
 size = Vector3(0.6, 1, 5.6)
@@ -72,6 +76,24 @@ size = Vector3(5, 3, 0.25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cucina_muro_corto"]
 size = Vector3(5, 3, 0.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_liquori_base"]
+size = Vector3(0.45, 0.95, 2.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_liquori_base"]
+size = Vector3(0.45, 0.95, 2.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_liquori_fianco"]
+size = Vector3(0.32, 1.6, 0.06)
+
+[sub_resource type="BoxMesh" id="BoxMesh_liquori_ripiano"]
+size = Vector3(0.32, 0.05, 2.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_liquori_ripiano"]
+size = Vector3(0.32, 0.05, 2.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_liquori_schienale"]
+size = Vector3(0.03, 1.6, 2.8)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cucina_soffitto"]
 size = Vector3(4.75, 0.2, 4.2)
@@ -250,3 +272,91 @@ light_color = Color(1, 0.86, 0.66, 1)
 light_energy = 2.4
 omni_range = 6.5
 omni_attenuation = 1.4
+
+[node name="PortaLiquori" type="StaticBody3D" parent="." groups=["superficie_legno"]]
+
+[node name="Base" type="MeshInstance3D" parent="PortaLiquori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.775, 0.475, 1.8)
+material_override = ExtResource("1_legno_chiaro")
+mesh = SubResource("BoxMesh_liquori_base")
+
+[node name="CollisionBase" type="CollisionShape3D" parent="PortaLiquori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.775, 0.475, 1.8)
+shape = SubResource("BoxShape3D_liquori_base")
+
+[node name="Schienale" type="MeshInstance3D" parent="PortaLiquori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.985, 1.75, 1.8)
+material_override = ExtResource("2_legno_nerastro")
+mesh = SubResource("BoxMesh_liquori_schienale")
+
+[node name="FiancoNord" type="MeshInstance3D" parent="PortaLiquori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.75, 0.4)
+material_override = ExtResource("2_legno_nerastro")
+mesh = SubResource("BoxMesh_liquori_fianco")
+
+[node name="FiancoSud" type="MeshInstance3D" parent="PortaLiquori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.75, 3.2)
+material_override = ExtResource("2_legno_nerastro")
+mesh = SubResource("BoxMesh_liquori_fianco")
+
+[node name="Ripiano0" type="MeshInstance3D" parent="PortaLiquori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1, 1.8)
+material_override = ExtResource("2_legno_nerastro")
+mesh = SubResource("BoxMesh_liquori_ripiano")
+
+[node name="CollisionRipiano0" type="CollisionShape3D" parent="PortaLiquori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1, 1.8)
+shape = SubResource("BoxShape3D_liquori_ripiano")
+
+[node name="Ripiano1" type="MeshInstance3D" parent="PortaLiquori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.5, 1.8)
+material_override = ExtResource("2_legno_nerastro")
+mesh = SubResource("BoxMesh_liquori_ripiano")
+
+[node name="CollisionRipiano1" type="CollisionShape3D" parent="PortaLiquori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.5, 1.8)
+shape = SubResource("BoxShape3D_liquori_ripiano")
+
+[node name="Ripiano2" type="MeshInstance3D" parent="PortaLiquori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 2, 1.8)
+material_override = ExtResource("2_legno_nerastro")
+mesh = SubResource("BoxMesh_liquori_ripiano")
+
+[node name="BottigliaBirra" parent="." instance=ExtResource("11_bottiglia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.23, 0.9)
+
+[node name="Pickup" parent="BottigliaBirra" index="2"]
+item_data = ExtResource("12_birra")
+
+[node name="BottigliaVino" parent="." instance=ExtResource("11_bottiglia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.23, 1.7)
+
+[node name="Pickup" parent="BottigliaVino" index="2"]
+item_data = ExtResource("13_vino")
+
+[node name="BottigliaDistillato" parent="." instance=ExtResource("11_bottiglia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.73, 2.4)
+
+[node name="Pickup" parent="BottigliaDistillato" index="2"]
+item_data = ExtResource("14_distillato")
+
+[node name="LuceBanco" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 2.5, -0.6)
+light_color = Color(1, 0.83, 0.58, 1)
+light_energy = 2.2
+omni_range = 5.5
+omni_attenuation = 1.4
+
+[node name="LuceLiquori" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1, 2.2, 2)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 1.8
+omni_range = 4.2
+omni_attenuation = 1.5
+
+[node name="LuceCucina" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2, 2.2, -1.9)
+light_color = Color(1, 0.84, 0.6, 1)
+light_energy = 1.4
+omni_range = 3.5
+omni_attenuation = 1.5

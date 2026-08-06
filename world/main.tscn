@@ -5,13 +5,14 @@
 [ext_resource type="PackedScene" path="res://ui/hud.tscn" id="3_hud"]
 [ext_resource type="PackedScene" path="res://ui/day_report.tscn" id="4_day_report"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=631982791]
 
-[node name="Tavern" parent="." instance=ExtResource("1_tavern")]
+[node name="Tavern" parent="." unique_id=306914456 instance=ExtResource("1_tavern")]
+transform = Transform3D(0.9999938, -0.0030050962, 0.0019170512, 0.003008402, 0.9999941, -0.00172594, -0.0019118674, 0.0017316826, 0.9999968, 0.0021278858, -0.0077347755, 0.0037016869)
 
-[node name="Player" parent="." instance=ExtResource("2_player")]
+[node name="Player" parent="." unique_id=1235745036 instance=ExtResource("2_player")]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -4.4, 0.1, 0.2)
 
-[node name="Hud" parent="." instance=ExtResource("3_hud")]
+[node name="Hud" parent="." unique_id=292361199 instance=ExtResource("3_hud")]
 
-[node name="DayReport" parent="." instance=ExtResource("4_day_report")]
+[node name="DayReport" parent="." unique_id=1008710155 instance=ExtResource("4_day_report")]

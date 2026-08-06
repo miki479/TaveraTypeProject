@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/item_data.gd" id="1_item_data"]
+
+[resource]
+script = ExtResource("1_item_data")
+id = &"bottiglia_vino_rosso"
+display_name = "Vino rosso"
+base_price = 12
+liquid_color = Color(0.36, 0.06, 0.10, 1)

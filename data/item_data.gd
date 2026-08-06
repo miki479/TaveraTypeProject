@@ -10,3 +10,6 @@ extends Resource
 @export var base_price: int
 ## Immagine mostrata sopra la testa del cliente quando ordina questo item.
 @export var icon: Texture2D
+## Colore del liquido contenuto. Per ora tinge solo il vetro della bottiglia:
+## le proprietà e gli effetti del liquido sono M4, qui c'è solo il dato.
+@export var liquid_color: Color = Color(0, 0, 0, 0)
