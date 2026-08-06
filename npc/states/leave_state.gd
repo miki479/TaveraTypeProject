@@ -15,6 +15,7 @@ var _elapsed: float = 0.0
 func enter() -> void:
 	_elapsed = 0.0
 	npc.hide_order()
+	npc.leave_perch()
 	npc.walk_to(npc.exit_position)
 
 func update(delta: float) -> void:

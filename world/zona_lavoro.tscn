@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3]
+[gd_scene load_steps=41 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_chiaro.tres" id="1_legno_chiaro"]
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_nerastro.tres" id="2_legno_nerastro"]
@@ -15,6 +15,7 @@
 [ext_resource type="Resource" path="res://data/items/bottiglia_vino_rosso.tres" id="13_vino"]
 [ext_resource type="Resource" path="res://data/items/bottiglia_distillato.tres" id="14_distillato"]
 [ext_resource type="Script" path="res://interactables/bottle_rack.gd" id="15_rack"]
+[ext_resource type="Mesh" path="res://assets/models/sgabello.obj" id="16_sgabello"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_bancone_base"]
 size = Vector3(0.6, 1, 5.6)
@@ -160,14 +161,36 @@ interaction_prompt = "E — Posa"
 anchor_path = NodePath("../Anchor")
 
 [node name="SpotSinistro" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.05, -1.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.05, -1.2)
 script = ExtResource("8_counter_spot")
 slot_path = NodePath("../SlotSinistro/PlaceSlot")
+stool_top_path = NodePath("../SgabelloSinistro/Top")
 
 [node name="SpotDestro" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.05, 1.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.05, 1.2)
 script = ExtResource("8_counter_spot")
 slot_path = NodePath("../SlotDestro/PlaceSlot")
+stool_top_path = NodePath("../SgabelloDestro/Top")
+
+[node name="SgabelloSinistro" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98, 0, -1.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="SgabelloSinistro"]
+material_override = ExtResource("1_legno_chiaro")
+mesh = ExtResource("16_sgabello")
+
+[node name="Top" type="Marker3D" parent="SgabelloSinistro"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
+
+[node name="SgabelloDestro" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98, 0, 1.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="SgabelloDestro"]
+material_override = ExtResource("1_legno_chiaro")
+mesh = ExtResource("16_sgabello")
+
+[node name="Top" type="Marker3D" parent="SgabelloDestro"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
 
 [node name="Spillatore" type="Node3D" parent="."]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2.65, 1.1, -2.05)

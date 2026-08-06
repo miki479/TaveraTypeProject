@@ -23,6 +23,9 @@ extends Resource
 ## Cosa può ordinare questa razza.
 @export var orderable_items: Array[ItemData] = []
 
+## Le razze basse salgono sullo sgabello per arrivare al bancone.
+@export var climbs_on_stool: bool = false
+
 @export_group("Aspetto greybox")
 @export var body_color: Color = Color(0.45, 0.6, 0.35)
 @export var body_height: float = 1.9

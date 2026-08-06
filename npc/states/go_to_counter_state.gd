@@ -6,8 +6,12 @@ func enter() -> void:
 	npc.walk_to(npc.spot.global_position)
 
 func update(_delta: float) -> void:
-	if npc.has_arrived():
-		brain.change_state(&"WaitAtCounter")
+	if not npc.has_arrived():
+		return
+	var sale := npc.race != null and npc.race.climbs_on_stool
+	if sale and npc.spot.stool_top != null:
+		npc.perch_on(npc.spot.stool_top.global_position)
+	brain.change_state(&"WaitAtCounter")
 
 ## Chiude mentre stava raggiungendo il bancone: torna indietro e libera il posto.
 func on_tavern_closed() -> void:

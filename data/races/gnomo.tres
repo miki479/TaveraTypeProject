@@ -18,6 +18,7 @@ attention_sounds = Array[AudioStream]([ExtResource("3_colpetto"), ExtResource("4
 disliked_races = Array[StringName]([])
 patience_stages = Array[float]([0.66, 0.33, 0.0])
 drink_seconds = 2.0
+climbs_on_stool = true
 orderable_items = Array[ItemData]([ExtResource("2_boccale"), ExtResource("20_birra_scura"), ExtResource("21_vino_rosso")])
 body_color = Color(0.72, 0.35, 0.22, 1)
 body_height = 1.05

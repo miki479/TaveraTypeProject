@@ -19,6 +19,9 @@ var exit_position: Vector3 = Vector3.ZERO
 @onready var voice: AudioStreamPlayer3D = $Voice
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
+var _hopping: bool = false
+var _perched: bool = false
+var _ground_position: Vector3 = Vector3.ZERO
 var _mesh_rest_position: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
@@ -52,9 +55,22 @@ func _apply_race_size(height: float) -> void:
 	collision.shape = shape
 	collision.position.y = height * 0.5
 
+	# Occhi e spalle sono figli del corpo con misure pensate per l'altezza base:
+	# su uno gnomo da un metro resterebbero enormi e fuori posto.
+	var factor := height / 1.9
+	for child in body_mesh.get_children():
+		var part := child as Node3D
+		if part != null:
+			part.position *= factor
+			part.scale = Vector3.ONE * factor
+
 	order_icon.position.y = height + 0.45
 
 func _physics_process(delta: float) -> void:
+	# In salto o appollaiato: niente gravità e niente navigazione, altrimenti
+	# scivolerebbe giù dallo sgabello.
+	if _hopping or _perched:
+		return
 	if is_on_floor():
 		velocity.y = 0.0
 	else:
@@ -89,6 +105,35 @@ func walk_to(target: Vector3) -> void:
 
 func has_arrived() -> bool:
 	return agent.is_navigation_finished()
+
+func is_perched() -> bool:
+	return _perched
+
+## Sale sullo sgabello con un salto e ci resta.
+func perch_on(target: Vector3) -> void:
+	_ground_position = global_position
+	_hop_to(target, true)
+
+## Scende dallo sgabello, tornando dove era salito.
+func leave_perch() -> void:
+	if not _perched:
+		return
+	_perched = false
+	_hop_to(_ground_position, false)
+
+## Un arco: prima su, poi giù. Non usa la fisica perché lo sgabello è
+## scenografia senza collisione: se ci cadesse sopra ci passerebbe attraverso.
+func _hop_to(target: Vector3, perch: bool) -> void:
+	_hopping = true
+	velocity = Vector3.ZERO
+	var apex := (global_position + target) * 0.5
+	apex.y = maxf(global_position.y, target.y) + 0.3
+	var tween := create_tween()
+	tween.tween_property(self, "global_position", apex, 0.17).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "global_position", target, 0.17).set_ease(Tween.EASE_IN)
+	tween.finished.connect(func() -> void:
+		_hopping = false
+		_perched = perch)
 
 ## Gira di scatto verso un punto. Si usa all'arrivo al bancone.
 func face_position(target: Vector3) -> void:
