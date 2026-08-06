@@ -139,7 +139,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
 [node name="PlaceSlot" type="Node3D" parent="SlotSinistro"]
 script = ExtResource("7_place_slot")
 interaction_prompt = "E — Posa"
-anchor = NodePath("../Anchor")
+anchor_path = NodePath("../Anchor")
 
 [node name="SlotDestro" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.45, 1.105, 1.2)
@@ -157,7 +157,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
 [node name="PlaceSlot" type="Node3D" parent="SlotDestro"]
 script = ExtResource("7_place_slot")
 interaction_prompt = "E — Posa"
-anchor = NodePath("../Anchor")
+anchor_path = NodePath("../Anchor")
 
 [node name="SpotSinistro" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.05, -1.2)
@@ -332,7 +332,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.225, 0.9)
 script = ExtResource("7_place_slot")
 interaction_prompt = "E — Riponi"
 accepted_ids = Array[StringName]([&"bottiglia_birra_scura"])
-anchor = NodePath("../Anchor")
+anchor_path = NodePath("../Anchor")
 
 [node name="PostoVino" type="Node3D" parent="PortaLiquori"]
 
@@ -343,7 +343,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.225, 1.7)
 script = ExtResource("7_place_slot")
 interaction_prompt = "E — Riponi"
 accepted_ids = Array[StringName]([&"bottiglia_vino_rosso"])
-anchor = NodePath("../Anchor")
+anchor_path = NodePath("../Anchor")
 
 [node name="PostoDistillato" type="Node3D" parent="PortaLiquori"]
 
@@ -354,7 +354,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.725, 2.4)
 script = ExtResource("7_place_slot")
 interaction_prompt = "E — Riponi"
 accepted_ids = Array[StringName]([&"bottiglia_distillato"])
-anchor = NodePath("../Anchor")
+anchor_path = NodePath("../Anchor")
 
 [node name="Scaffale" type="Node3D" parent="PortaLiquori"]
 script = ExtResource("15_rack")

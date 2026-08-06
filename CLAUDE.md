@@ -416,9 +416,12 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
   - Ogni bevanda ha il suo **posto fisso** sullo scaffale: si punta lo scaffale, si preme E
     e `BottleRack` sceglie il `PlaceSlot` giusto in base a `accepted_ids`. Il giocatore non
     deve centrare un bersaglio piccolo.
-  - Riconfermato il limite della sezione M2: **i riferimenti a nodi tipizzati restano a
-    null** nelle scene scritte a mano. Vale anche dentro una scena instanziata: usare
-    sempre `NodePath` + `get_node_or_null`.
+  - **REGOLA**: mai `@export var x: QualcheNodo`. Nelle scene scritte a mano fuori
+    dall'editor quei riferimenti restano **null senza dire niente**, e il codice va avanti
+    con il ripiego. Ha morso tre volte: l'ancora dei `PlaceSlot` non ha mai funzionato (le
+    bottiglie finivano all'origine del mondo, cioè sotto il pavimento), `tinted_mesh` non
+    tingeva, `exit_point` dello spawner ripiegava sulla posizione dello spawner. Usare
+    sempre `NodePath` + `get_node_or_null`, e un `push_warning` se non risolve.
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi

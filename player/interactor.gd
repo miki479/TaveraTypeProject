@@ -2,9 +2,11 @@ class_name Interactor
 extends RayCast3D
 ## Raycast dalla camera. Trova l'Interactable puntato e mostra il prompt.
 
-@export var prompt_label: Label
+@export var prompt_label_path: NodePath
 
 var current: Interactable = null
+
+@onready var prompt_label: Label = get_node_or_null(prompt_label_path) as Label
 
 @onready var _player: Node3D = owner as Node3D
 

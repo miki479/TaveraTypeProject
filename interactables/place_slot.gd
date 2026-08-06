@@ -7,8 +7,9 @@ extends Interactable
 
 ## Vuoto = accetta qualsiasi pickup. Altrimenti solo gli id elencati.
 @export var accepted_ids: Array[StringName] = []
-## Dove finisce l'oggetto posato. Se null si usa la posizione dell'Area3D.
-@export var anchor: Marker3D
+## Dove finisce l'oggetto posato. Se vuoto si usa la posizione dell'Area3D.
+## NodePath e non riferimento tipizzato: vedi la nota in CLAUDE.md.
+@export var anchor_path: NodePath
 
 var occupant: RigidBody3D = null
 
@@ -52,4 +53,8 @@ func interact(player: Node) -> void:
 	EventBus.item_placed.emit(body, self)
 
 func _anchor_transform() -> Transform3D:
-	return anchor.global_transform if anchor != null else global_transform
+	var anchor := get_node_or_null(anchor_path) as Marker3D
+	if anchor == null:
+		push_warning("PlaceSlot '%s': anchor_path non punta a un Marker3D." % name)
+		return global_transform
+	return anchor.global_transform

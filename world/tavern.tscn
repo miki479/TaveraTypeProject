@@ -114,11 +114,11 @@ script = ExtResource("3_navmesh")
 
 [node name="Modello" type="Node3D" parent="NavigationRegion3D"]
 script = ExtResource("2_tavern_model")
-discarded = Array[StringName]([&"04_cutter_porta", &"Cube", &"02_muro_0", &"02_muro_2", &"02_muro_6", &"05_", &"06_", &"07_", &"08_", &"09_arm", &"09_lib", &"03_montante_lib_a", &"03_base_lib_a", &"03_capitello_lib_a", &"10_", &"11_", &"16_"])
+discarded = Array[StringName]([&"04_cutter_porta", &"Cube", &"02_muro_0", &"02_muro_2", &"02_muro_6", &"05_", &"06_", &"07_", &"08_", &"09_arm", &"09_lib", &"03_montante_lib_a", &"03_base_lib_a", &"03_capitello_lib_a", &"03_montante_m0_2", &"03_montante_m2_1", &"03_controvento_0_0", &"03_controvento_0_1", &"03_controvento_2_0_a", &"03_controvento_2_1_b", &"10_", &"11_", &"16_"])
 lifted = Array[StringName]([])
 pushed = Array[StringName]([&"02_battiscopa", &"03_", &"09_appl"])
 flipped = Array[StringName]([&"04_"])
-collision_prefixes = Array[StringName]([&"01_pavimento", &"02_muro", &"04_gradino_6", &"04_pianerottolo", &"04_parapetto", &"04_porta", &"04_stipite", &"04_pilastrino", &"05_", &"06_", &"07_sedia", &"07_sgab_3", &"07_sgab_4", &"07_sgab_5", &"07_sgab_6", &"08_", &"09_arm", &"09_lib", &"03_montante_lib_a", &"03_base_lib_a", &"03_capitello_lib_a", &"11_vaso", &"16_botte", &"16_cassa", &"16_mensola"])
+collision_prefixes = Array[StringName]([&"01_pavimento", &"02_muro", &"03_montante", &"03_base", &"04_gradino_6", &"04_pianerottolo", &"04_parapetto", &"04_porta", &"04_stipite", &"04_pilastrino", &"05_", &"06_", &"07_sedia", &"07_sgab_3", &"07_sgab_4", &"07_sgab_5", &"07_sgab_6", &"08_", &"09_arm", &"09_lib", &"03_montante_lib_a", &"03_base_lib_a", &"03_capitello_lib_a", &"03_montante_m0_2", &"03_montante_m2_1", &"03_controvento_0_0", &"03_controvento_0_1", &"03_controvento_2_0_a", &"03_controvento_2_1_b", &"11_vaso", &"16_botte", &"16_cassa", &"16_mensola"])
 materials_dir = "res://assets/materials/taverna"
 surface_group = &"superficie_legno"
 surface_group_prefixes = Array[StringName]([&"04_gradino_6", &"04_pianerottolo"])
@@ -317,7 +317,7 @@ shape = SubResource("BoxShape3D_cartello")
 [node name="Interazione" type="Node3D" parent="Cartello"]
 script = ExtResource("13_cartello")
 interaction_prompt = "E — Chiudi in anticipo"
-face = NodePath("../Mesh")
+face_path = NodePath("../Mesh")
 
 [node name="Orologio" type="Node" parent="."]
 script = ExtResource("11_day_cycle")
@@ -329,7 +329,7 @@ script = ExtResource("6_spawner")
 npc_scene = ExtResource("7_npc")
 races = Array[RaceData]([ExtResource("8_orco"), ExtResource("9_strega"), ExtResource("10_gnomo")])
 day_cycle_path = NodePath("../Orologio")
-exit_point = NodePath("../Ingresso")
+exit_point_path = NodePath("../Ingresso")
 
 [node name="Boccale1" parent="." instance=ExtResource("19_boccale")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65, 1.18, -0.2)

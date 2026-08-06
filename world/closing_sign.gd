@@ -5,7 +5,7 @@ extends Interactable
 ## Non c'è nessuna penalità: il costo è già rinunciare agli incassi delle ore
 ## che salti, e il resoconto serale te lo mostra.
 
-@export var face: MeshInstance3D
+@export var face_path: NodePath
 @export var open_color: Color = Color(0.3, 0.65, 0.32)
 @export var closed_color: Color = Color(0.65, 0.26, 0.22)
 
@@ -13,6 +13,7 @@ var _face_material: StandardMaterial3D = null
 
 func _ready() -> void:
 	super()
+	var face := get_node_or_null(face_path) as MeshInstance3D
 	if face != null:
 		# Duplicato: il materiale è condiviso, tingerlo qui tingerebbe anche il resto.
 		_face_material = face.material_override.duplicate() as StandardMaterial3D

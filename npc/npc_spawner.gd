@@ -9,7 +9,7 @@ extends Node3D
 ## L'orologio da cui leggere l'affluenza dell'ora.
 @export var day_cycle_path: NodePath
 ## Dove tornano i clienti per uscire. Se vuoto, si usa la posizione dello spawner.
-@export var exit_point: Marker3D
+@export var exit_point_path: NodePath
 
 var _countdown: float = 0.0
 var _spawning: bool = false
@@ -45,6 +45,7 @@ func spawn_one() -> void:
 	_spawn_count += 1
 	npc.race = race
 	npc.id = StringName("%s_%03d" % [race.id, _spawn_count])
+	var exit_point := get_node_or_null(exit_point_path) as Marker3D
 	npc.exit_position = exit_point.global_position if exit_point != null else global_position
 	get_parent().add_child(npc)
 	npc.global_position = global_position

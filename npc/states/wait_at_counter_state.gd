@@ -77,8 +77,10 @@ func _on_item_placed(item: Node3D, slot: Node3D) -> void:
 
 func _finish_drinking() -> void:
 	GameState.money += npc.order.base_price
-	if is_instance_valid(_served_item):
-		_served_item.queue_free()
+	# Il boccale non sparisce: resta sul bancone e il giocatore lo riusa. Finche
+	# non c'e lo spillatore (M4) e l'unico modo di non restare senza boccali.
+	if is_instance_valid(_served_item) and _served_item.has_meta(&"slot"):
+		_served_item.remove_meta(&"slot")
 	_served_item = null
 	if npc.spot.slot != null:
 		npc.spot.slot.clear_occupant()

@@ -36,7 +36,7 @@ hold_rotation_degrees = Vector3(0, -20, 0)
 target_position = Vector3(0, 0, -2.5)
 collide_with_areas = true
 script = ExtResource("3_interactor")
-prompt_label = NodePath("../../UI/Prompt")
+prompt_label_path = NodePath("../../UI/Prompt")
 
 [node name="Footsteps" type="AudioStreamPlayer" parent="."]
 volume_db = -6.0
