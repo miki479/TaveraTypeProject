@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3]
+[gd_scene load_steps=44 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_chiaro.tres" id="1_legno_chiaro"]
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_nerastro.tres" id="2_legno_nerastro"]
@@ -16,6 +16,9 @@
 [ext_resource type="Resource" path="res://data/items/bottiglia_distillato.tres" id="14_distillato"]
 [ext_resource type="Script" path="res://interactables/bottle_rack.gd" id="15_rack"]
 [ext_resource type="Mesh" path="res://assets/models/sgabello.obj" id="16_sgabello"]
+[ext_resource type="Resource" path="res://data/liquids/birra_scura.tres" id="17_liq_birra"]
+[ext_resource type="Resource" path="res://data/liquids/vino_rosso.tres" id="18_liq_vino"]
+[ext_resource type="Resource" path="res://data/liquids/distillato.tres" id="19_liq_distillato"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_bancone_base"]
 size = Vector3(0.6, 1, 5.6)
@@ -387,20 +390,29 @@ slot_paths = Array[NodePath]([NodePath("../PostoBirra/PlaceSlot"), NodePath("../
 [node name="BottigliaBirra" parent="." instance=ExtResource("11_bottiglia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.23, 0.9)
 
-[node name="Pickup" parent="BottigliaBirra" index="2"]
+[node name="Pickup" parent="BottigliaBirra" index="3"]
 item_data = ExtResource("12_birra")
+
+[node name="Contenuto" parent="BottigliaBirra" index="4"]
+initial_liquid = ExtResource("17_liq_birra")
 
 [node name="BottigliaVino" parent="." instance=ExtResource("11_bottiglia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.23, 1.7)
 
-[node name="Pickup" parent="BottigliaVino" index="2"]
+[node name="Pickup" parent="BottigliaVino" index="3"]
 item_data = ExtResource("13_vino")
+
+[node name="Contenuto" parent="BottigliaVino" index="4"]
+initial_liquid = ExtResource("18_liq_vino")
 
 [node name="BottigliaDistillato" parent="." instance=ExtResource("11_bottiglia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.73, 2.4)
 
-[node name="Pickup" parent="BottigliaDistillato" index="2"]
+[node name="Pickup" parent="BottigliaDistillato" index="3"]
 item_data = ExtResource("14_distillato")
+
+[node name="Contenuto" parent="BottigliaDistillato" index="4"]
+initial_liquid = ExtResource("19_liq_distillato")
 
 [node name="LuceBanco" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 2.5, -0.6)

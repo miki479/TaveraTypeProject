@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/taverna/peltro.tres" id="1_peltro"]
 [ext_resource type="Mesh" path="res://assets/models/boccale.obj" id="2_mesh"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" path="res://assets/materials/taverna/zuppa.tres" id="4_liquido_mat"]
 [ext_resource type="Script" path="res://interactables/pickup.gd" id="5_pickup"]
 [ext_resource type="Resource" path="res://data/items/boccale.tres" id="6_item"]
+[ext_resource type="Script" path="res://interactables/liquid_container.gd" id="7_container"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_boccale"]
 height = 0.14
@@ -31,4 +32,11 @@ shape = SubResource("CylinderShape3D_boccale")
 script = ExtResource("5_pickup")
 interaction_prompt = "E — Raccogli"
 item_data = ExtResource("6_item")
-tinted_mesh_path = NodePath("../Liquido")
+
+[node name="Contenuto" type="Node3D" parent="."]
+script = ExtResource("7_container")
+initial_amount = 0.0
+liquid_mesh_path = NodePath("../Liquido")
+moves_with_level = true
+empty_y = -0.048
+full_y = 0.052

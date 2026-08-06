@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/taverna/vetro_scuro.tres" id="1_vetro"]
 [ext_resource type="Mesh" path="res://assets/models/bottiglia.obj" id="2_mesh"]
 [ext_resource type="Mesh" path="res://assets/models/bottiglia_etichetta.obj" id="3_etichetta"]
 [ext_resource type="Material" path="res://assets/materials/taverna/ceramica_chiara.tres" id="4_carta"]
 [ext_resource type="Script" path="res://interactables/pickup.gd" id="5_pickup"]
+[ext_resource type="Script" path="res://interactables/liquid_container.gd" id="6_container"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_bottiglia"]
 height = 0.4
@@ -29,4 +30,7 @@ shape = SubResource("CylinderShape3D_bottiglia")
 [node name="Pickup" type="Node3D" parent="."]
 script = ExtResource("5_pickup")
 interaction_prompt = "E — Raccogli"
-tinted_mesh_path = NodePath("../Etichetta")
+
+[node name="Contenuto" type="Node3D" parent="."]
+script = ExtResource("6_container")
+liquid_mesh_path = NodePath("../Etichetta")
