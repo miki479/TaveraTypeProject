@@ -2,5 +2,6 @@
 
 [resource]
 resource_name = "Ceramica rosa"
+cull_mode = 2
 albedo_color = Color(0.91, 0.63, 0.56, 1)
 roughness = 0.7

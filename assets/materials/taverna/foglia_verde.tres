@@ -2,5 +2,6 @@
 
 [resource]
 resource_name = "Foglia verde"
+cull_mode = 2
 albedo_color = Color(0.26, 0.63, 0.26, 1)
 roughness = 0.9

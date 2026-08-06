@@ -2,5 +2,6 @@
 
 [resource]
 resource_name = "Tappeto blu"
+cull_mode = 2
 albedo_color = Color(0.21, 0.29, 0.56, 1)
 roughness = 1.0

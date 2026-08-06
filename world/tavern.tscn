@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3]
+[gd_scene load_steps=50 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/models/taverna.glb" id="1_modello"]
 [ext_resource type="Script" path="res://world/tavern_model.gd" id="2_tavern_model"]
@@ -33,6 +33,8 @@
 [ext_resource type="Resource" path="res://data/cielo/cielo_orizzonte.tres" id="31_cielo_orizzonte"]
 [ext_resource type="Resource" path="res://data/cielo/sole.tres" id="32_sole"]
 [ext_resource type="PackedScene" path="res://world/zona_lavoro.tscn" id="33_zona_lavoro"]
+[ext_resource type="Script" path="res://world/money_popup.gd" id="34_money_popup"]
+[ext_resource type="PackedScene" path="res://ui/floating_money.tscn" id="35_floating_money"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cielo"]
 sky_top_color = Color(0.28, 0.55, 0.92, 1)
@@ -97,7 +99,7 @@ rings = 1
 size = Vector3(0.05, 0.1, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rampa"]
-size = Vector3(2.5239, 0.2, 1.25)
+size = Vector3(2.5239, 0.2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cartello"]
 size = Vector3(0.42, 0.26, 0.04)
@@ -115,7 +117,7 @@ script = ExtResource("3_navmesh")
 [node name="Modello" type="Node3D" parent="NavigationRegion3D"]
 script = ExtResource("2_tavern_model")
 discarded = Array[StringName]([&"04_cutter_porta", &"Cube", &"02_muro_0", &"02_muro_2", &"02_muro_6", &"05_", &"06_", &"07_", &"08_", &"09_arm", &"09_lib", &"03_montante_lib_a", &"03_base_lib_a", &"03_capitello_lib_a", &"03_montante_m0_2", &"03_montante_m2_1", &"03_controvento_0_0", &"03_controvento_0_1", &"03_controvento_2_0_a", &"03_controvento_2_1_b", &"10_", &"11_", &"16_"])
-lifted = Array[StringName]([])
+lifted = Array[StringName]([&"03_base", &"02_battiscopa"])
 pushed = Array[StringName]([&"02_battiscopa", &"03_", &"09_appl"])
 flipped = Array[StringName]([&"04_"])
 collision_prefixes = Array[StringName]([&"01_pavimento", &"02_muro", &"03_montante", &"03_base", &"04_gradino_6", &"04_pianerottolo", &"04_parapetto", &"04_porta", &"04_stipite", &"04_pilastrino", &"05_", &"06_", &"07_sedia", &"07_sgab_3", &"07_sgab_4", &"07_sgab_5", &"07_sgab_6", &"08_", &"09_arm", &"09_lib", &"03_montante_lib_a", &"03_base_lib_a", &"03_capitello_lib_a", &"03_montante_m0_2", &"03_montante_m2_1", &"03_controvento_0_0", &"03_controvento_0_1", &"03_controvento_2_0_a", &"03_controvento_2_1_b", &"11_vaso", &"16_botte", &"16_cassa", &"16_mensola"])
@@ -318,6 +320,10 @@ shape = SubResource("BoxShape3D_cartello")
 script = ExtResource("13_cartello")
 interaction_prompt = "E — Chiudi in anticipo"
 face_path = NodePath("../Mesh")
+
+[node name="MoneyPopup" type="Node" parent="."]
+script = ExtResource("34_money_popup")
+popup_scene = ExtResource("35_floating_money")
 
 [node name="Orologio" type="Node" parent="."]
 script = ExtResource("11_day_cycle")

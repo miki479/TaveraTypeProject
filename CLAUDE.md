@@ -422,6 +422,12 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
     bottiglie finivano all'origine del mondo, cioè sotto il pavimento), `tinted_mesh` non
     tingeva, `exit_point` dello spawner ripiegava sulla posizione dello spawner. Usare
     sempre `NodePath` + `get_node_or_null`, e un `push_warning` se non risolve.
+  - I materiali in `assets/materials/taverna/` sono tutti `cull_mode = 2` (doppia faccia):
+    il modello ha le normali incoerenti e senza questo i pezzi girati male **spariscono
+    guardandoli dal lato sbagliato**. Va tenuto finché il glb non arriva con le normali
+    a posto.
+  - La rampa della scala era larga 1,25 m: con l'agente da 0,40 restava una striscia
+    calpestabile di 45 cm e i clienti si incastravano. Ora è larga 2 m.
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi

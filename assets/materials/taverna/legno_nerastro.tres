@@ -2,5 +2,6 @@
 
 [resource]
 resource_name = "Legno nerastro"
+cull_mode = 2
 albedo_color = Color(0.24, 0.16, 0.12, 1)
 roughness = 0.9

@@ -46,5 +46,8 @@ signal day_ended(report: Dictionary)
 ## Emesso dal resoconto serale quando il giocatore vuole aprire il giorno dopo.
 signal next_day_requested()
 
+## Emesso da chiunque incassi qualcosa, con il punto dove mostrarlo.
+signal money_earned(amount: int, at: Vector3)
+
 ## Emesso quando il giocatore decide di chiudere prima dell'orario.
 signal close_requested()

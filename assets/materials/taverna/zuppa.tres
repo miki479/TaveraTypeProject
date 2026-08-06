@@ -2,5 +2,6 @@
 
 [resource]
 resource_name = "Zuppa"
+cull_mode = 2
 albedo_color = Color(0.81, 0.51, 0.16, 1)
 roughness = 0.5

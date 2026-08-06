@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://data/item_data.gd" id="1_item_data"]
+[ext_resource type="Texture2D" path="res://assets/textures/icona_distillato.png" id="2_icon"]
 
 [resource]
 script = ExtResource("1_item_data")
@@ -8,3 +9,4 @@ id = &"bottiglia_distillato"
 display_name = "Distillato"
 base_price = 18
 liquid_color = Color(0.28, 0.62, 0.24, 1)
+icon = ExtResource("2_icon")
