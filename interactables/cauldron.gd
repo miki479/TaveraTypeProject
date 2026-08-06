@@ -53,7 +53,8 @@ func can_interact(player: Node) -> bool:
 		return false
 	return (_fillable_container(player) != null
 		or _held_container(player) != null
-		or _matching_recipe() != null)
+		or _matching_recipe() != null
+		or _has_something_to_throw_away())
 
 func get_prompt(player: Node) -> String:
 	if _cooking != null:
@@ -67,9 +68,9 @@ func get_prompt(player: Node) -> String:
 	var recipe := _matching_recipe()
 	if recipe != null:
 		return "E — %s: %s" % [run_verb, recipe.display_name]
-	if poured.is_empty():
-		return interaction_prompt
-	return "Questi ingredienti non fanno nessuna ricetta"
+	if _has_something_to_throw_away():
+		return "E — Svuota il %s" % vessel_name
+	return interaction_prompt
 
 func interact(player: Node) -> void:
 	if _cooking != null:
@@ -87,6 +88,9 @@ func interact(player: Node) -> void:
 	var recipe := _matching_recipe()
 	if recipe != null:
 		_start_cooking(recipe)
+		return
+	if _has_something_to_throw_away():
+		_throw_away()
 
 ## Il recipiente in mano al giocatore, se ha qualcosa da versare.
 func _held_container(player: Node) -> LiquidContainer:
@@ -123,6 +127,19 @@ func _matching_recipe() -> RecipeData:
 		if recipe != null and recipe.matches(poured):
 			return recipe
 	return null
+
+## C'è dentro qualcosa che non serve a niente: ingredienti che non fanno ricetta,
+## o un risultato che non interessa più. Senza questa via d'uscita la macchina
+## resterebbe inceppata per sempre.
+func _has_something_to_throw_away() -> bool:
+	if not poured.is_empty() and _matching_recipe() == null:
+		return true
+	return _container != null and not _container.is_empty()
+
+func _throw_away() -> void:
+	poured.clear()
+	if _container != null:
+		_container.empty_out()
 
 func _start_cooking(recipe: RecipeData) -> void:
 	_cooking = recipe

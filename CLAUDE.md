@@ -455,8 +455,13 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
   - `Cauldron` è la macchina che trasforma bevande e serve sia al calderone sia al
     distillatore: con una ricetta a **un** ingrediente è una distillazione, con due o più
     una miscela. Le parole a schermo (`vessel_name`, `run_verb`) sono per macchina.
-  - Modelli e suoni sono generati con script Blender/PowerShell, non comprati: Meshy e a
-    pagamento. Ogni pezzo sta sotto i 300 vertici e usa i materiali del progetto.
+  - Modelli e suoni sono generati con script Blender/PowerShell, non comprati: Meshy è a
+    pagamento. I pezzi stanno fra i 20 e i 650 vertici e usano i materiali del progetto.
+  - Le bottiglie dello scaffale hanno `endless = true`: si ricaricano da sole appena le
+    svuoti. Sono **scorte**, non oggetti di consumo — altrimenti dopo tre versate resti
+    senza ingredienti e la cucina si ferma.
+  - Ogni macchina si può **svuotare**: se ci finiscono dentro ingredienti che non fanno
+    nessuna ricetta, senza una via d'uscita resterebbe inceppata per sempre. È capitato.
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi

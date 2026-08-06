@@ -9,6 +9,9 @@ extends Node3D
 ## Con cosa nasce pieno. Vuoto = recipiente pulito.
 @export var initial_liquid: LiquidData
 @export_range(0.0, 1.0, 0.01) var initial_amount: float = 1.0
+## Le scorte non si esauriscono: una bottiglia dello scaffale si ricarica da sola
+## appena la si svuota, altrimenti dopo tre versate resteresti senza ingredienti.
+@export var endless: bool = false
 
 ## La mesh che rappresenta il liquido: il disco dentro il boccale, l'etichetta
 ## sulla bottiglia. NodePath e non riferimento tipizzato, vedi CLAUDE.md.
@@ -54,6 +57,9 @@ func pour_in(liquid: LiquidData, quantity: float) -> float:
 	return quantity - poured
 
 func empty_out() -> void:
+	if endless and initial_liquid != null:
+		set_content(initial_liquid, 1.0)
+		return
 	set_content(null, 0.0)
 
 func set_content(liquid: LiquidData, quantity: float) -> void:

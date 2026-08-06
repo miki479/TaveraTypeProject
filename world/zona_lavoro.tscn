@@ -447,6 +447,7 @@ item_data = ExtResource("12_birra")
 
 [node name="Contenuto" parent="BottigliaBirra" index="4"]
 initial_liquid = ExtResource("17_liq_birra")
+endless = true
 
 [node name="BottigliaVino" parent="." instance=ExtResource("11_bottiglia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.23, 1.7)
@@ -456,6 +457,7 @@ item_data = ExtResource("13_vino")
 
 [node name="Contenuto" parent="BottigliaVino" index="4"]
 initial_liquid = ExtResource("18_liq_vino")
+endless = true
 
 [node name="BottigliaDistillato" parent="." instance=ExtResource("11_bottiglia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.73, 2.4)
@@ -465,6 +467,7 @@ item_data = ExtResource("14_distillato")
 
 [node name="Contenuto" parent="BottigliaDistillato" index="4"]
 initial_liquid = ExtResource("19_liq_distillato")
+endless = true
 
 [node name="LuceBanco" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 2.5, -0.6)
