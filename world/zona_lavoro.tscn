@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3]
+[gd_scene load_steps=63 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_chiaro.tres" id="1_legno_chiaro"]
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_nerastro.tres" id="2_legno_nerastro"]
@@ -31,6 +31,11 @@
 [ext_resource type="Resource" path="res://data/recipes/grog.tres" id="29_ric_grog"]
 [ext_resource type="Resource" path="res://data/recipes/sangue_drago.tres" id="30_ric_sangue"]
 [ext_resource type="Script" path="res://interactables/liquid_container.gd" id="31_container"]
+[ext_resource type="Mesh" path="res://assets/models/distillatore.obj" id="32_distillatore"]
+[ext_resource type="AudioStream" path="res://assets/audio/distillatore.wav" id="33_suono_dist"]
+[ext_resource type="Resource" path="res://data/recipes/distillazione_vino.tres" id="34_ric_vino"]
+[ext_resource type="Resource" path="res://data/recipes/distillazione_birra.tres" id="35_ric_birra"]
+[ext_resource type="Material" path="res://assets/materials/taverna/banda_gialla.tres" id="36_rame"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_bancone_base"]
 size = Vector3(0.6, 1, 5.6)
@@ -93,6 +98,10 @@ size = Vector3(5, 3, 0.25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cucina_muro_corto"]
 size = Vector3(5, 3, 0.25)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_distillatore"]
+height = 0.8
+radius = 0.32
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_calderone"]
 height = 0.49
@@ -238,25 +247,9 @@ stream = ExtResource("21_suono_spillatore")
 unit_size = 3.5
 max_db = -4.0
 
-[node name="PostoBoccale" type="Area3D" parent="Spillatore"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005, -0.2)
-
-[node name="Collision" type="CollisionShape3D" parent="Spillatore/PostoBoccale"]
-shape = SubResource("CylinderShape3D_sottobicchiere")
-
-[node name="Anchor" type="Marker3D" parent="Spillatore/PostoBoccale"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.006, 0)
-
-[node name="PlaceSlot" type="Node3D" parent="Spillatore/PostoBoccale"]
-script = ExtResource("7_place_slot")
-interaction_prompt = "E — Metti sotto"
-accepted_ids = Array[StringName]([&"boccale"])
-anchor_path = NodePath("../Anchor")
-
 [node name="Rubinetto" type="Node3D" parent="Spillatore"]
 script = ExtResource("20_tap")
 liquid = ExtResource("17_liq_birra")
-slot_path = NodePath("../PostoBoccale/PlaceSlot")
 lever_path = NodePath("../Leva")
 sound_path = NodePath("../Suono")
 
@@ -517,5 +510,43 @@ full_y = 0.42
 script = ExtResource("23_cauldron")
 interaction_prompt = "Versaci dentro due bevande"
 recipes = Array[RecipeData]([ExtResource("29_ric_grog"), ExtResource("30_ric_sangue")])
+container_path = NodePath("../Contenuto")
+sound_path = NodePath("../Suono")
+
+[node name="Distillatore" type="StaticBody3D" parent="Cucina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.7, 0, -1.1)
+
+[node name="Corpo" type="MeshInstance3D" parent="Cucina/Distillatore"]
+material_override = ExtResource("36_rame")
+mesh = ExtResource("32_distillatore")
+
+[node name="Liquido" type="MeshInstance3D" parent="Cucina/Distillatore"]
+transform = Transform3D(0.55, 0, 0, 0, 1, 0, 0, 0, 0.55, 0, 0.4, 0)
+material_override = ExtResource("27_zuppa")
+mesh = ExtResource("25_calderone_liquido")
+
+[node name="Collision" type="CollisionShape3D" parent="Cucina/Distillatore"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("CylinderShape3D_distillatore")
+
+[node name="Suono" type="AudioStreamPlayer3D" parent="Cucina/Distillatore"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+stream = ExtResource("33_suono_dist")
+unit_size = 4.0
+
+[node name="Contenuto" type="Node3D" parent="Cucina/Distillatore"]
+script = ExtResource("31_container")
+initial_amount = 0.0
+liquid_mesh_path = NodePath("../Liquido")
+moves_with_level = true
+empty_y = 0.3
+full_y = 0.42
+
+[node name="Alambicco" type="Node3D" parent="Cucina/Distillatore"]
+script = ExtResource("23_cauldron")
+interaction_prompt = "Versaci dentro una bevanda da distillare"
+recipes = Array[RecipeData]([ExtResource("34_ric_vino"), ExtResource("35_ric_birra")])
+vessel_name = "distillatore"
+run_verb = "Distilla"
 container_path = NodePath("../Contenuto")
 sound_path = NodePath("../Suono")

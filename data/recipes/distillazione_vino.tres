@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/recipe_data.gd" id="1_recipe"]
+[ext_resource type="Resource" path="res://data/liquids/vino_rosso.tres" id="2_in"]
+[ext_resource type="Resource" path="res://data/liquids/distillato.tres" id="3_out"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"distillazione_vino"
+display_name = "Distillato di vino"
+ingredients = Array[LiquidData]([ExtResource("2_in")])
+result = ExtResource("3_out")
+seconds = 5.0

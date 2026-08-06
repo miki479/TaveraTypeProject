@@ -449,6 +449,14 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
   - Due bevande diverse non si mescolano da sole dentro un recipiente: serve il calderone
     e una ricetta. È voluto, altrimenti ogni errore diventerebbe una miscela.
   - La classe si chiama `LiquidContainer`: `Container` è un nome già usato da Godot.
+  - Lo spillatore riempie il boccale **che hai in mano**: prima bisognava appoggiarlo su
+    un piattino nascosto sotto il becco e poi mirare alla macchina, due gesti di cui
+    nessuno ovvio. Michele non riusciva a usarlo.
+  - `Cauldron` è la macchina che trasforma bevande e serve sia al calderone sia al
+    distillatore: con una ricetta a **un** ingrediente è una distillazione, con due o più
+    una miscela. Le parole a schermo (`vessel_name`, `run_verb`) sono per macchina.
+  - Modelli e suoni sono generati con script Blender/PowerShell, non comprati: Meshy e a
+    pagamento. Ogni pezzo sta sotto i 300 vertici e usa i materiali del progetto.
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi

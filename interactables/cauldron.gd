@@ -6,8 +6,13 @@ extends Interactable
 ## dentro. Quando quello che c'è dentro corrisponde a una ricetta, a mani vuote
 ## premi E e si mescola. Poi ci immergi un boccale vuoto e lo riempi.
 
-## Le ricette che questo calderone sa fare.
+## Le ricette che questa macchina sa fare. Con un solo ingrediente diventa una
+## distillazione, con due o più una miscela: il meccanismo è lo stesso.
 @export var recipes: Array[RecipeData] = []
+## Come si chiama questo recipiente nei messaggi a schermo.
+@export var vessel_name: String = "calderone"
+## Il verbo del lavoro: "Mescola" per il calderone, "Distilla" per l'alambicco.
+@export var run_verb: String = "Mescola"
 ## Il recipiente del calderone: è lì che finisce il risultato.
 @export var container_path: NodePath
 @export var sound_path: NodePath
@@ -43,18 +48,18 @@ func can_interact(player: Node) -> bool:
 
 func get_prompt(player: Node) -> String:
 	if _cooking != null:
-		return "Sta mescolando…"
+		return "Sta lavorando…"
 	var empty := _fillable_container(player)
 	if empty != null:
 		return "E — Riempi di %s" % _container.content.display_name
 	var source := _held_container(player)
 	if source != null:
-		return "E — Versa %s nel calderone" % source.content.display_name
+		return "E — Versa %s nel %s" % [source.content.display_name, vessel_name]
 	var recipe := _matching_recipe()
 	if recipe != null:
-		return "E — Mescola: %s" % recipe.display_name
+		return "E — %s: %s" % [run_verb, recipe.display_name]
 	if poured.is_empty():
-		return "Versaci dentro due bevande"
+		return interaction_prompt
 	return "Questi ingredienti non fanno nessuna ricetta"
 
 func interact(player: Node) -> void:
