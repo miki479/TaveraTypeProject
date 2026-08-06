@@ -4,6 +4,9 @@ extends NpcState
 ##
 ## Le soglie dei richiami stanno in RaceData.patience_stages, mai qui.
 
+## Quanto deve essere pieno il recipiente perché conti come servito.
+@export_range(0.1, 1.0, 0.05) var minimum_serving: float = 0.75
+
 var _patience_left: float = 0.0
 var _stage: int = -1
 var _served_item: RigidBody3D = null
@@ -66,8 +69,13 @@ func _on_item_placed(item: Node3D, slot: Node3D) -> void:
 	if _served_item != null or slot != npc.spot.slot:
 		return
 	var pickup := Interactable.of(item) as Pickup
-	var served_id: StringName = pickup.get_item_id() if pickup != null else &""
-	var correct := served_id == npc.order.id
+	var container := pickup.get_container() if pickup != null else null
+	var served_id: StringName = &""
+	var correct := false
+	if container != null and container.content != null:
+		served_id = container.content.id
+		# Mezzo boccale non è un boccale: sotto la soglia il cliente lo rifiuta.
+		correct = container.content == npc.order and container.amount >= minimum_serving
 	EventBus.npc_served.emit(npc, served_id, correct)
 	if not correct:
 		return
@@ -78,10 +86,15 @@ func _on_item_placed(item: Node3D, slot: Node3D) -> void:
 func _finish_drinking() -> void:
 	GameState.money += npc.order.base_price
 	EventBus.money_earned.emit(npc.order.base_price, npc.global_position + Vector3.UP * 1.6)
-	# Il boccale non sparisce: resta sul bancone e il giocatore lo riusa. Finche
-	# non c'e lo spillatore (M4) e l'unico modo di non restare senza boccali.
-	if is_instance_valid(_served_item) and _served_item.has_meta(&"slot"):
-		_served_item.remove_meta(&"slot")
+	# Se l'ha bevuto, il recipiente resta lì vuoto: il giocatore lo riprende e lo
+	# riempie di nuovo. È il ciclo del gioco, non uno spreco.
+	if is_instance_valid(_served_item):
+		var pickup := Interactable.of(_served_item) as Pickup
+		var container := pickup.get_container() if pickup != null else null
+		if container != null:
+			container.empty_out()
+		if _served_item.has_meta(&"slot"):
+			_served_item.remove_meta(&"slot")
 	_served_item = null
 	if npc.spot.slot != null:
 		npc.spot.slot.clear_occupant()

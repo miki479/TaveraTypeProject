@@ -9,7 +9,7 @@ extends CharacterBody3D
 
 var id: StringName = &""
 var memory: Dictionary = {}
-var order: ItemData = null
+var order: LiquidData = null
 var spot: CounterSpot = null
 var exit_position: Vector3 = Vector3.ZERO
 
@@ -144,15 +144,15 @@ func face_position(target: Vector3) -> void:
 	rotation.y = atan2(-direction.x, -direction.z)
 
 ## Cosa vuole bere. Pescato dalla lista della sua razza, mai dal codice.
-func pick_order() -> ItemData:
-	if race == null or race.orderable_items.is_empty():
+func pick_order() -> LiquidData:
+	if race == null or race.orderable_drinks.is_empty():
 		return null
-	return race.orderable_items.pick_random()
+	return race.orderable_drinks.pick_random()
 
-func show_order(item: ItemData) -> void:
-	if item == null or item.icon == null:
+func show_order(drink: LiquidData) -> void:
+	if drink == null or drink.icon == null:
 		return
-	order_icon.texture = item.icon
+	order_icon.texture = drink.icon
 	order_icon.visible = true
 
 func hide_order() -> void:

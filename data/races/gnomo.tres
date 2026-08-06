@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" path="res://assets/audio/gnomo_strillo.wav" id="5_strillo"]
 [ext_resource type="Resource" path="res://data/items/bottiglia_birra_scura.tres" id="20_birra_scura"]
 [ext_resource type="Resource" path="res://data/items/bottiglia_vino_rosso.tres" id="21_vino_rosso"]
+[ext_resource type="Resource" path="res://data/liquids/birra_scura.tres" id="30_birra"]
+[ext_resource type="Resource" path="res://data/liquids/vino_rosso.tres" id="31_vino"]
 
 [resource]
 script = ExtResource("1_race_data")
@@ -19,6 +21,6 @@ disliked_races = Array[StringName]([])
 patience_stages = Array[float]([0.66, 0.33, 0.0])
 drink_seconds = 2.0
 climbs_on_stool = true
-orderable_items = Array[ItemData]([ExtResource("2_boccale"), ExtResource("20_birra_scura"), ExtResource("21_vino_rosso")])
+orderable_drinks = Array[LiquidData]([ExtResource("30_birra"), ExtResource("31_vino")])
 body_color = Color(0.72, 0.35, 0.22, 1)
 body_height = 1.05

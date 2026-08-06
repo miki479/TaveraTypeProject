@@ -20,8 +20,9 @@ extends Resource
 @export var drink_seconds: float = 3.0
 
 @export_group("Ordine")
-## Cosa può ordinare questa razza.
-@export var orderable_items: Array[ItemData] = []
+## Cosa può ordinare questa razza. Sono bevande, non recipienti: che poi arrivino
+## in un boccale o in bottiglia è un dettaglio di chi serve.
+@export var orderable_drinks: Array[LiquidData] = []
 
 ## Le razze basse salgono sullo sgabello per arrivare al bancone.
 @export var climbs_on_stool: bool = false

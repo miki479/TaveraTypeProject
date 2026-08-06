@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" path="res://assets/audio/strega_risata.wav" id="5_risata"]
 [ext_resource type="Resource" path="res://data/items/bottiglia_vino_rosso.tres" id="20_vino_rosso"]
 [ext_resource type="Resource" path="res://data/items/bottiglia_distillato.tres" id="21_distillato"]
+[ext_resource type="Resource" path="res://data/liquids/vino_rosso.tres" id="30_vino"]
+[ext_resource type="Resource" path="res://data/liquids/distillato.tres" id="31_distillato"]
 
 [resource]
 script = ExtResource("1_race_data")
@@ -18,6 +20,6 @@ attention_sounds = Array[AudioStream]([ExtResource("3_bastone"), ExtResource("4_
 disliked_races = Array[StringName]([])
 patience_stages = Array[float]([0.66, 0.33, 0.0])
 drink_seconds = 5.0
-orderable_items = Array[ItemData]([ExtResource("2_boccale"), ExtResource("20_vino_rosso"), ExtResource("21_distillato")])
+orderable_drinks = Array[LiquidData]([ExtResource("30_vino"), ExtResource("31_distillato")])
 body_color = Color(0.42, 0.3, 0.52, 1)
 body_height = 1.75
