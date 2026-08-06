@@ -3,9 +3,11 @@ extends Interactable
 ## Oggetto raccoglibile. Figlio di un RigidBody3D.
 
 @export var item_data: ItemData
-## Se assegnata, questa mesh viene tinta col colore del liquido dell'item, così
+## Se indicata, questa mesh viene tinta col colore del liquido dell'item, così
 ## una sola scena di bottiglia serve per tutti i contenuti.
-@export var tinted_mesh: MeshInstance3D
+## È un NodePath e non un riferimento tipizzato: nelle scene scritte a mano fuori
+## dall'editor Godot lascia i riferimenti tipizzati a null.
+@export var tinted_mesh_path: NodePath
 
 func _ready() -> void:
 	super()
@@ -14,7 +16,10 @@ func _ready() -> void:
 	_apply_liquid_color()
 
 func _apply_liquid_color() -> void:
-	if tinted_mesh == null or item_data == null or item_data.liquid_color.a <= 0.0:
+	if item_data == null or item_data.liquid_color.a <= 0.0:
+		return
+	var tinted_mesh := get_node_or_null(tinted_mesh_path) as MeshInstance3D
+	if tinted_mesh == null:
 		return
 	# Duplicato: il materiale è condiviso, tingerlo tingerebbe ogni bottiglia.
 	var material := tinted_mesh.material_override

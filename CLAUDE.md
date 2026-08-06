@@ -413,6 +413,12 @@ qualsiasi animazione, purché sia disegnata **sulla mappa UV di quel modello**.
   - Travi, montanti, battiscopa e applique sono modellati **a filo del muro**: due superfici
     complanari sfarfallano. Per questo `TavernModel` ha la lista `pushed`, che le stacca di
     un centimetro verso il centro della stanza.
+  - Ogni bevanda ha il suo **posto fisso** sullo scaffale: si punta lo scaffale, si preme E
+    e `BottleRack` sceglie il `PlaceSlot` giusto in base a `accepted_ids`. Il giocatore non
+    deve centrare un bersaglio piccolo.
+  - Riconfermato il limite della sezione M2: **i riferimenti a nodi tipizzati restano a
+    null** nelle scene scritte a mano. Vale anche dentro una scena instanziata: usare
+    sempre `NodePath` + `get_node_or_null`.
 - Extra oltre ai milestone (richiesti da Michele):
   razze `strega` e `gnomo` con i loro suoni; spawner che pesca fra più razze; passi del
   giocatore con suono per superficie (`SurfaceData` + gruppi `superficie_*`); attrezzi

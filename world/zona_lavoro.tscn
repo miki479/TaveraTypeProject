@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3]
+[gd_scene load_steps=40 format=3]
 
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_chiaro.tres" id="1_legno_chiaro"]
 [ext_resource type="Material" path="res://assets/materials/taverna/legno_nerastro.tres" id="2_legno_nerastro"]
@@ -14,6 +14,7 @@
 [ext_resource type="Resource" path="res://data/items/bottiglia_birra_scura.tres" id="12_birra"]
 [ext_resource type="Resource" path="res://data/items/bottiglia_vino_rosso.tres" id="13_vino"]
 [ext_resource type="Resource" path="res://data/items/bottiglia_distillato.tres" id="14_distillato"]
+[ext_resource type="Script" path="res://interactables/bottle_rack.gd" id="15_rack"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_bancone_base"]
 size = Vector3(0.6, 1, 5.6)
@@ -321,6 +322,44 @@ shape = SubResource("BoxShape3D_liquori_ripiano")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 2, 1.8)
 material_override = ExtResource("2_legno_nerastro")
 mesh = SubResource("BoxMesh_liquori_ripiano")
+
+[node name="PostoBirra" type="Node3D" parent="PortaLiquori"]
+
+[node name="Anchor" type="Marker3D" parent="PortaLiquori/PostoBirra"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.225, 0.9)
+
+[node name="PlaceSlot" type="Node3D" parent="PortaLiquori/PostoBirra"]
+script = ExtResource("7_place_slot")
+interaction_prompt = "E — Riponi"
+accepted_ids = Array[StringName]([&"bottiglia_birra_scura"])
+anchor = NodePath("../Anchor")
+
+[node name="PostoVino" type="Node3D" parent="PortaLiquori"]
+
+[node name="Anchor" type="Marker3D" parent="PortaLiquori/PostoVino"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.225, 1.7)
+
+[node name="PlaceSlot" type="Node3D" parent="PortaLiquori/PostoVino"]
+script = ExtResource("7_place_slot")
+interaction_prompt = "E — Riponi"
+accepted_ids = Array[StringName]([&"bottiglia_vino_rosso"])
+anchor = NodePath("../Anchor")
+
+[node name="PostoDistillato" type="Node3D" parent="PortaLiquori"]
+
+[node name="Anchor" type="Marker3D" parent="PortaLiquori/PostoDistillato"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.725, 2.4)
+
+[node name="PlaceSlot" type="Node3D" parent="PortaLiquori/PostoDistillato"]
+script = ExtResource("7_place_slot")
+interaction_prompt = "E — Riponi"
+accepted_ids = Array[StringName]([&"bottiglia_distillato"])
+anchor = NodePath("../Anchor")
+
+[node name="Scaffale" type="Node3D" parent="PortaLiquori"]
+script = ExtResource("15_rack")
+interaction_prompt = "E — Riponi"
+slot_paths = Array[NodePath]([NodePath("../PostoBirra/PlaceSlot"), NodePath("../PostoVino/PlaceSlot"), NodePath("../PostoDistillato/PlaceSlot")])
 
 [node name="BottigliaBirra" parent="." instance=ExtResource("11_bottiglia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84, 1.23, 0.9)

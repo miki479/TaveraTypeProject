@@ -22,4 +22,4 @@ shape = SubResource("CylinderShape3D_bottiglia")
 [node name="Pickup" type="Node3D" parent="."]
 script = ExtResource("3_pickup")
 interaction_prompt = "E — Raccogli"
-tinted_mesh = NodePath("../Corpo")
+tinted_mesh_path = NodePath("../Corpo")
